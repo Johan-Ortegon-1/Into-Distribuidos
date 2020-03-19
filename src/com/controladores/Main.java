@@ -1,10 +1,9 @@
 package com.controladores;
-
+import com.persistencia.*;
 public class Main
 {
-
 	public static void main(String[] args)
 	{
-		// TODO Auto-generated method stub
+		ManejadorDeArchivo.leerArchivo("archivo/archivo.txt");
 	}
 }

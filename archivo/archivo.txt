@@ -1,4 +1,48 @@
 *VIRUS*
-
+0.3651
+0.5541
+0.9855
 *PAISES*
+Colombia
+409600000
+0.25455
+0.75221
+-
+Peru
+309600000
+0.35455
+0.35221
+-
+Ecuador
+209600000
+0.25455
+0.25221
+-
+Bolivia
+109600000
+0.15455
+0.15221
+-
+Nueva york
+40005600
+0.6614
+0.8898
 *CONEXION-PAIS-PAIS*
+A-Colombia-Peru
+A-Colombia-Bolivia
+T-Colombia-Ecuador
+A-Colombia-Nueva york
+T-Bolivia-Ecuador
+T-Bolivia-Colombia
+T-Bolivia-Peru
+M-Ecuador-Peru
+M-Ecuador-Colombia
+A-Ecuador-Bolivia
+A-Ecuador-Nueva york
+A-Peru-Colombia
+T-Peru-Ecuador
+A-Peru-Bolivia
+M-Nueva york-Bolivia
+M-Nueva york-Peru
+A-Nueva york-Colombia
+A-Nueva york-Ecuador

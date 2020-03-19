@@ -1,11 +1,14 @@
 package com.negocio;
 
+import java.util.List;
+
 public class Pais
 {
-	private int poblacionTotal;
+	private long poblacionTotal;
 	private double porcenPoblacionVulne;
 	private double porcenAislamiento;
-	
+	private List<ConexionPaises> conexiones;
+	private double propagacionVirus;
 	public Pais(int poblacionTotal, double porcenPoblacionVulne, double porcenAislamiento)
 	{
 		super();
@@ -13,11 +16,11 @@ public class Pais
 		this.porcenPoblacionVulne = porcenPoblacionVulne;
 		this.porcenAislamiento = porcenAislamiento;
 	}
-	public int getPoblacionTotal()
+	public long getPoblacionTotal()
 	{
 		return poblacionTotal;
 	}
-	public void setPoblacionTotal(int poblacionTotal)
+	public void setPoblacionTotal(long poblacionTotal)
 	{
 		this.poblacionTotal = poblacionTotal;
 	}
@@ -37,6 +40,26 @@ public class Pais
 	{
 		this.porcenAislamiento = porcenAislamiento;
 	}
+	public List<ConexionPaises> getConexiones()
+	{
+		return conexiones;
+	}
+	public void setConexiones(List<ConexionPaises> conexiones)
+	{
+		this.conexiones = conexiones;
+	}
+	public double getPropagacionVirus()
+	{
+		return propagacionVirus;
+	}
+	public void setPropagacionVirus(double propagacionVirus)
+	{
+		this.propagacionVirus = propagacionVirus;
+	}
 	
-	
+	public double calcularTasaDePropagacion()
+	{
+		/*Se haran calculos dependiendo lo que se investigue de automatas celulares y las reglas de propagacion de un virus*/
+		return 0;
+	}
 }

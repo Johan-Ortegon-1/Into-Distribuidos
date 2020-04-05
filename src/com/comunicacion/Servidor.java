@@ -15,7 +15,7 @@ public class Servidor
 					System.out.println("Bandera Servidor");
 					
 					Socket sc = ss.accept(); 
-					System.out.println("Un cliente se ah conectado :)!");
+					System.out.println("Un cliente se ha conectado :)!");
 				} catch (IOException e)
 				{
 					// TODO Auto-generated catch block

@@ -15,8 +15,8 @@ public class Main
 		ManejadorDeArchivo.leerArchivo("archivo/archivo.txt");
 		System.out.println("Como descea iniciar esta maquina: " + 
 				" 1. Cliente -- 2. Servidor");
-		//tipoDeInicio = reader.nextInt();
-		/*if(tipoDeInicio == 1)
+		tipoDeInicio = reader.nextInt();
+		if(tipoDeInicio == 1)
 		{
 			try
 			{
@@ -37,8 +37,8 @@ public class Main
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}*/
-		try
+		}
+		/*try
 		{
 			miServidor.testSerVidor();
 		} catch (IOException e)
@@ -63,6 +63,6 @@ public class Main
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 }

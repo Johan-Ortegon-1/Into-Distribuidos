@@ -7,7 +7,7 @@ public class Main
 {
 	static Servidor miServidor = new Servidor();
 	static Cliente miCliente = new Cliente();
-	
+	private MonitorDeCarga monitor = new MonitorDeCarga();
 	public static void main(String[] args)
 	{
 		Scanner reader = new Scanner(System.in);

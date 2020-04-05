@@ -23,7 +23,7 @@ Bolivia
 0.15455
 0.15221
 -
-Nueva york
+Estados Unidos
 40005600
 0.6614
 0.8898
@@ -31,18 +31,18 @@ Nueva york
 A-Colombia-Peru
 A-Colombia-Bolivia
 T-Colombia-Ecuador
-A-Colombia-Nueva york
+A-Colombia-Estados Unidos
 T-Bolivia-Ecuador
 T-Bolivia-Colombia
 T-Bolivia-Peru
 M-Ecuador-Peru
 M-Ecuador-Colombia
 A-Ecuador-Bolivia
-A-Ecuador-Nueva york
+A-Ecuador-Estados Unidos
 A-Peru-Colombia
 T-Peru-Ecuador
 A-Peru-Bolivia
-M-Nueva york-Bolivia
-M-Nueva york-Peru
-A-Nueva york-Colombia
-A-Nueva york-Ecuador
+M-Estados Unidos-Bolivia
+M-Estados Unidos-Peru
+A-Estados Unidos-Colombia
+A-Estados Unidos-Ecuador

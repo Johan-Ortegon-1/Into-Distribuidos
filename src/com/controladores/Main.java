@@ -21,7 +21,8 @@ public class Main
 		{
 			try
 			{
-				miCliente.testCliente();
+				//miCliente.testCliente();
+				MonitorDeCarga.iniciarMonitor();
 			} catch (IOException e)
 			{
 				// TODO Auto-generated catch block
@@ -30,14 +31,8 @@ public class Main
 		}
 		else if(tipoDeInicio == 2)
 		{
-			try
-			{
-				miServidor.testSerVidor();
-			} catch (IOException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			//miServidor.testSerVidor();
+			BalanceadoreCarga.inciarBalanceador();
 		}
 		
 		/*try

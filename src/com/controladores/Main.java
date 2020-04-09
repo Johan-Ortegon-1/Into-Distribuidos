@@ -13,9 +13,10 @@ public class Main
 		Scanner reader = new Scanner(System.in);
 		int tipoDeInicio = 0;
 		ManejadorDeArchivo.leerArchivo("archivo/archivo.txt");
-		System.out.println("Como descea iniciar esta maquina: " + 
-				" 1. Cliente -- 2. Servidor");
+		System.out.println("Como desea iniciar esta maquina: " + 
+				" 1. Agente -- 2. Balanceador");
 		tipoDeInicio = reader.nextInt();
+		
 		if(tipoDeInicio == 1)
 		{
 			try
@@ -38,6 +39,7 @@ public class Main
 				e.printStackTrace();
 			}
 		}
+		
 		/*try
 		{
 			miServidor.testSerVidor();

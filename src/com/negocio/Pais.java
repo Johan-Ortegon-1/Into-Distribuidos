@@ -13,7 +13,7 @@ public class Pais
 	private double propagacionVirus;
 	
 	/*Atributos necesarios para el balanceo de cargas*/
-	private int contOperacionesRealizadas = 0;
+	private static int contOperacionesRealizadas = 0;
 	
 	public Pais(int poblacionTotal, double porcenPoblacionVulne, double porcenAislamiento)
 	{
@@ -69,17 +69,28 @@ public class Pais
 		return 0;
 	}
 	/*Funcion de prueba para el balanceador - de uso temporal*/
-	public void experimentacion()
+	public static void experimentacion()
 	{
 		/*Cada 5 segundos iniciar el proceso de pedir informes a los Monitores*/
 		try
 		{
-			
-			Thread.sleep(5000);
+			while(true)
+			{
+				System.out.println("**Experimentando**");
+				contOperacionesRealizadas++;
+				Thread.sleep(5000);
+			}
 			
 		} catch (InterruptedException e)
 		{
 			e.printStackTrace();
 		}
+	}
+
+	public int dairInformeAlMonitor()
+	{
+		int temp = contOperacionesRealizadas;
+		contOperacionesRealizadas = 0;
+		return temp;
 	}
 }

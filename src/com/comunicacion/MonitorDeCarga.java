@@ -6,23 +6,34 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.negocio.Pais;
 
 public class MonitorDeCarga
 {
 	int operacionesActuales = 0;
-
-	public static void iniciarMonitor() throws IOException
+	private List<Pais> paises = new ArrayList<Pais>();
+	
+	
+	public void iniciarMonitor() throws IOException
 	{
+		/*Elementos de conectividad*/
 		InetAddress direccionBalanceador = InetAddress.getByName("192.168.1.63");
+		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;
 		BufferedReader br = null;
 		BufferedReader is = null;
 		PrintWriter os = null;
-
+		
+		/*Elementos del informe*/
+		int totalOperaciones = 0;
+		
 		try
 		{
-			s1 = new Socket(direccionBalanceador, 4445); // You can use static final constant PORT_NUM
+			s1 = new Socket(direccionBalanceador, 4445);
 			br = new BufferedReader(new InputStreamReader(System.in));
 			is = new BufferedReader(new InputStreamReader(s1.getInputStream()));
 			os = new PrintWriter(s1.getOutputStream());
@@ -32,21 +43,36 @@ public class MonitorDeCarga
 			System.err.print("IO Exception");
 		}
 
-		System.out.println("Client Address : " + direccionBalanceador);
-		System.out.println("Enter Data to echo Server ( Enter QUIT to end):");
-
+		System.out.println("DIRECCION DEL Monitor: " + direccionAgente);
+		/*poner a trabajar a los paises en hilos diferentes*/
+		for (Pais act : this.getPaises())
+		{
+			hiloPais nuevoPais = new hiloPais(act);
+			nuevoPais.start();
+		}
 		String response = null;
 		try
 		{
 			line = br.readLine();
-			while (line.compareTo("QUIT") != 0)
+			while (true)
 			{
-				os.println(line);
-				os.flush();
 				response = is.readLine();
-				System.out.println("Server Response : " + response);
-				line = br.readLine();
-
+				if(response.equals("informar"))
+				{
+					for (int i = 0; i < paises.size(); i++)
+					{
+						totalOperaciones =+ paises.get(i).dairInformeAlMonitor();
+					}
+					if(totalOperaciones == 0)
+						os.println(totalOperaciones);
+					else
+						os.println("No hay paises activos");//Enviarle informacion al servidor 
+					os.flush();
+					//System.out.println("Server Response : " + response);
+					totalOperaciones = 0;
+					//line = br.readLine();
+					response = "";
+				}				
 			}
 
 		} catch (IOException e)
@@ -64,4 +90,26 @@ public class MonitorDeCarga
 
 		}
 	}
+
+	
+	public int getOperacionesActuales()
+	{
+		return operacionesActuales;
+	}
+
+	public void setOperacionesActuales(int operacionesActuales)
+	{
+		this.operacionesActuales = operacionesActuales;
+	}
+
+	public List<Pais> getPaises()
+	{
+		return paises;
+	}
+
+	public void setPaises(List<Pais> paises)
+	{
+		this.paises = paises;
+	}
+	
 }

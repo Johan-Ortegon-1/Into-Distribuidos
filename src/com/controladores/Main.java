@@ -43,31 +43,5 @@ public class Main
 			BalanceadoreCarga.inciarBalanceador();
 		}
 		
-		/*try
-		{
-			miServidor.testSerVidor();
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try
-		{
-			System.out.println("Esperando:...");
-			Thread.sleep(1000);
-		} catch (InterruptedException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try
-		{
-			System.out.println("Cliente activo...");
-			miCliente.testCliente();
-		} catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 	}
 }

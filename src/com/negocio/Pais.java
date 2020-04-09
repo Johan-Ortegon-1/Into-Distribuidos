@@ -2,6 +2,8 @@ package com.negocio;
 
 import java.util.List;
 
+import com.sun.glass.ui.TouchInputSupport;
+
 public class Pais
 {
 	/*Atributos propios del pais*/
@@ -13,7 +15,7 @@ public class Pais
 	private double propagacionVirus;
 	
 	/*Atributos necesarios para el balanceo de cargas*/
-	private static int contOperacionesRealizadas = 0;
+	private int contOperacionesRealizadas = 0;
 	
 	public Pais(int poblacionTotal, double porcenPoblacionVulne, double porcenAislamiento)
 	{
@@ -22,6 +24,20 @@ public class Pais
 		this.porcenPoblacionVulne = porcenPoblacionVulne;
 		this.porcenAislamiento = porcenAislamiento;
 	}
+	
+	
+	
+	public int getContOperacionesRealizadas()
+	{
+		System.out.println("OPERACIONES: " + contOperacionesRealizadas);
+		return contOperacionesRealizadas;
+	}
+
+	public void setContOperacionesRealizadas(int contOperacionesRealizadas)
+	{
+		this.contOperacionesRealizadas = contOperacionesRealizadas;
+	}
+
 	public long getPoblacionTotal()
 	{
 		return poblacionTotal;
@@ -69,28 +85,21 @@ public class Pais
 		return 0;
 	}
 	/*Funcion de prueba para el balanceador - de uso temporal*/
-	public static void experimentacion()
+	public void experimentacion()
 	{
-		/*Cada 5 segundos iniciar el proceso de pedir informes a los Monitores*/
 		try
 		{
 			while(true)
 			{
 				System.out.println("**Experimentando**");
 				contOperacionesRealizadas++;
-				Thread.sleep(5000);
+				this.setContOperacionesRealizadas(contOperacionesRealizadas);
+				Thread.sleep(4000);
 			}
 			
 		} catch (InterruptedException e)
 		{
 			e.printStackTrace();
 		}
-	}
-
-	public int dairInformeAlMonitor()
-	{
-		int temp = contOperacionesRealizadas;
-		contOperacionesRealizadas = 0;
-		return temp;
 	}
 }

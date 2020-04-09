@@ -15,7 +15,7 @@ public class hiloBalanceador extends Thread
 
 	public hiloBalanceador(Socket s)
 	{
-	        this.s=s;
+		this.s=s;
 	}
 
 	public void run()
@@ -32,14 +32,13 @@ public class hiloBalanceador extends Thread
 
 		try
 		{
-			line = is.readLine();
-			while (line.compareTo("QUIT") != 0)
+			while (true)
 			{
-
-				os.println(line);
+				Thread.sleep(5000); // Cada 5 segudos pedir el informe a los monitores
+				os.println("informar");
 				os.flush();
-				System.out.println("Response to Client  :  " + line + " that comes from: " + s.getInetAddress().toString());
 				line = is.readLine();
+				System.out.println("Cantidad de operaciones:  " + line + " en la instancia: " + s.getInetAddress().toString()); 
 			}
 		} catch (IOException e)
 		{
@@ -50,6 +49,9 @@ public class hiloBalanceador extends Thread
 		{
 			line = this.getName(); // reused String line for getting thread name
 			System.out.println("Client " + line + " Closed");
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		finally

@@ -74,7 +74,15 @@ public class MonitorDeCarga
 				response = is.readLine();
 				if(response.equals("distribucion"))
 				{
-					
+					int numPaises = 0;
+					List<Integer> idPaises = new ArrayList<Integer>();
+					/*Leer el numero de paises correspondiente*/
+					numPaises = Integer.parseInt(is.readLine());
+					for(int i = 0; i < numPaises; i++)
+					{
+						idPaises.add(Integer.parseInt(is.readLine()));
+					}
+					System.out.println("Mis paises son: " + idPaises.toString());
 				}
 				if (response.equals("informar"))
 				{

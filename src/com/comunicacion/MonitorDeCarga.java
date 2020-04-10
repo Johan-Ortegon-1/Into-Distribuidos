@@ -72,6 +72,10 @@ public class MonitorDeCarga
 			while (true)
 			{
 				response = is.readLine();
+				if(response.equals("distribucion"))
+				{
+					
+				}
 				if (response.equals("informar"))
 				{
 					System.out.println("Llego la hora de informar");

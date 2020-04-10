@@ -47,14 +47,14 @@ public class MonitorDeCarga
 		System.out.println("DIRECCION DEL Monitor: " + direccionAgente);
 		/* poner a trabajar a los paises en hilos diferentes */
 
-		/*for (int i = 0; i < paises.size(); i++)
+		for (int i = 0; i < paises.size(); i++)
 		{
 			hiloPais nuevoPais = new hiloPais(paises.get(i));
 			nuevoPais.start();
 			System.out.println("Salio del hilo-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
-		}*/
+		}
 
-		for (j = 0; j < paises.size(); j++)
+		/*for (j = 0; j < paises.size(); j++)
 		{
 			this.autoARP = new Thread(new Runnable()
 			{
@@ -64,7 +64,7 @@ public class MonitorDeCarga
 				}
 			});
 			this.autoARP.start();
-		}
+		}*/
 
 		String response = null;
 		try

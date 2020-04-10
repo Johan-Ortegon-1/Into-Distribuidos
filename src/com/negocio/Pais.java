@@ -2,8 +2,6 @@ package com.negocio;
 
 import java.util.List;
 
-import com.sun.glass.ui.TouchInputSupport;
-
 public class Pais
 {
 	/*Atributos propios del pais*/

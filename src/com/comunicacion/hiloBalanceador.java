@@ -15,12 +15,12 @@ public class hiloBalanceador extends Thread
 	BufferedReader is = null;
 	PrintWriter os = null;
 	Socket s = null;
-	List<Pais> paises;
+	List<Integer> paises;
 	int numMaquinas;
-	public hiloBalanceador(Socket s, List<Pais> paisesA, int pNumMaquinas)
+	public hiloBalanceador(Socket s, int pNumMaquinas, List<Integer> pPaises)
 	{
 		this.s=s;
-		this.paises = paisesA;
+		this.paises = pPaises;
 		this.numMaquinas = pNumMaquinas;
 	}
 
@@ -39,6 +39,15 @@ public class hiloBalanceador extends Thread
 		try
 		{
 			/*Asignar a cada maquina los paises correspondientes*/
+			os.println("distribucion");//Avisar que voy a asignar paises
+			os.flush();
+			os.println(paises.size());//Envair numero de paises que debe esperar la maquina
+			os.flush();
+			for (int i = 0; i < paises.size(); i++)//Envio de todos los paises  
+			{
+				os.println(paises.get(i));
+				os.flush();
+			}
 			
 			/*Cada 5 segudos pedir el informe a los monitores*/
 			while (true)

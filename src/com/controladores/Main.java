@@ -2,6 +2,7 @@ package com.controladores;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import com.persistencia.*;
 import com.comunicacion.*;
@@ -51,9 +52,9 @@ public class Main
 		else if(tipoDeInicio == 2)//Inicio como balanceador
 		{
 			System.out.println("Cuantas maquinas tiene la topologia inicial?:");
-			tipoDeInicio = reader.nextInt();
-			BalanceadoreCarga.inciarBalanceador(agenteTemp.getMisPaises(), tipoDeInicio);
-			
+			int numMaquinas = 0;  
+			numMaquinas = reader.nextInt();
+			BalanceadoreCarga.inciarBalanceador(agenteTemp.getMisPaises(), numMaquinas);
 		}
 		
 	}

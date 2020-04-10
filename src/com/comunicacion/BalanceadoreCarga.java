@@ -19,7 +19,6 @@ public class BalanceadoreCarga
 	private final static int puertoServidor = 4445;
 	public static void inciarBalanceador(List<Pais> pPaises, int numMaquinas)
 	{
-		Random random = new Random();//Para la distribucion de los paises
 		int numMaqActual = 0;
 		Socket s = null;
 		ServerSocket ss2 = null;
@@ -34,44 +33,61 @@ public class BalanceadoreCarga
 			e.printStackTrace();
 			System.out.println("Server error");
 		}
+		
 		/*Repartir paises:*/
+		Random random = new Random();//Para la distribucion de los paises
 		int numPaises = pPaises.size();
+		int aux = numPaises;
 		int randomInt = 0;
 		List<Integer> paisesXMaqu = new ArrayList<Integer>();
 		int paisesRandom[] = new int[numPaises];
 		for (int i = 0; i < numMaquinas; i++)
 		{
-			if(i == numMaquinas)
+			if(i == numMaquinas-1)
 			{
-				paisesXMaqu.add(numPaises);
+				paisesXMaqu.add(aux);
 				break;
 			}
 			randomInt = random.nextInt(numPaises);
 			paisesXMaqu.add(randomInt);
-			numPaises = numPaises - randomInt;	
+			aux = aux - randomInt;	
 		}
-		System.out.println("Random 1: " + paisesXMaqu.toString());
-		paisesRandom[0] = (int)Math.random()*numPaises; 
-		for(int i = 1; i < numPaises; i++)
+		paisesRandom[0] = (int)(Math.random()*(5)); 
+		for(int i = 1; i < 5; i++)
 		{
-			paisesRandom[i] = (int)Math.random()*numPaises;
+			paisesRandom[i] = (int)(Math.random()*(5));
 			for (int j = 0; j < i; j++)
 			{
 				if(paisesRandom[i] == paisesRandom[j])
+				{
 					i--;
+					System.out.println("MM: " + paisesRandom[i]);
+				}
 			}
 		}
-		System.out.println("Random 2: " + paisesRandom.toString());
-		
+//		for (int i = 0; i < paisesRandom.length; i++) 
+//		{
+//			System.out.println(paisesRandom[i] + " ");
+//		}
+		int indexIni = 0, indexFin = 0;
 		while (numMaqActual < numMaquinas)
 		{
 			try
 			{
+				int cantPaisesMAct = paisesXMaqu.get(numMaqActual);
+				indexFin = indexIni + cantPaisesMAct;
+				List<Integer> paisesCorrespondientes = new ArrayList<Integer>();
+				for(int i = indexIni;i < indexFin;i++)
+				{
+					paisesCorrespondientes.add(paisesRandom[i]);
+				}
+				System.out.println("Paises que el corresponden a la instancia: " + numMaqActual + " " + paisesCorrespondientes.toString());
 				s = ss2.accept();
-				System.out.println("connection Established");
-				hiloBalanceador st = new hiloBalanceador(s, pPaises, numMaquinas);
+				System.out.println("Conexion establecida");
+				hiloBalanceador st = new hiloBalanceador(s, numMaquinas, paisesCorrespondientes);
 				st.start();
 				numMaqActual++;
+				indexIni = indexFin;
 			}
 
 			catch (Exception e)
@@ -99,26 +115,6 @@ public class BalanceadoreCarga
 			}
 		}*/
 
-	}
-
-	public void testSerVidor() throws IOException
-	{
-		/*
-		 * this.serverAuto = new Thread(new Runnable() { public void run() { try {
-		 * 
-		 * ServerSocket ss = new ServerSocket(4999);
-		 * System.out.println("Bandera Servidor");
-		 * 
-		 * Socket sc = ss.accept();
-		 * System.out.println("Un cliente se ha conectado :)!"); } catch (IOException e)
-		 * { // TODO Auto-generated catch block e.printStackTrace(); } } });
-		 * this.serverAuto.start();
-		 */
-		/* Creacion del socket del servidor */
-		ServerSocket ss = new ServerSocket(4999);
-		/* Aceptando solicitud del cliente */
-		Socket sc = ss.accept();
-		System.out.println("Un cliente se ha conectado !");
 	}
 
 	public void analizarCarga()

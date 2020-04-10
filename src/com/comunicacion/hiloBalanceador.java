@@ -50,7 +50,7 @@ public class hiloBalanceador extends Thread
 			}
 			
 			/*Cada 5 segudos pedir el informe a los monitores*/
-			while (true)
+			/*while (true)
 			{
 				Thread.sleep(5000);
 				os.println("informar");
@@ -58,18 +58,11 @@ public class hiloBalanceador extends Thread
 				System.out.println("Enviando peticion de informe");
 				line = is.readLine();
 				System.out.println("Cantidad de operaciones:  " + line + " en la instancia: " + s.getInetAddress().toString()); 
-			}
-		} catch (IOException e)
-		{
-			line = this.getName(); // reused String line for getting thread name
-			System.out.println("IO Error/ Client " + line + " terminated abruptly");
+			}*/
 		} catch (NullPointerException e)
 		{
 			line = this.getName(); // reused String line for getting thread name
 			System.out.println("Client " + line + " Closed");
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 
 		finally
@@ -103,6 +96,16 @@ public class hiloBalanceador extends Thread
 
 	public void datInformePeridodico()
 	{
+		/*Re abrir la conexion*/
+		try
+		{
+			is = new BufferedReader(new InputStreamReader(s.getInputStream()));
+			os = new PrintWriter(s.getOutputStream());
+
+		} catch (IOException e)
+		{
+			System.out.println("IO error in server thread");
+		}
 		long retorno = 0;
 		try
 		{

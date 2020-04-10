@@ -55,7 +55,7 @@ public class BalanceadoreCarga
 		for(int i = 1; i < numPaises; i++)
 		{
 			paisesRandom[i] = (int)Math.random()*numPaises;
-			for (int j = 0; j < 1; j++)
+			for (int j = 0; j < i; j++)
 			{
 				if(paisesRandom[i] == paisesRandom[j])
 					i--;

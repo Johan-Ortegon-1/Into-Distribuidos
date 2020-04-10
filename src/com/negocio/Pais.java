@@ -1,15 +1,14 @@
 package com.negocio;
 
-import java.util.List;
-
 public class Pais
 {
 	/*Atributos propios del pais*/
 	
+	private int id;
+	private String nombre;
 	private long poblacionTotal;
 	private double porcenPoblacionVulne;
 	private double porcenAislamiento;
-	private List<ConexionPaises> conexiones;
 	private double propagacionVirus;
 	
 	/*Atributos necesarios para el balanceo de cargas*/
@@ -23,8 +22,45 @@ public class Pais
 		this.porcenAislamiento = porcenAislamiento;
 	}
 	
-	
-	
+	public Pais() {
+		super();
+	}
+
+	public Pais(int id, String nombre, long poblacionTotal, double porcenPoblacionVulne, double porcenAislamiento, 
+			double propagacionVirus, int contOperacionesRealizadas) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.poblacionTotal = poblacionTotal;
+		this.porcenPoblacionVulne = porcenPoblacionVulne;
+		this.porcenAislamiento = porcenAislamiento;
+		this.propagacionVirus = propagacionVirus;
+		this.contOperacionesRealizadas = contOperacionesRealizadas;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+
 	public int getContOperacionesRealizadas()
 	{
 		System.out.println("OPERACIONES: " + contOperacionesRealizadas);
@@ -59,14 +95,6 @@ public class Pais
 	public void setPorcenAislamiento(double porcenAislamiento)
 	{
 		this.porcenAislamiento = porcenAislamiento;
-	}
-	public List<ConexionPaises> getConexiones()
-	{
-		return conexiones;
-	}
-	public void setConexiones(List<ConexionPaises> conexiones)
-	{
-		this.conexiones = conexiones;
 	}
 	public double getPropagacionVirus()
 	{

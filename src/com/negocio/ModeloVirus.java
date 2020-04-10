@@ -6,6 +6,10 @@ public class ModeloVirus
 	private double tasaMortalidadVul;
 	private double tasaMortalidadNoVul;
 	
+	public ModeloVirus() {
+		super();
+	}
+
 	public ModeloVirus(double tasaTransmision, double tasaMortalidadVul, double tasaMortalidadNoVul)
 	{
 		super();

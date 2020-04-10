@@ -9,29 +9,17 @@ import com.negocio.Pais;
 
 public class Agente {
 	
-	private List<Pais> mundo = new Vector<Pais>();
-	private List<Pais> misPaises = new Vector<Pais>();
-	private List<ConexionPaises> conexiones;
+	private Pais miPais;
+	private List<ConexionPaises> conexiones = new Vector<ConexionPaises>();
 	private ModeloVirus covid19 ;
 	
-	public boolean reglasPropagacion(){
-		return true;
-	}
-	
-	public void generacion() {
-		while(true) {
-			
-		}
-	}
-
-	public Agente(List<Pais> mundo, List<Pais> misPaises, List<ConexionPaises> conexiones, ModeloVirus covid19) {
+	public Agente(Pais miPais, List<ConexionPaises> conexiones, ModeloVirus covid19) {
 		super();
-		this.mundo = mundo;
-		this.misPaises = misPaises;
+		this.miPais = miPais;
 		this.conexiones = conexiones;
 		this.covid19 = covid19;
 	}
-	
+
 	public Agente() {
 		super();
 	}
@@ -43,21 +31,13 @@ public class Agente {
 	public void setCovid19(ModeloVirus covid19) {
 		this.covid19 = covid19;
 	}
-
-	public List<Pais> getMundo() {
-		return mundo;
+	
+	public Pais getMiPais() {
+		return miPais;
 	}
 
-	public void setMundo(List<Pais> mundo) {
-		this.mundo = mundo;
-	}
-
-	public List<Pais> getMisPaises() {
-		return misPaises;
-	}
-
-	public void setMisPaises(List<Pais> misPaises) {
-		this.misPaises = misPaises;
+	public void setMiPais(Pais miPais) {
+		this.miPais = miPais;
 	}
 
 	public List<ConexionPaises> getConexiones() {
@@ -67,6 +47,7 @@ public class Agente {
 	public void setConexiones(List<ConexionPaises> conexiones) {
 		this.conexiones = conexiones;
 	}
+	
 	
 	
 

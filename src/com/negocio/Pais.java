@@ -9,7 +9,9 @@ public class Pais
 	private long poblacionTotal;
 	private double porcenPoblacionVulne;
 	private double porcenAislamiento;
-	private double propagacionVirus;
+	private boolean infectado;
+	private long infectados; 
+	//private double propagacionVirus;
 	
 	/*Atributos necesarios para el balanceo de cargas*/
 	private int contOperacionesRealizadas = 0;
@@ -27,14 +29,13 @@ public class Pais
 	}
 
 	public Pais(int id, String nombre, long poblacionTotal, double porcenPoblacionVulne, double porcenAislamiento, 
-			double propagacionVirus, int contOperacionesRealizadas) {
+			int contOperacionesRealizadas) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.poblacionTotal = poblacionTotal;
 		this.porcenPoblacionVulne = porcenPoblacionVulne;
 		this.porcenAislamiento = porcenAislamiento;
-		this.propagacionVirus = propagacionVirus;
 		this.contOperacionesRealizadas = contOperacionesRealizadas;
 	}
 
@@ -96,15 +97,23 @@ public class Pais
 	{
 		this.porcenAislamiento = porcenAislamiento;
 	}
-	public double getPropagacionVirus()
-	{
-		return propagacionVirus;
+	
+	public boolean isInfectado() {
+		return infectado;
 	}
-	public void setPropagacionVirus(double propagacionVirus)
-	{
-		this.propagacionVirus = propagacionVirus;
+
+	public void setInfectado(boolean infectado) {
+		this.infectado = infectado;
 	}
 	
+	public long getInfectados() {
+		return infectados;
+	}
+
+	public void setInfectados(long infectados) {
+		this.infectados = infectados;
+	}
+
 	public double calcularTasaDePropagacion()
 	{
 		/*Se haran calculos dependiendo lo que se investigue de automatas celulares y las reglas de propagacion de un virus*/

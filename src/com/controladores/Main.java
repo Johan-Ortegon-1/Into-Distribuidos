@@ -3,31 +3,37 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Vector;
+
 import com.persistencia.*;
 import com.comunicacion.*;
+import com.negocio.ConexionPaises;
+import com.negocio.ModeloVirus;
 import com.negocio.Pais;
+
 public class Main
 {
 	static Servidor miServidor = new Servidor();
 	static Cliente miCliente = new Cliente();
 	private static MonitorDeCarga monitor = new MonitorDeCarga();
-	private static Agente agenteTemp = new Agente();
+	private static llamadaHilosAgentes misHilos = new llamadaHilosAgentes();
 	
 	public static void main(String[] args)
 	{
 		Scanner reader = new Scanner(System.in);
 		int tipoDeInicio = 0;
-		ManejadorDeArchivo.leerArchivo("archivo/archivo.txt", agenteTemp);
+		ManejadorDeArchivo.leerArchivo("archivo/archivo.txt", misHilos);
+		//PEDIMOS CON QUE PAISES TRABAJAMOS
 		
-		
-        for(int i = 0; i< agenteTemp.getMisPaises().size();i++ ) {
-        	System.out.println(agenteTemp.getMisPaises().get(i).getNombre());
-        }
-        for(int i = 0; i< agenteTemp.getConexiones().size();i++ ) {
-        	System.out.println(agenteTemp.getConexiones().get(i).getMedioTransporte());
-        }
-		
-		
+//        for(int i = 0; i< misPaises.size();i++ ) {
+//        	System.out.println(misPaises.get(i).getNombre());
+//        }
+//        for(int i = 0; i< conexiones.size();i++ ) {
+//        	System.out.println(conexiones.get(i).getMedioTransporte());
+//        }
+		misHilos.asignarPais(1);
+		misHilos.llamadaHilos();
+
 //		System.out.println("Como desea iniciar esta maquina: " + 
 //				" 1. Agente -- 2. Balanceador");
 //		tipoDeInicio = reader.nextInt();
@@ -54,6 +60,6 @@ public class Main
 //			//miServidor.testSerVidor();
 //			BalanceadoreCarga.inciarBalanceador();
 //		}
-		
+
 	}
 }

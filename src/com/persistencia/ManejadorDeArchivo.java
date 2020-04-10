@@ -8,13 +8,14 @@ import java.util.List;
 import java.util.Vector;
 
 import com.comunicacion.Agente;
+import com.comunicacion.llamadaHilosAgentes;
 import com.negocio.ConexionPaises;
 import com.negocio.ModeloVirus;
 import com.negocio.Pais;
 
 public class ManejadorDeArchivo
 {
-	public static void leerArchivo(String archivo, Agente myAgente)
+	public static void leerArchivo(String archivo, llamadaHilosAgentes mysHilos )
 	{
 		try
 		{
@@ -65,19 +66,27 @@ public class ManejadorDeArchivo
 		            	temp.setId(Integer.parseInt(cadena));
 		            }
 	            	if(contPaises == 1) {
-		            	temp.setNombre(cadena);
+	            		temp.setNombre(cadena);
 		            }
-		            if(contPaises == 2) {
-		            	temp.setPoblacionTotal(Long.parseLong(cadena));
+	            	if(contPaises == 2) {
+		            	if(cadena.equals("No infectado")) {
+	            			temp.setInfectado(false);
+	            		}
+		            	if(cadena.equals("Infectado")) {
+	            			temp.setInfectado(true);
+	            		}
 		            }
 		            if(contPaises == 3) {
-		            	temp.setPorcenPoblacionVulne(Double.parseDouble(cadena));
+		            	temp.setPoblacionTotal(Long.parseLong(cadena));
 		            }
 		            if(contPaises == 4) {
+		            	temp.setPorcenPoblacionVulne(Double.parseDouble(cadena));
+		            }
+		            if(contPaises == 5) {
 		            	temp.setPorcenAislamiento(Double.parseDouble(cadena));
 		            }
 		            
-		            if(contPaises == 4) {
+		            if(contPaises == 5) {
 		            	contPaises = 0;
 		            	misPaises.add(temp);
 		            	temp = new Pais();
@@ -108,9 +117,9 @@ public class ManejadorDeArchivo
 	            cont ++;
 	        }
 	        
-	        myAgente.setConexiones(conexiones);
-	        myAgente.setMisPaises(misPaises);
-	        myAgente.setCovid19(covid19);
+	        mysHilos.setMisPaises(misPaises);
+	        mysHilos.setConexiones(conexiones);
+	        mysHilos.setCovid19(covid19);
 	        
 //	        for(int i = 0; i< misPaises.size();i++ ) {
 //            	System.out.println(misPaises.get(i).getNombre());

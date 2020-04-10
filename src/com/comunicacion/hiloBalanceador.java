@@ -37,12 +37,12 @@ public class hiloBalanceador extends Thread
 				Thread.sleep(5000); // Cada 5 segudos pedir el informe a los monitores
 				os.println("informar");
 				os.flush();
+				System.out.println("Enviando peticion de informe");
 				line = is.readLine();
 				System.out.println("Cantidad de operaciones:  " + line + " en la instancia: " + s.getInetAddress().toString()); 
 			}
 		} catch (IOException e)
 		{
-
 			line = this.getName(); // reused String line for getting thread name
 			System.out.println("IO Error/ Client " + line + " terminated abruptly");
 		} catch (NullPointerException e)

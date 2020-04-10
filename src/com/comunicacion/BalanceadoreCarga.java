@@ -37,14 +37,12 @@ public class BalanceadoreCarga
 				System.out.println("connection Established");
 				hiloBalanceador st = new hiloBalanceador(s);
 				st.start();
-
 			}
 
 			catch (Exception e)
 			{
 				e.printStackTrace();
 				System.out.println("Connection Error");
-
 			}
 		}
 

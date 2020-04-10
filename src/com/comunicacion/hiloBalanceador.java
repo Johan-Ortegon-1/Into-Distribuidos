@@ -15,13 +15,13 @@ public class hiloBalanceador extends Thread
 	BufferedReader is = null;
 	PrintWriter os = null;
 	Socket s = null;
-	List<Integer> paises;
-	int numMaquinas;
-	public hiloBalanceador(Socket s, int pNumMaquinas, List<Integer> pPaises)
+	
+	private int cargaDeMaquina = 0;
+	private List<Integer> paises;
+	public hiloBalanceador(Socket s, List<Integer> pPaises)
 	{
 		this.s=s;
 		this.paises = pPaises;
-		this.numMaquinas = pNumMaquinas;
 	}
 
 	public void run()
@@ -100,4 +100,62 @@ public class hiloBalanceador extends Thread
 			}
 		} // end finally
 	}
+
+	public void datInformePeridodico()
+	{
+		int retorno = 0;
+		try
+		{
+			os.println("informar");
+			os.flush();
+			System.out.println("Enviando peticion de informe");
+			line = is.readLine();
+			retorno = Integer.parseInt(line);
+			this.setCargaDeMaquina(retorno);
+			System.out.println("Cantidad de poblacion:  " + line + " en la instancia: " + s.getInetAddress().toString());
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		this.cargaDeMaquina = retorno;
+	}
+	
+	public void ordenarSustraccionAgente()
+	{
+		
+	}
+	public void ordenarAdicionAgente()
+	{
+		
+	}
+	
+	
+	/*GETTERS AND SETTERS*/
+	public int getCargaDeMaquina()
+	{
+		return cargaDeMaquina;
+	}
+
+	public void setCargaDeMaquina(int cargaDeMaquina)
+	{
+		this.cargaDeMaquina = cargaDeMaquina;
+	}
+
+	public List<Integer> getPaises()
+	{
+		return paises;
+	}
+
+	public void setPaises(List<Integer> paises)
+	{
+		this.paises = paises;
+	}
+	
+	public String toString()
+	{
+		String retorno = "";
+		return retorno + "Cantidad de poblacion: " + this.getCargaDeMaquina() + " en el socket: " + s.getInetAddress().toString();
+	}
+	
+	
 }

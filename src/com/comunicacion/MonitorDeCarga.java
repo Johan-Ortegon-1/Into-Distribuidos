@@ -30,7 +30,7 @@ public class MonitorDeCarga
 		PrintWriter os = null;
 
 		/* Elementos del informe */
-		int totalOperaciones = 0;
+		int totalpoblacion = 0;
 
 		try
 		{
@@ -78,6 +78,7 @@ public class MonitorDeCarga
 					List<Integer> idPaises = new ArrayList<Integer>();
 					/*Leer el numero de paises correspondiente*/
 					numPaises = Integer.parseInt(is.readLine());
+					/*Leer la lista de paises que corresponden*/
 					for(int i = 0; i < numPaises; i++)
 					{
 						idPaises.add(Integer.parseInt(is.readLine()));
@@ -90,15 +91,15 @@ public class MonitorDeCarga
 					for (int i = 0; i < paises.size(); i++)
 					{
 						System.out.println("Poblacion del pais: " + paises.get(i).getPoblacionTotal());
-						totalOperaciones = totalOperaciones + paises.get(i).getContOperacionesRealizadas();
+						totalpoblacion = paises.get(i).getContOperacionesRealizadas();
 					}
-					if (totalOperaciones != 0)
-						os.println(totalOperaciones);
+					if (totalpoblacion != 0)
+						os.println(totalpoblacion);
 					else
-						os.println("No hay paises activos");// Enviarle informacion al servidor
+						os.println("No hay paises activos en esta maquina");// Enviarle informacion al servidor
 					os.flush();
 					// System.out.println("Server Response : " + response);
-					totalOperaciones = 0;
+					totalpoblacion = 0;
 					// line = br.readLine();
 					response = "";
 				}

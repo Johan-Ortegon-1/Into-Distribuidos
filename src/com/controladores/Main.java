@@ -13,7 +13,7 @@ public class Main
 	static Cliente miCliente = new Cliente();
 	private static MonitorDeCarga monitor = new MonitorDeCarga();
 	private static Agente agenteTemp = new Agente();
-	
+	private static BalanceadoreCarga bc = new BalanceadoreCarga(); 
 	public static void main(String[] args)
 	{
 		Scanner reader = new Scanner(System.in);
@@ -51,10 +51,10 @@ public class Main
 		}
 		else if(tipoDeInicio == 2)//Inicio como balanceador
 		{
-			System.out.println("Cuantas maquinas tiene la topologia inicial?:");
+			System.out.println("Cuantas maquinas tiene la topologia inicial?(Sin contar con el balanceador):");
 			int numMaquinas = 0;  
 			numMaquinas = reader.nextInt();
-			BalanceadoreCarga.inciarBalanceador(agenteTemp.getMisPaises(), numMaquinas);
+			bc.inciarBalanceador(agenteTemp.getMisPaises(), numMaquinas);
 		}
 		
 	}

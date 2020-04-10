@@ -77,8 +77,7 @@ public class AutomataCelular extends Thread {
 		if(tiempo > 0) {
 			infectados = myAgente.getMiPais().getInfectados();
 			long poblacion = myAgente.getMiPais().getPoblacionTotal();
-			//if(infectados>poblacion*0.00001) {
-			if(infectados>50) {
+			if(infectados>poblacion*0.00001) {
 				double aislamiento = myAgente.getMiPais().getPorcenAislamiento();
 				if(aislamiento>0.7) {
 					aislamiento = aislamiento+0.05;

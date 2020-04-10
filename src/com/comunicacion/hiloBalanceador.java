@@ -16,7 +16,7 @@ public class hiloBalanceador extends Thread
 	PrintWriter os = null;
 	Socket s = null;
 	
-	private int cargaDeMaquina = 0;
+	private long cargaDeMaquina = 0;
 	private List<Integer> paises;
 	public hiloBalanceador(Socket s, List<Integer> pPaises)
 	{
@@ -103,14 +103,14 @@ public class hiloBalanceador extends Thread
 
 	public void datInformePeridodico()
 	{
-		int retorno = 0;
+		long retorno = 0;
 		try
 		{
 			os.println("informar");
 			os.flush();
 			System.out.println("Enviando peticion de informe");
 			line = is.readLine();
-			retorno = Integer.parseInt(line);
+			retorno = Long.parseLong(line);
 			this.setCargaDeMaquina(retorno);
 			System.out.println("Cantidad de poblacion:  " + line + " en la instancia: " + s.getInetAddress().toString());
 		} catch (IOException e)
@@ -131,12 +131,12 @@ public class hiloBalanceador extends Thread
 	
 	
 	/*GETTERS AND SETTERS*/
-	public int getCargaDeMaquina()
+	public long getCargaDeMaquina()
 	{
 		return cargaDeMaquina;
 	}
 
-	public void setCargaDeMaquina(int cargaDeMaquina)
+	public void setCargaDeMaquina(long cargaDeMaquina)
 	{
 		this.cargaDeMaquina = cargaDeMaquina;
 	}

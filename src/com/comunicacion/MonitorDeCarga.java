@@ -30,7 +30,7 @@ public class MonitorDeCarga
 		PrintWriter os = null;
 
 		/* Elementos del informe */
-		int totalpoblacion = 0;
+		long totalpoblacion = 0;
 
 		try
 		{
@@ -91,7 +91,7 @@ public class MonitorDeCarga
 					for (int i = 0; i < paises.size(); i++)
 					{
 						System.out.println("Poblacion del pais: " + paises.get(i).getPoblacionTotal());
-						totalpoblacion = paises.get(i).getContOperacionesRealizadas();
+						totalpoblacion = paises.get(i).getPoblacionTotal();
 					}
 					if (totalpoblacion != 0)
 						os.println(totalpoblacion);

@@ -128,7 +128,7 @@ public class BalanceadoreCarga
 
 	public void analizarCarga()
 	{
-		int sumTotal = 0;
+		long sumTotal = 0;
 		float promedio = 0;
 		/* Solicitar el reporte de los monitores de forma permanente */
 		while (true)

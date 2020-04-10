@@ -11,37 +11,49 @@ public class Main
 	static Servidor miServidor = new Servidor();
 	static Cliente miCliente = new Cliente();
 	private static MonitorDeCarga monitor = new MonitorDeCarga();
+	private static Agente agenteTemp = new Agente();
+	
 	public static void main(String[] args)
 	{
 		Scanner reader = new Scanner(System.in);
 		int tipoDeInicio = 0;
-		ManejadorDeArchivo.leerArchivo("archivo/archivo.txt");
-		System.out.println("Como desea iniciar esta maquina: " + 
-				" 1. Agente -- 2. Balanceador");
-		tipoDeInicio = reader.nextInt();
+		ManejadorDeArchivo.leerArchivo("archivo/archivo.txt", agenteTemp);
 		
-		/*Creaciond e un monitor de prueba*/
-		Pais paisPrueba = new Pais(456789,1231,456);
-		List<Pais> listaPrueba=  new ArrayList<Pais>();
-		listaPrueba.add(paisPrueba);
-		monitor.setPaises(listaPrueba);
 		
-		if(tipoDeInicio == 1)
-		{
-			try
-			{
-				//miCliente.testCliente();
-				monitor.iniciarMonitor();
-			} catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		else if(tipoDeInicio == 2)
-		{
-			//miServidor.testSerVidor();
-			BalanceadoreCarga.inciarBalanceador();
-		}
+        for(int i = 0; i< agenteTemp.getMisPaises().size();i++ ) {
+        	System.out.println(agenteTemp.getMisPaises().get(i).getNombre());
+        }
+        for(int i = 0; i< agenteTemp.getConexiones().size();i++ ) {
+        	System.out.println(agenteTemp.getConexiones().get(i).getMedioTransporte());
+        }
+		
+		
+//		System.out.println("Como desea iniciar esta maquina: " + 
+//				" 1. Agente -- 2. Balanceador");
+//		tipoDeInicio = reader.nextInt();
+//		
+//		/*Creaciond e un monitor de prueba*/
+//		Pais paisPrueba = new Pais(456789,1231,456);
+//		List<Pais> listaPrueba=  new ArrayList<Pais>();
+//		listaPrueba.add(paisPrueba);
+//		monitor.setPaises(listaPrueba);
+//		
+//		if(tipoDeInicio == 1)
+//		{
+//			try
+//			{
+//				//miCliente.testCliente();
+//				monitor.iniciarMonitor();
+//			} catch (IOException e)
+//			{
+//				e.printStackTrace();
+//			}
+//		}
+//		else if(tipoDeInicio == 2)
+//		{
+//			//miServidor.testSerVidor();
+//			BalanceadoreCarga.inciarBalanceador();
+//		}
 		
 	}
 }

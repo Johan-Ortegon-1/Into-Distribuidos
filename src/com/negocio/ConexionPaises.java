@@ -2,31 +2,31 @@ package com.negocio;
 
 public class ConexionPaises
 {
-	private Pais paisOrigen;
-	private Pais paisDestino;
+	private String paisA;
+	private String paisB;
 	private char medioTransporte; /*T(Terrestre)/M(Marítimo)/A(Aéreo)*/
-	public ConexionPaises(Pais paisOrigen, Pais paisDestino, char medioTransporte)
-	{
+	
+	public ConexionPaises() {
 		super();
-		this.paisOrigen = paisOrigen;
-		this.paisDestino = paisDestino;
+	}
+	public ConexionPaises(String paisA, String paisB, char medioTransporte) {
+		super();
+		this.paisA = paisA;
+		this.paisB = paisB;
 		this.medioTransporte = medioTransporte;
 	}
-	public Pais getPaisOrigen()
-	{
-		return paisOrigen;
+	
+	public String getPaisA() {
+		return paisA;
 	}
-	public void setPaisOrigen(Pais paisOrigen)
-	{
-		this.paisOrigen = paisOrigen;
+	public void setPaisA(String paisA) {
+		this.paisA = paisA;
 	}
-	public Pais getPaisDestino()
-	{
-		return paisDestino;
+	public String getPaisB() {
+		return paisB;
 	}
-	public void setPaisDestino(Pais paisDestino)
-	{
-		this.paisDestino = paisDestino;
+	public void setPaisB(String paisB) {
+		this.paisB = paisB;
 	}
 	public char getMedioTransporte()
 	{

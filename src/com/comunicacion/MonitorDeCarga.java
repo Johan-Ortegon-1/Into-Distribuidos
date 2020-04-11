@@ -22,6 +22,7 @@ public class MonitorDeCarga
 	private List<Pais> paises = new Vector<Pais>();
 	private List<ConexionPaises> conexiones = new Vector<ConexionPaises>();
 	private ModeloVirus covid19 = new ModeloVirus();
+	private List<AutomataCelular> misHilos = new ArrayList<AutomataCelular>();
 	
 	private Thread autoARP;
 	private int j = 0;
@@ -29,7 +30,7 @@ public class MonitorDeCarga
 	public void iniciarMonitor() throws IOException
 	{
 		/* Elementos de conectividad */
-		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.16");
+		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.12");
 		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;
@@ -107,14 +108,22 @@ public class MonitorDeCarga
 						totalpoblacion = totalpoblacion + agentes.get(i).getMiPais().getPoblacionTotal();
 					}
 					System.out.println("Poblacion total: " + totalpoblacion);
-					
-					for(int j = 0; j<agentes.size();j++) {
-						System.out.print("Infectados: ");
-						System.out.println(agentes.get(j).getMiPais().getInfectados());
-						System.out.print("Poblacion : ");
-						System.out.println(agentes.get(j).getMiPais().getPoblacionTotal());
-						System.out.println("-------------------------------------");
+					System.out.println("***********************************************");
+//					for(int j = 0; j<agentes.size();j++) {
+//						System.out.print("PAIS: ");
+//						System.out.println(agentes.get(j).getMiPais().getNombre());
+//						System.out.print("Infectados: ");
+//						System.out.println(agentes.get(j).getMiPais().getInfectados());
+//						System.out.print("Poblacion : ");
+//						System.out.println(agentes.get(j).getMiPais().getPoblacionTotal());
+//						System.out.println("-------------------------------------");
+//					}
+					for (int j = 0; j < misHilos.size(); j++)
+					{
+						System.out.println("TAMAÑO DE HILOS "+ misHilos.size());
+						System.out.println(misHilos.get(j).getMyAgente().getMiPais().getNombre()+j);
 					}
+					System.out.println("-------------------------------------");
 					if (totalpoblacion != 0)
 						os.println(totalpoblacion);
 					else
@@ -144,8 +153,6 @@ public class MonitorDeCarga
 	}
 	
 	public void llamadaHilos() {
-		for (int i = 0; i < paises.size(); i++)
-		{
 			for(int j = 0; j< agentes.size();j++ ) {
 //				System.out.println(agentes.get(i).getMiPais().getNombre());
 //				System.out.println(agentes.get(i).getMiPais().isInfectado());
@@ -154,12 +161,14 @@ public class MonitorDeCarga
 	        }
 			//Hilos por cada uno de los agentes
 			for(int k = 0; k < agentes.size(); k++) {
+				System.out.println("TAMAÑO DE AGENTES "+ agentes.size());
 				AutomataCelular st = new AutomataCelular(agentes.get(k));
+				misHilos.add(st);
 				st.start();
+				//st = null;
 			}
 			
 			System.out.println("Salio del hilo-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
-		}
 	}
 	
 	public void asignarPais(int id) {

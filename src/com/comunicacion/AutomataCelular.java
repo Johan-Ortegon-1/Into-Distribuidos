@@ -75,19 +75,20 @@ public class AutomataCelular extends Thread {
 
 	
 	public void contagioPais() {
-		double infectados = 0;
+		long infectados = 0;
 		long noVulnerablesIn = 0;
 		double vulnerablesIn = 0;
-		double muertes = 0;
+		long muertes = 0;
 		
 		if(tiempo == 0) {
 			infectados = 10;
-			myAgente.getMiPais().setInfectados((long)infectados);
+			myAgente.getMiPais().setInfectados(infectados);
 		}
-		if(tiempo > 0) {
+		if(tiempo >= 1) {
 			infectados = myAgente.getMiPais().getInfectados();
 			long poblacion = myAgente.getMiPais().getPoblacionTotal();
-			if(infectados>poblacion*0.00001) {
+			
+			if(infectados>=(poblacion*0.00001)) {
 				double aislamiento = myAgente.getMiPais().getPorcenAislamiento();
 				if(aislamiento>0.7) {
 					aislamiento = aislamiento+0.05;
@@ -99,11 +100,14 @@ public class AutomataCelular extends Thread {
 					aislamiento = aislamiento+0.16;
 				}
 				
-				if(variacion == false) {
-					double tasa = (1-aislamiento)*myAgente.getCovid19().getTasaTransmision();
+				if(this.variacion == false) {
+					//System.out.print("ENTRO EN EL PAIS ");
+					
+					double tasa = 0;
+					tasa = (1-aislamiento)*myAgente.getCovid19().getTasaTransmision();
 //					System.out.print(myAgente.getCovid19().getTasaTransmision());
 //					System.out.print("MTRANSMISION: ");
-//					System.out.println(tasa);
+//					System.out.print(tasa);
 					myAgente.getCovid19().setTasaTransmision(tasa);
 					myAgente.getMiPais().setPorcenAislamiento(aislamiento);
 					
@@ -120,24 +124,26 @@ public class AutomataCelular extends Thread {
 //					System.out.print("VULNERABLES :");
 //					System.out.println(tasa);
 					myAgente.getCovid19().setTasaMortalidadVul(tasa);
-					variacion = true;
+					this.variacion = true;
+					
+
 				}
 
 			}
 			
 			
-			infectados = myAgente.getMiPais().getInfectados();
-			infectados = infectados + (infectados * myAgente.getCovid19().getTasaTransmision());
+			//infectados = myAgente.getMiPais().getInfectados();
+			infectados = infectados + (long)(infectados * myAgente.getCovid19().getTasaTransmision());
 			double porcentaje = myAgente.getMiPais().getPorcenPoblacionVulne();
 			vulnerablesIn = infectados * porcentaje;
 			noVulnerablesIn = (long)infectados - (long)vulnerablesIn;
 			
-			muertes = vulnerablesIn*myAgente.getCovid19().getTasaMortalidadVul();
+			muertes = (long)(vulnerablesIn*myAgente.getCovid19().getTasaMortalidadVul());
 //			System.out.println("Muertes 1");
 //			System.out.println(muertes);
-			muertes = muertes + (noVulnerablesIn*myAgente.getCovid19().getTasaMortalidadNoVul()) ;
+			muertes = muertes + (long)(noVulnerablesIn*myAgente.getCovid19().getTasaMortalidadNoVul()) ;
 			
-			poblacion = poblacion - (long)muertes;
+			poblacion = poblacion - muertes;
 //			System.out.println("Poblacion Adentro");
 //			System.out.println(poblacion);
 //			System.out.print("Muertes: ");
@@ -148,7 +154,7 @@ public class AutomataCelular extends Thread {
 			}
 			myAgente.getMiPais().setPoblacionTotal(poblacion);
 			infectados = infectados-muertes;
-			myAgente.getMiPais().setInfectados((long)infectados);			
+			myAgente.getMiPais().setInfectados(infectados);			
 		}
 		
 		tiempo ++;

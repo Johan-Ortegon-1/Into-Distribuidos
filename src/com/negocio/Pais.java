@@ -130,4 +130,12 @@ public class Pais
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Pais [id=" + id + ", nombre=" + nombre + ", poblacionTotal=" + poblacionTotal + "]";
+	}
+	
+	
 }

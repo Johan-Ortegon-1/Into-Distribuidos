@@ -15,6 +15,7 @@ public class MonitorDeCarga
 {
 	int operacionesActuales = 0;
 	private List<Pais> paises = new ArrayList<Pais>();
+	private List<Pais> misPaises = new ArrayList<Pais>();
 	private Thread autoARP;
 	private int j = 0;
 
@@ -66,7 +67,7 @@ public class MonitorDeCarga
 			this.autoARP.start();
 		}*/
 
-		String response = null;
+		String response = "";
 		try
 		{
 			while (true)
@@ -83,16 +84,22 @@ public class MonitorDeCarga
 					{
 						idPaises.add(Integer.parseInt(is.readLine()));
 					}
-					System.out.println("Mis paises son: " + idPaises.toString());
+					for (int i = 0; i < idPaises.size(); i++)
+					{
+						misPaises.add(this.buscarPais(paises, idPaises.get(i)));
+					}
+					System.out.println("Mis paises por id son: " + idPaises.toString());
+					System.out.println("Mis paises son: " + misPaises.toString());
+					
 				}
 				if (response.equals("informar"))
 				{
 					System.out.println("Llego la hora de informar");
 					for (int i = 0; i < paises.size(); i++)
 					{
-						System.out.println("Poblacion del pais: " + paises.get(i).getPoblacionTotal());
-						totalpoblacion = paises.get(i).getPoblacionTotal();
+						totalpoblacion = totalpoblacion + paises.get(i).getPoblacionTotal();
 					}
+					System.out.println("Poblacion total: " + totalpoblacion);
 					if (totalpoblacion != 0)
 						os.println(totalpoblacion);
 					else
@@ -139,6 +146,18 @@ public class MonitorDeCarga
 	public void setPaises(List<Pais> paises)
 	{
 		this.paises = paises;
+	}
+	
+	/*Cosas de balanceador y monitor*/
+	
+	public Pais buscarPais(List<Pais> paises, int id)
+	{
+		for (int i = 0; i < paises.size(); i++)
+		{
+			if(paises.get(i).getId() == id)
+				return paises.get(i);
+		}
+		return null;
 	}
 
 }

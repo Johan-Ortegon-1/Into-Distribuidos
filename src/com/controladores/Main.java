@@ -33,10 +33,6 @@ public class Main
 				" 1. Agente -- 2. Balanceador");
 		tipoDeInicio = reader.nextInt();
 		
-		/*Creacion de un monitor de prueba*/
-		/*Pais paisPrueba = new Pais(456789,1231,456);
-		List<Pais> listaPrueba=  new ArrayList<Pais>();
-		listaPrueba.add(paisPrueba);*/
 		monitor.setPaises(agenteTemp.getMisPaises());
 		
 		if(tipoDeInicio == 1)//Inicio como Agente

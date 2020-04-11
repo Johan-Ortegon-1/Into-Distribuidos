@@ -138,7 +138,18 @@ public class BalanceadoreCarga
 				Thread.sleep(5000);
 				for (int i = 0; i < misHilos.size(); i++)//Actualiza los valores de carga en cada hilo
 				{
-					misHilos.get(i).datInformePeridodico();
+					if(misHilos.get(i).datInformePeridodico() == false)
+					{
+						System.out.println("Cliente desconectado - Matando su hilo");
+						this.arreglarDesconexion();
+						misHilos.get(i).matarConexiones();
+						misHilos.remove(i);
+						if(misHilos.size() == 0)
+						{
+							System.out.println("Ya no hay maquinas en el sistema");
+							break;
+						}
+					}
 				}
 				for (int i = 0; i < misHilos.size(); i++)
 				{
@@ -159,5 +170,9 @@ public class BalanceadoreCarga
 				e.printStackTrace();
 			}
 		}
+	}
+	public void arreglarDesconexion()
+	{
+		
 	}
 }

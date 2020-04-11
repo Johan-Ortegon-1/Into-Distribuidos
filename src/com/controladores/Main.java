@@ -34,10 +34,10 @@ public class Main
 		tipoDeInicio = reader.nextInt();
 		
 		/*Creacion de un monitor de prueba*/
-		Pais paisPrueba = new Pais(456789,1231,456);
+		/*Pais paisPrueba = new Pais(456789,1231,456);
 		List<Pais> listaPrueba=  new ArrayList<Pais>();
-		listaPrueba.add(paisPrueba);
-		monitor.setPaises(listaPrueba);
+		listaPrueba.add(paisPrueba);*/
+		monitor.setPaises(agenteTemp.getMisPaises());
 		
 		if(tipoDeInicio == 1)//Inicio como Agente
 		{

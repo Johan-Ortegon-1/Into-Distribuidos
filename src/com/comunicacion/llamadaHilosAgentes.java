@@ -32,10 +32,10 @@ public class llamadaHilosAgentes {
 	
 	public void llamadaHilos() {
 		for(int i = 0; i< agentes.size();i++ ) {
-			System.out.println(agentes.get(i).getMiPais().getNombre());
-			System.out.println(agentes.get(i).getMiPais().isInfectado());
-			System.out.println(agentes.get(i).getMiPais().getInfectados());
-			System.out.println(agentes.get(i).getMiPais().getPoblacionTotal());
+//			System.out.println(agentes.get(i).getMiPais().getNombre());
+//			System.out.println(agentes.get(i).getMiPais().isInfectado());
+//			System.out.println(agentes.get(i).getMiPais().getInfectados());
+//			System.out.println(agentes.get(i).getMiPais().getPoblacionTotal());
         }
 		
 		for(int i = 0; i < agentes.size(); i++) {
@@ -45,10 +45,10 @@ public class llamadaHilosAgentes {
 		
 		
 		for(int i = 0; i< agentes.size();i++ ) {
-			System.out.println(agentes.get(i).getMiPais().getNombre());
-			System.out.println(agentes.get(i).getMiPais().isInfectado());
-			System.out.println(agentes.get(i).getMiPais().getInfectados());
-			System.out.println(agentes.get(i).getMiPais().getPoblacionTotal());
+//			System.out.println(agentes.get(i).getMiPais().getNombre());
+//			System.out.println(agentes.get(i).getMiPais().isInfectado());
+//			System.out.println(agentes.get(i).getMiPais().getInfectados());
+//			System.out.println(agentes.get(i).getMiPais().getPoblacionTotal());
         }
 		
 	}

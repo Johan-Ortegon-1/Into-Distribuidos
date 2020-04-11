@@ -46,10 +46,10 @@ public class ManejadorDeArchivo
 	            	covid19.setTasaTransmision(Double.parseDouble(cadena));
 	            }
 	            if(exitosa && cont == 2) {
-	            	covid19.setTasaMortalidadVul(Double.parseDouble(cadena));
+	            	covid19.setTasaMortalidadNoVul(Double.parseDouble(cadena));
 	            }
 	            if(exitosa && cont == 3) {
-	            	covid19.setTasaMortalidadNoVul(Double.parseDouble(cadena));
+	            	covid19.setTasaMortalidadVul(Double.parseDouble(cadena));
 	            }
 	            
 	            if(cadena.equals("*PAISES*") && cont == 4) {

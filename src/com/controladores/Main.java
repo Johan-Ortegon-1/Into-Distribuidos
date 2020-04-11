@@ -33,6 +33,33 @@ public class Main
 //        }
 		misHilos.asignarPais(1);
 		misHilos.llamadaHilos();
+		
+		Thread balanceadorAuto;
+		
+//		balanceadorAuto = new Thread(new Runnable()
+//		{
+//			public void run()
+//			{
+//				try
+//				{
+//					while (true)
+//					{
+//						System.out.print("NOMBRE: ");
+//						System.out.println(misHilos.getAgentes().get(0).getMiPais().getNombre());
+//						System.out.print("POBLACION: ");
+//						System.out.println(misHilos.getAgentes().get(0).getMiPais().getPoblacionTotal());
+//						System.out.print("INFECTADOS: ");
+//						System.out.println(misHilos.getAgentes().get(0).getMiPais().getInfectados());
+//						Thread.sleep(5000);
+//
+//					}
+//				} catch (InterruptedException e)
+//				{
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//		balanceadorAuto.start();
 
 //		System.out.println("Como desea iniciar esta maquina: " + 
 //				" 1. Agente -- 2. Balanceador");

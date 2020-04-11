@@ -2,6 +2,7 @@ package com.controladores;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -16,8 +17,13 @@ public class Main
 	static Servidor miServidor = new Servidor();
 	static Cliente miCliente = new Cliente();
 	private static MonitorDeCarga monitor = new MonitorDeCarga();
+
 	private static llamadaHilosAgentes misHilos = new llamadaHilosAgentes();
 	
+
+	private static Agente agenteTemp = new Agente();
+	private static BalanceadoreCarga bc = new BalanceadoreCarga(); 
+
 	public static void main(String[] args)
 	{
 		Scanner reader = new Scanner(System.in);
@@ -34,6 +40,7 @@ public class Main
 		misHilos.asignarPais(1);
 		misHilos.llamadaHilos();
 		
+
 		Thread balanceadorAuto;
 		
 //		balanceadorAuto = new Thread(new Runnable()
@@ -88,5 +95,38 @@ public class Main
 //			BalanceadoreCarga.inciarBalanceador();
 //		}
 
+
+        for(int i = 0; i< misHilos.getMisPaises().size();i++ ) {
+        	System.out.println(misHilos.getMisPaises().get(i).getNombre());
+        }
+//        for(int i = 0; i< agenteTemp.getConexiones().size();i++ ) {
+//        	System.out.println(agenteTemp.getConexiones().get(i).getMedioTransporte());
+//        }
+		
+		
+		System.out.println("Como desea iniciar esta maquina: " + 
+				" 1. Agente -- 2. Balanceador");
+		tipoDeInicio = reader.nextInt();
+		
+		monitor.setPaises(misHilos.getMisPaises()); 
+		
+		if(tipoDeInicio == 1)//Inicio como Agente
+		{
+			try
+			{
+				monitor.iniciarMonitor();
+			} catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		else if(tipoDeInicio == 2)//Inicio como balanceador
+		{
+			System.out.println("Cuantas maquinas tiene la topologia inicial?(Sin contar con el balanceador):");
+			int numMaquinas = 0;  
+			numMaquinas = reader.nextInt();
+			bc.inciarBalanceador(misHilos.getMisPaises(), numMaquinas);
+		}
+		
 	}
 }

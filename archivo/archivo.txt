@@ -3,31 +3,31 @@
 0.0891
 0.5541
 *PAISES*
-1
+0
 Colombia
 Infectado
 50000000
 0.25455
 0.75221
-2
+1
 Peru
 No infectado
 309600000
 0.35455
 0.35221
-3
+2
 Ecuador
 No infectado
 209600000
 0.25455
 0.25221
-4
+3
 Bolivia
 No infectado
 109600000
 0.15455
 0.15221
-5
+4
 Estados Unidos
 Infectado
 40005600

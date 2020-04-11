@@ -1,5 +1,7 @@
 package com.negocio;
 
+import java.util.List;
+
 public class Pais
 {
 	/*Atributos propios del pais*/
@@ -137,4 +139,12 @@ public class Pais
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Pais [id=" + id + ", nombre=" + nombre + ", poblacionTotal=" + poblacionTotal + "]";
+	}
+	
+	
 }

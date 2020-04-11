@@ -34,8 +34,8 @@ public class AutomataCelular extends Thread {
 //			System.out.println("-------------------------------------");
 //			System.out.print("TIEMPO ");
 //			System.out.println(tiempo );
-//			esperarTiempo(1);
-//			
+			esperarTiempo(2);
+			
 		}
 		
 		
@@ -99,26 +99,24 @@ public class AutomataCelular extends Thread {
 				
 				if(variacion == false) {
 					double tasa = (1-aislamiento)*myAgente.getCovid19().getTasaTransmision();
-					System.out.print(myAgente.getCovid19().getTasaTransmision());
+//					System.out.print(myAgente.getCovid19().getTasaTransmision());
+//					System.out.print("MTRANSMISION: ");
+//					System.out.println(tasa);
 					myAgente.getCovid19().setTasaTransmision(tasa);
 					myAgente.getMiPais().setPorcenAislamiento(aislamiento);
-					System.out.print("MTRANSMISION: ");
-					
-					System.out.println(tasa);
-					
 					
 					tasa = 0;
 					tasa = (1-aislamiento)*myAgente.getCovid19().getTasaMortalidadNoVul();
-					System.out.print(myAgente.getCovid19().getTasaMortalidadNoVul());
-					System.out.print("NO VULNERABLES: ");
-					System.out.println(tasa);
+//					System.out.print(myAgente.getCovid19().getTasaMortalidadNoVul());
+//					System.out.print("NO VULNERABLES: ");
+//					System.out.println(tasa);
 					
 					myAgente.getCovid19().setTasaMortalidadNoVul(tasa);
 					tasa = 0;
 					tasa = (1-aislamiento)*myAgente.getCovid19().getTasaMortalidadVul();
-					System.out.print(myAgente.getCovid19().getTasaMortalidadVul());
-					System.out.print("VULNERABLES :");
-					System.out.println(tasa);
+//					System.out.print(myAgente.getCovid19().getTasaMortalidadVul());
+//					System.out.print("VULNERABLES :");
+//					System.out.println(tasa);
 					myAgente.getCovid19().setTasaMortalidadVul(tasa);
 					variacion = true;
 				}

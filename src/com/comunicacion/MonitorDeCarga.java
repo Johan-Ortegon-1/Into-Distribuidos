@@ -8,14 +8,21 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
+import com.negocio.ConexionPaises;
+import com.negocio.ModeloVirus;
 import com.negocio.Pais;
 
 public class MonitorDeCarga
 {
 	int operacionesActuales = 0;
-	private List<Pais> paises = new ArrayList<Pais>();
-	private List<Pais> misPaises = new ArrayList<Pais>();
+
+	private List<Agente> agentes = new Vector<Agente>();
+	private List<Pais> paises = new Vector<Pais>();
+	private List<ConexionPaises> conexiones = new Vector<ConexionPaises>();
+	private ModeloVirus covid19 = new ModeloVirus();
+	
 	private Thread autoARP;
 	private int j = 0;
 
@@ -32,7 +39,8 @@ public class MonitorDeCarga
 
 		/* Elementos del informe */
 		long totalpoblacion = 0;
-
+		
+		//Establece conexion
 		try
 		{
 			s1 = new Socket(direccionBalanceador, 4445);
@@ -48,12 +56,7 @@ public class MonitorDeCarga
 		System.out.println("DIRECCION DEL Monitor: " + direccionAgente);
 		/* poner a trabajar a los paises en hilos diferentes */
 
-		for (int i = 0; i < paises.size(); i++)
-		{
-			hiloPais nuevoPais = new hiloPais(paises.get(i));
-			nuevoPais.start();
-			System.out.println("Salio del hilo-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
-		}
+		
 
 		/*for (j = 0; j < paises.size(); j++)
 		{
@@ -86,18 +89,22 @@ public class MonitorDeCarga
 					}
 					for (int i = 0; i < idPaises.size(); i++)
 					{
-						misPaises.add(this.buscarPais(paises, idPaises.get(i)));
+						asignarPais(idPaises.get(i));
 					}
 					System.out.println("Mis paises por id son: " + idPaises.toString());
-					System.out.println("Mis paises son: " + misPaises.toString());
+					for(int i = 0; i < agentes.size();i++) {
+						System.out.println("Mis paises son: " + agentes.get(i).getMiPais().getNombre());
+					}
+					llamadaHilos();
+					
 					
 				}
 				if (response.equals("informar"))
 				{
 					System.out.println("Llego la hora de informar");
-					for (int i = 0; i < paises.size(); i++)
+					for (int i = 0; i <  agentes.size(); i++)
 					{
-						totalpoblacion = totalpoblacion + paises.get(i).getPoblacionTotal();
+						totalpoblacion = totalpoblacion + agentes.get(i).getMiPais().getPoblacionTotal();
 					}
 					System.out.println("Poblacion total: " + totalpoblacion);
 					if (totalpoblacion != 0)
@@ -127,6 +134,51 @@ public class MonitorDeCarga
 
 		}
 	}
+	
+	public void llamadaHilos() {
+		for (int i = 0; i < paises.size(); i++)
+		{
+			for(int j = 0; j< agentes.size();j++ ) {
+//				System.out.println(agentes.get(i).getMiPais().getNombre());
+//				System.out.println(agentes.get(i).getMiPais().isInfectado());
+//				System.out.println(agentes.get(i).getMiPais().getInfectados());
+//				System.out.println(agentes.get(i).getMiPais().getPoblacionTotal());
+	        }
+			//Hilos por cada uno de los agentes
+			for(int k = 0; i < agentes.size(); k++) {
+				AutomataCelular st = new AutomataCelular(agentes.get(k));
+				st.start();
+			}
+			
+			System.out.println("Salio del hilo-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
+		}
+	}
+	
+	public void asignarPais(int id) {
+		String nombre = "";
+		Agente myAgente = new Agente();
+		List<ConexionPaises> myConexion = new Vector<ConexionPaises>();
+		
+        for(int i = 0; i< paises.size();i++ ) {
+        	if(id == paises.get(i).getId()) {
+        		nombre = paises.get(i).getNombre();
+        		myAgente.setMiPais(paises.get(i));
+        	}
+        }
+        
+        for(int i = 0; i< conexiones.size();i++ ) {
+        	if(conexiones.get(i).getPaisA().equals(nombre) || conexiones.get(i).getPaisB().equals(nombre) ) {
+        		myConexion.add(conexiones.get(i));
+        	}
+        }
+        
+        if(myConexion.size()>0) {
+        	myAgente.setConexiones(myConexion);
+        }
+        myAgente.setCovid19(covid19);
+        
+        agentes.add(myAgente);
+	}
 
 	public int getOperacionesActuales()
 	{
@@ -147,17 +199,32 @@ public class MonitorDeCarga
 	{
 		this.paises = paises;
 	}
-	
-	/*Cosas de balanceador y monitor*/
-	
-	public Pais buscarPais(List<Pais> paises, int id)
-	{
-		for (int i = 0; i < paises.size(); i++)
-		{
-			if(paises.get(i).getId() == id)
-				return paises.get(i);
-		}
-		return null;
+
+	public List<Agente> getAgentes() {
+		return agentes;
 	}
+
+	public void setAgentes(List<Agente> agentes) {
+		this.agentes = agentes;
+	}
+
+	public List<ConexionPaises> getConexiones() {
+		return conexiones;
+	}
+
+	public void setConexiones(List<ConexionPaises> conexiones) {
+		this.conexiones = conexiones;
+	}
+
+	public ModeloVirus getCovid19() {
+		return covid19;
+	}
+
+	public void setCovid19(ModeloVirus covid19) {
+		this.covid19 = covid19;
+	}
+	
+	
+
 
 }

@@ -17,18 +17,14 @@ public class Main
 	static Servidor miServidor = new Servidor();
 	static Cliente miCliente = new Cliente();
 	private static MonitorDeCarga monitor = new MonitorDeCarga();
-
-	private static llamadaHilosAgentes misHilos = new llamadaHilosAgentes();
-	
-
-	private static Agente agenteTemp = new Agente();
 	private static BalanceadoreCarga bc = new BalanceadoreCarga(); 
 
+	
 	public static void main(String[] args)
 	{
 		Scanner reader = new Scanner(System.in);
 		int tipoDeInicio = 0;
-		ManejadorDeArchivo.leerArchivo("archivo/archivo.txt", misHilos);
+		ManejadorDeArchivo.leerArchivo("archivo/archivo.txt", monitor);
 		//PEDIMOS CON QUE PAISES TRABAJAMOS
 		
 //        for(int i = 0; i< misPaises.size();i++ ) {
@@ -37,12 +33,11 @@ public class Main
 //        for(int i = 0; i< conexiones.size();i++ ) {
 //        	System.out.println(conexiones.get(i).getMedioTransporte());
 //        }
-		misHilos.asignarPais(1);
-		misHilos.llamadaHilos();
+		
 		
 
-		Thread balanceadorAuto;
-		
+//		Thread balanceadorAuto;
+//		
 //		balanceadorAuto = new Thread(new Runnable()
 //		{
 //			public void run()
@@ -67,6 +62,8 @@ public class Main
 //			}
 //		});
 //		balanceadorAuto.start();
+		
+		
 
 //		System.out.println("Como desea iniciar esta maquina: " + 
 //				" 1. Agente -- 2. Balanceador");
@@ -96,9 +93,9 @@ public class Main
 //		}
 
 
-        for(int i = 0; i< misHilos.getMisPaises().size();i++ ) {
-        	System.out.println(misHilos.getMisPaises().get(i).getNombre());
-        }
+//        for(int i = 0; i< misHilos.getMisPaises().size();i++ ) {
+//        	System.out.println(misHilos.getMisPaises().get(i).getNombre());
+//        }
 //        for(int i = 0; i< agenteTemp.getConexiones().size();i++ ) {
 //        	System.out.println(agenteTemp.getConexiones().get(i).getMedioTransporte());
 //        }
@@ -108,7 +105,7 @@ public class Main
 				" 1. Agente -- 2. Balanceador");
 		tipoDeInicio = reader.nextInt();
 		
-		monitor.setPaises(misHilos.getMisPaises()); 
+		monitor.setPaises(monitor.getPaises()); 
 		
 		if(tipoDeInicio == 1)//Inicio como Agente
 		{
@@ -125,7 +122,7 @@ public class Main
 			System.out.println("Cuantas maquinas tiene la topologia inicial?(Sin contar con el balanceador):");
 			int numMaquinas = 0;  
 			numMaquinas = reader.nextInt();
-			bc.inciarBalanceador(misHilos.getMisPaises(), numMaquinas);
+			bc.inciarBalanceador(monitor.getPaises(), numMaquinas);
 		}
 		
 	}

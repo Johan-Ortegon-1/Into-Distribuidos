@@ -8,14 +8,14 @@ import java.util.List;
 import java.util.Vector;
 
 import com.comunicacion.Agente;
-import com.comunicacion.llamadaHilosAgentes;
+import com.comunicacion.MonitorDeCarga;
 import com.negocio.ConexionPaises;
 import com.negocio.ModeloVirus;
 import com.negocio.Pais;
 
 public class ManejadorDeArchivo
 {
-	public static void leerArchivo(String archivo, llamadaHilosAgentes mysHilos )
+	public static void leerArchivo(String archivo, MonitorDeCarga monitor )
 	{
 		try
 		{
@@ -117,9 +117,9 @@ public class ManejadorDeArchivo
 	            cont ++;
 	        }
 	        
-	        mysHilos.setMisPaises(misPaises);
-	        mysHilos.setConexiones(conexiones);
-	        mysHilos.setCovid19(covid19);
+	        monitor.setPaises(misPaises);
+	        monitor.setConexiones(conexiones);
+	        monitor.setCovid19(covid19);
 	        
 //	        for(int i = 0; i< misPaises.size();i++ ) {
 //            	System.out.println(misPaises.get(i).getNombre());

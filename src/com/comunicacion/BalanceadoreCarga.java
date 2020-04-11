@@ -58,10 +58,10 @@ public class BalanceadoreCarga
 			paisesXMaqu.add(randomInt);
 			aux = aux - randomInt;	
 		}
-		paisesRandom[0] = (int)(Math.random()*(5)); 
-		for(int i = 1; i < 5; i++)
+		paisesRandom[0] = (int)(Math.random()*(numPaises)); 
+		for(int i = 1; i < numPaises; i++)
 		{
-			paisesRandom[i] = (int)(Math.random()*(5));
+			paisesRandom[i] = (int)(Math.random()*(numPaises));
 			for (int j = 0; j < i; j++)
 			{
 				if(paisesRandom[i] == paisesRandom[j])

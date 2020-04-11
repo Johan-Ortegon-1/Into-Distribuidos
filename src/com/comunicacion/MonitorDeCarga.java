@@ -29,7 +29,7 @@ public class MonitorDeCarga
 	public void iniciarMonitor() throws IOException
 	{
 		/* Elementos de conectividad */
-		InetAddress direccionBalanceador = InetAddress.getByName("192.168.1.63");
+		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.16");
 		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;
@@ -107,6 +107,14 @@ public class MonitorDeCarga
 						totalpoblacion = totalpoblacion + agentes.get(i).getMiPais().getPoblacionTotal();
 					}
 					System.out.println("Poblacion total: " + totalpoblacion);
+					
+					for(int j = 0; j<agentes.size();j++) {
+						System.out.print("Infectados: ");
+						System.out.println(agentes.get(j).getMiPais().getInfectados());
+						System.out.print("Poblacion : ");
+						System.out.println(agentes.get(j).getMiPais().getPoblacionTotal());
+						System.out.println("-------------------------------------");
+					}
 					if (totalpoblacion != 0)
 						os.println(totalpoblacion);
 					else
@@ -145,7 +153,7 @@ public class MonitorDeCarga
 //				System.out.println(agentes.get(i).getMiPais().getPoblacionTotal());
 	        }
 			//Hilos por cada uno de los agentes
-			for(int k = 0; i < agentes.size(); k++) {
+			for(int k = 0; k < agentes.size(); k++) {
 				AutomataCelular st = new AutomataCelular(agentes.get(k));
 				st.start();
 			}

@@ -34,7 +34,7 @@ public class AutomataCelular extends Thread {
 //			System.out.println("-------------------------------------");
 //			System.out.print("TIEMPO ");
 //			System.out.println(tiempo );
-			esperarTiempo(2);
+			esperarTiempo(10);
 			
 		}
 		
@@ -62,11 +62,13 @@ public class AutomataCelular extends Thread {
 		}
 
 		// Condicional para saber si mi pais esta infectado 
-		if(infectados >= (totalPoblacion * 0.33)) {
-			decision = true;
-		}else {
-			decision = false;
-		}
+//		if(infectados >= (totalPoblacion * 0.33)) {
+//			decision = true;
+//		}else {
+//			decision = false;
+//		}
+		
+		decision = false;
 		
 		return decision;
 	}

@@ -173,6 +173,8 @@ public class BalanceadoreCarga
 						System.out.println("FIN DEL BALANCEO");
 					}
 				}
+				aux1 = 0;
+				aux2 = 0;
 				sumTotal = 0;
 				
 			} catch (InterruptedException e)

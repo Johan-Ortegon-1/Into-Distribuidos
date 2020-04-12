@@ -151,6 +151,7 @@ public class Pais
 				//Agente nuevoAgente = new Agente(paises.get(i),paises.get(i).);
 			}
 		}
+		System.out.println("En la funcion del Pais se encontro: " + paises.get(indicePaisAct).toString());
 		return paises.get(indicePaisAct);
 	}
 	public static Pais buscarPaisPorNombre(List<Pais> paises, String id)

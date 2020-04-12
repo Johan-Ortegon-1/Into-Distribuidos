@@ -121,7 +121,7 @@ public class hiloBalanceador extends Thread {
 		int idPaisSustraer = -1;
 		int idNuevoPais = -1, indicePaisAct = 0, cantVecinos = 0;
 		String idTempVecino = "";
-		Pais paisNuevoAutomata = null;
+		Pais paisNuevoAutomata = new Pais();
 		char tipoConexion;
 		List<Integer> idVecinos = new ArrayList<Integer>();
 		List<ConexionPaises> paisesVecinos = new ArrayList<ConexionPaises>();
@@ -133,9 +133,9 @@ public class hiloBalanceador extends Thread {
 				os.println("sustraer agente");
 				os.flush();
 				idNuevoPais = Integer.parseInt(is.readLine());
-				System.out.println("Recibi el id");
+				System.out.println("Recibi el id: " + idNuevoPais);
 				cantVecinos = Integer.parseInt(is.readLine());
-				System.out.println("Recibi cant vecinos");
+				System.out.println("Recibi cant vecinos: " + cantVecinos);
 				paisNuevoAutomata = Pais.buscarPais(todosLosPaises, idNuevoPais);//Buscar pais del cual me dieron el id
 				System.out.println("****PAIS ENCONTRADO******");
 				paisNuevoAutomata.toString();
@@ -144,9 +144,8 @@ public class hiloBalanceador extends Thread {
 				{
 					Pais nuevoPaisVecino = new Pais();
 					ConexionPaises nuevaConexion = new ConexionPaises();
-					System.out.println("Recibiendo id temp pre");
 					idTempVecino = is.readLine();//Obtener el nombre del pais vecino (paisB)
-					System.out.println("Recibiendo id temp pos");
+					System.out.println("Recibiendo id temp pos: " + idTempVecino);
 					tipoConexion = is.readLine().charAt(0);//Obtener el tipo de conexion
 					nuevoPaisVecino = Pais.buscarPaisPorNombre(todosLosPaises, idTempVecino);
 					nuevaConexion.setPaisA(paisNuevoAutomata.getNombre());

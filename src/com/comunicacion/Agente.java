@@ -50,11 +50,11 @@ public class Agente {
 		this.conexiones = conexiones;
 	}
 
-	public List<Pais> getConexionesPais() {
+	public synchronized List<Pais> getConexionesPais() {
 		return conexionesPais;
 	}
 
-	public void setConexionesPais(List<Pais> conexionesPais) {
+	public synchronized void setConexionesPais(List<Pais> conexionesPais) {
 		this.conexionesPais = conexionesPais;
 	}
 	

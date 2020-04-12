@@ -34,7 +34,7 @@ public class Broker {
 	public void actualizarAgentes (){
 		while(true) {
 			try {
-				Thread.sleep(22000);
+				Thread.sleep(20000);
 				
 				List<Pais> conexionesPais;
 				

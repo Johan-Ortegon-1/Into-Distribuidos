@@ -215,7 +215,7 @@ public class MonitorDeCarga
 		this.paises = paises;
 	}
 
-	public List<Agente> getAgentes() {
+	public synchronized List<Agente> getAgentes() {
 		return agentes;
 	}
 

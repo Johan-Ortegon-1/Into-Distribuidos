@@ -49,12 +49,14 @@ public class Broker {
 					if(monitor.getAgentes().get(i).getMiPais().isInfectado() == false) {
 						List<String> conexiones = monitor.getAgentes().get(i).getConexiones();
 						System.out.println("MUNDO: "+ copiaMundo.size());
+						conexionesPais = new Vector<Pais>();
 						
 						for(int j = 0; j < conexiones.size(); j++ ) { // Conexiones por pais
-							conexionesPais = new Vector<Pais>();
+							
 							for(int k = 0; k < copiaMundo.size(); k++) { // Copiar info del mundo
 								if(copiaMundo.get(k).getNombre().equals(conexiones.get(j))) {
 									System.out.println("*****************************************POS ENTRA :)");
+									
 									conexionesPais.add(copiaMundo.get(k));
 								}
 							}
@@ -82,7 +84,7 @@ public class Broker {
 	public void actualizarMundo ()throws IOException{ 
 
 		/* Elementos de conectividad */
-		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.16");
+		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.13");
 		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;

@@ -30,7 +30,7 @@ public class MonitorDeCarga
 	public void iniciarMonitor() throws IOException
 	{
 		/* Elementos de conectividad */
-		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.16");
+		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.13");
 		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;
@@ -180,10 +180,21 @@ public class MonitorDeCarga
         
         for(int i = 0; i< conexiones.size();i++ ) {
         	if(conexiones.get(i).getPaisA().equals(nombre) ) {
-        		myConexion.add(conexiones.get(i).getPaisA());
+        		for(int j = 0; j<myConexion.size();j++) {
+        			if(conexiones.get(i).getPaisB().equals(myConexion.get(j)) == false) {
+        				myConexion.add(conexiones.get(i).getPaisB());
+        			}
+        			
+        		}
+        		
         	}
         	if( conexiones.get(i).getPaisB().equals(nombre)) {
-        		myConexion.add(conexiones.get(i).getPaisB());
+        		for(int j = 0; j<myConexion.size();j++) {
+        			if(conexiones.get(i).getPaisA().equals(myConexion.get(j)) == false) {
+        				myConexion.add(conexiones.get(i).getPaisA());
+        			}
+        			
+        		}
         	}
         }
         

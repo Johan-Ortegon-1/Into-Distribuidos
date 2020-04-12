@@ -34,7 +34,7 @@ public class Broker {
 	public void actualizarAgentes (){
 		while(true) {
 			try {
-				Thread.sleep(10000);
+				Thread.sleep(15000);
 				
 				List<Pais> conexionesPais;
 				
@@ -69,7 +69,15 @@ public class Broker {
 		BufferedReader br = null;
 		BufferedReader is = null;
 		PrintWriter os = null;
+		try
+		{
+			Thread.sleep(10000);
+		} catch (InterruptedException e)
+		{
+			e.printStackTrace();
+		}
 		
+		System.out.println("EL HILO BROKER CORRE ");
 		//Establece conexion
 		try
 		{

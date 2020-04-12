@@ -109,19 +109,14 @@ public class MonitorDeCarga
 					}
 					System.out.println("Poblacion total: " + totalpoblacion);
 					System.out.println("***********************************************");
-//					for(int j = 0; j<agentes.size();j++) {
-//						System.out.print("PAIS: ");
-//						System.out.println(agentes.get(j).getMiPais().getNombre());
-//						System.out.print("Infectados: ");
-//						System.out.println(agentes.get(j).getMiPais().getInfectados());
-//						System.out.print("Poblacion : ");
-//						System.out.println(agentes.get(j).getMiPais().getPoblacionTotal());
-//						System.out.println("-------------------------------------");
-//					}
-					for (int j = 0; j < misHilos.size(); j++)
-					{
-						System.out.println("TAMAÑO DE HILOS "+ misHilos.size());
-						System.out.println(misHilos.get(j).getMyAgente().getMiPais().getNombre()+j);
+					for(int j = 0; j<agentes.size();j++) {
+						System.out.print("PAIS: ");
+						System.out.println(agentes.get(j).getMiPais().getNombre());
+						System.out.print("Infectados: ");
+						System.out.println(agentes.get(j).getMiPais().getInfectados());
+						System.out.print("Poblacion : ");
+						System.out.println(agentes.get(j).getMiPais().getPoblacionTotal());
+						System.out.println("-------------------------------------");
 					}
 					System.out.println("-------------------------------------");
 					if (totalpoblacion != 0)

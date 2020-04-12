@@ -53,6 +53,7 @@ public class Broker {
 							}
 							monitor.getAgentes().get(i).setConexionesPais(conexionesPais);
 							System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
+							System.out.println("PAIS: "+monitor.getAgentes().get(i).getMiPais().getNombre());
 							System.out.println(conexionesPais.size());
 							for(int m = 0; m<conexionesPais.size();m++) {
 								System.out.println(conexionesPais.get(m).getNombre());
@@ -73,7 +74,7 @@ public class Broker {
 	public void actualizarMundo ()throws IOException{ 
 
 		/* Elementos de conectividad */
-		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.12");
+		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.10");
 		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;

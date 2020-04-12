@@ -30,7 +30,7 @@ public class MonitorDeCarga
 	public void iniciarMonitor() throws IOException
 	{
 		/* Elementos de conectividad */
-		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.15");
+		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.12");
 		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;

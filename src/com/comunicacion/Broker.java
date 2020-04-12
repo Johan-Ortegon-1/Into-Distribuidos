@@ -39,17 +39,21 @@ public class Broker {
 				List<Pais> conexionesPais;
 				
 				for(int i = 0; i < monitor.getAgentes().size(); i++) {
+					
 					if(monitor.getAgentes().get(i).getMiPais().isInfectado() == false) {
 						conexionesPais = new Vector<Pais>();
 						List<String> conexiones = monitor.getAgentes().get(i).getConexiones();
+						
 						for(int j = 0; j < conexiones.size(); j++ ) {
 							for(int k = 0; k < copiaMundo.size(); k++) {
 								if(copiaMundo.get(k).getNombre().equals(conexiones.get(j))) {
+									System.out.println("*****************************************POS ENTRA :)");
 									conexionesPais.add(copiaMundo.get(k));
 								}
 							}
 							monitor.getAgentes().get(i).setConexionesPais(conexionesPais);
 							System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
+							System.out.println(conexionesPais.size());
 							for(int m = 0; m<conexionesPais.size();m++) {
 								System.out.println(conexionesPais.get(m).getNombre());
 							}
@@ -69,7 +73,7 @@ public class Broker {
 	public void actualizarMundo ()throws IOException{ 
 
 		/* Elementos de conectividad */
-		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.15");
+		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.12");
 		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;
@@ -108,15 +112,18 @@ public class Broker {
 				if (response.equals("actualizarMundo")) //Mundo del balanceador
 				{
 					System.out.println("Llego la hora de actualizar");
-					os.println(agentes.size());
+					os.println(monitor.getAgentes().size());
 					os.flush();
-					for (int i = 0; i <  agentes.size(); i++)
+					System.out.println("*************************************************************** "+agentes.size() );
+					System.out.println("*************************************************************** "+ monitor.getAgentes().size() );
+					for (int i = 0; i <  monitor.getAgentes().size(); i++)
 					{
-						os.println(agentes.get(i).getMiPais().getPoblacionTotal());
+						System.out.println("*************************************************************** ENTRAAAAAAAA A ACTUALIZAR");
+						os.println(monitor.getAgentes().get(i).getMiPais().getPoblacionTotal());
 						os.flush();
-						os.println(agentes.get(i).getMiPais().getNombre());
+						os.println(monitor.getAgentes().get(i).getMiPais().getNombre());
 						os.flush();
-						os.println(agentes.get(i).getMiPais().getInfectados());
+						os.println(monitor.getAgentes().get(i).getMiPais().getInfectados());
 						os.flush();
 					}
 					
@@ -130,8 +137,11 @@ public class Broker {
 					line = is.readLine();
 					
 					retorno = Long.parseLong(line);
+					System.out.println("*************************************************************** "+retorno );
 					
 					for(int i = 0;i<retorno ; i++) {
+						
+						System.out.println("*************************************************************** ENTRAAAAAAAA A COPIA");
 						Pais nuevo = new Pais();
 						
 						line = is.readLine();

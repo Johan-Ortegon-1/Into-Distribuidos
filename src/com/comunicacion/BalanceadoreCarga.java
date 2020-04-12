@@ -59,6 +59,8 @@ public class BalanceadoreCarga
 				break;
 			}
 			randomInt = random.nextInt(numPaises);
+			if(randomInt == 0)
+				randomInt = 1;
 			paisesXMaqu.add(randomInt);
 			aux = aux - randomInt;	
 		}
@@ -159,12 +161,16 @@ public class BalanceadoreCarga
 					aux1 = misHilos.get(i).getPorcetajeCarga();
 					aux2 = misHilos.get(indexFin).getPorcetajeCarga();
 					aux1 = aux1-20;//Supera en 20% 
-					System.out.println("Aux1: " + aux1 + " Aux2: " + aux2);
+					//System.out.println("Aux1: " + aux1 + " Aux2: " + aux2);
 					if(aux1 >= aux2)
 					{
 						System.out.println("Se ha encontrado un desbalance entre!!");
 						System.out.println("Sobre cargado: " + misHilos.get(i).toString());
-						System.out.println("Inutil: " + misHilos.get(indexFin).toString());
+						System.out.print(" Manejando un porcentaje de: ");
+						System.out.printf("%.3f", misHilos.get(i).getPorcetajeCarga());
+						System.out.println("Ocioso: " + misHilos.get(indexFin).toString());
+						System.out.print(" Manejando un porcentaje de: ");
+						System.out.printf("%.3f", misHilos.get(indexFin).getPorcetajeCarga());
 						//Llamado para arreglar el desbalance:
 						Agente agenteSustraido = new Agente();
 						System.out.println("EJECUTANDO BALANCEO");

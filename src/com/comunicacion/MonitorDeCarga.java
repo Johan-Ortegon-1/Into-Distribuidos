@@ -122,11 +122,12 @@ public class MonitorDeCarga
 				}
 				if (response.equals("sustraer agente"))
 				{
-					Pais tempP = null;
+					Pais tempP = new Pais();
 					Agente aActual = new Agente();
 					Collections.sort(agentes, new comparadorAgentes());// Ordenar a los agentes por la poblacion total															// de su pais
 					aActual = agentes.get(0);
 					tempP = aActual.getMiPais();// Extraer el pais con la menor poblacion
+					System.out.println("Pais a sustraer: " + tempP);
 					os.println(tempP.getId());// Enviar el id del pais
 					os.flush();
 					os.println(aActual.getConexiones().size());//Enviar numero de coneciones del pais
@@ -145,12 +146,12 @@ public class MonitorDeCarga
 					Agente nuevoAgente = new Agente();
 					int idNuevoPais = -1, indicePaisAct = 0, cantVecinos = 0;
 					String nombreTempVecino = "";
-					Pais paisNuevoAutomata = new Pais();
+					int paisNuevoAutomata = 0;
 					char tipoConexion;
 					List<Integer> idVecinos = new ArrayList<Integer>();
 					List<ConexionPaises> paisesVecinos = new ArrayList<ConexionPaises>();
 					idNuevoPais = Integer.parseInt(is.readLine());
-					System.out.println("Llego el pais con id: " + idNuevoPais);
+					System.out.println("Llego el Agente con id: " + idNuevoPais);
 					cantVecinos = Integer.parseInt(is.readLine());
 					paisNuevoAutomata = Pais.buscarPais(todosLosPaises, idNuevoPais);//Buscar pais del cual me dieron el id
 					for (int i = 0; i < cantVecinos; i++)//Armando las conexiones del nuevo agente.
@@ -160,7 +161,7 @@ public class MonitorDeCarga
 						nombreTempVecino = is.readLine();//Obtener el id del pais vecino (paisB)
 						tipoConexion = is.readLine().charAt(0);//Obtener el tipo de conexion
 						nuevoPaisVecino = Pais.buscarPaisPorNombre(todosLosPaises, nombreTempVecino);
-						nuevaConexion.setPaisA(paisNuevoAutomata.getNombre());
+						nuevaConexion.setPaisA(todosLosPaises.get(paisNuevoAutomata).getNombre());
 						nuevaConexion.setPaisB(nuevoPaisVecino.getNombre());
 						nuevaConexion.setMedioTransporte(tipoConexion);
 						paisesVecinos.add(nuevaConexion);
@@ -168,7 +169,7 @@ public class MonitorDeCarga
 					//Terminar de armar el agente
 					nuevoAgente.setConexiones(paisesVecinos);
 					nuevoAgente.setCovid19(covid19);
-					nuevoAgente.setMiPais(paisNuevoAutomata);
+					nuevoAgente.setMiPais(todosLosPaises.get(paisNuevoAutomata));
 					//Agregar el agente a la lista del Monitor
 					agentes.add(nuevoAgente);
 				}

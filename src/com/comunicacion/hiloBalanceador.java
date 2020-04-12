@@ -133,33 +133,29 @@ public class hiloBalanceador extends Thread {
 				os.println("sustraer agente");
 				os.flush();
 				idNuevoPais = Integer.parseInt(is.readLine());
-				System.out.println("Recibi el id: " + idNuevoPais);
+				System.out.println("Trasladando agente con id: " + idNuevoPais);
 				cantVecinos = Integer.parseInt(is.readLine());
-				System.out.println("Recibi cant vecinos: " + cantVecinos);
+				System.out.println("Conexiones del agente: " + cantVecinos);
 				paisNuevoAutomata = Pais.buscarPais(todosLosPaises, idNuevoPais);//Buscar pais del cual me dieron el id
 				System.out.println("****PAIS ENCONTRADO******");
 				todosLosPaises.get(paisNuevoAutomata).toString();
-				System.out.println("Encontre el pais con el id: " + idNuevoPais);
 				for (int i = 0; i < cantVecinos; i++)//Armando las conexiones del nuevo agente.
 				{
 					Pais nuevoPaisVecino = new Pais();
 					ConexionPaises nuevaConexion = new ConexionPaises();
 					idTempVecino = is.readLine();//Obtener el nombre del pais vecino (paisB)
-					System.out.println("Recibiendo id temp pos: " + idTempVecino);
+					//System.out.println("Recibiendo id temp pos: " + idTempVecino);
 					tipoConexion = is.readLine().charAt(0);//Obtener el tipo de conexion
 					nuevoPaisVecino = Pais.buscarPaisPorNombre(todosLosPaises, idTempVecino);
 					nuevaConexion.setPaisA(todosLosPaises.get(paisNuevoAutomata).getNombre());
 					nuevaConexion.setPaisB(nuevoPaisVecino.getNombre());
 					nuevaConexion.setMedioTransporte(tipoConexion);
 					paisesVecinos.add(nuevaConexion);
-					System.out.println("Recibiendo conexiones");
 				}
 				//Terminar de armar el agente
 				retorno.setConexiones(paisesVecinos);
 				retorno.setCovid19(covid19);
 				retorno.setMiPais(todosLosPaises.get(paisNuevoAutomata));
-				System.out.println("****AGENTE DE RETORNO*****");
-				retorno.toString();
 			}
 		} catch (IOException e) {
 			//e.printStackTrace();
@@ -216,8 +212,7 @@ public class hiloBalanceador extends Thread {
 
 	public String toString() {
 		String retorno = "";
-		return retorno + "Cantidad de poblacion: " + this.getCargaDeMaquina() + " porcentaje de carga: "
-				+ this.getPorcetajeCarga() + " en el PC: " + s.getInetAddress().toString();
+		return retorno + "Cantidad de poblacion: " + this.getCargaDeMaquina() + " en el PC: " + s.getInetAddress().toString();
 	}
 
 }

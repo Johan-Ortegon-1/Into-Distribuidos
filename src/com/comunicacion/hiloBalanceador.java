@@ -5,8 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.negocio.ConexionPaises;
+import com.negocio.ModeloVirus;
 import com.negocio.Pais;
 
 public class hiloBalanceador extends Thread {
@@ -96,10 +99,13 @@ public class hiloBalanceador extends Thread {
 				os.flush();
 				System.out.println("Enviando peticion de informe");
 				line = is.readLine();
-				retorno = Long.parseLong(line);
-				this.setCargaDeMaquina(retorno);
-				System.out.println(
-						"Cantidad de poblacion:  " + line + " en la instancia: " + s.getInetAddress().toString());
+				if(line != null)
+				{
+					retorno = Long.parseLong(line);
+					this.setCargaDeMaquina(retorno);
+					System.out.println(
+							"Cantidad de poblacion:  " + line + " en la instancia: " + s.getInetAddress().toString());
+				}
 			}
 		} catch (IOException e) {
 			// e.printStackTrace();
@@ -110,18 +116,51 @@ public class hiloBalanceador extends Thread {
 		return true;
 	}
 
-	public Agente ordenarSustraccionAgente() {
+	public Agente ordenarSustraccionAgente(List<Pais> todosLosPaises, ModeloVirus covid19) {
 		Agente retorno = new Agente();
 		int idPaisSustraer = -1;
+		int idNuevoPais = -1, indicePaisAct = 0, cantVecinos = 0;
+		String idTempVecino = "";
+		Pais paisNuevoAutomata = null;
+		char tipoConexion;
+		List<Integer> idVecinos = new ArrayList<Integer>();
+		List<ConexionPaises> paisesVecinos = new ArrayList<ConexionPaises>();
 		try 
 		{
 			if(is != null)
 			{
+				System.out.println("Enviando peticion de sustraccion de agente");
 				os.println("sustraer agente");
 				os.flush();
-				System.out.println("Enviando peticion de susteaccion de agente");
-				line = is.readLine();
-				idPaisSustraer = Integer.parseInt(line);
+				idNuevoPais = Integer.parseInt(is.readLine());
+				System.out.println("Recibi el id");
+				cantVecinos = Integer.parseInt(is.readLine());
+				System.out.println("Recibi cant vecinos");
+				paisNuevoAutomata = Pais.buscarPais(todosLosPaises, idNuevoPais);//Buscar pais del cual me dieron el id
+				System.out.println("****PAIS ENCONTRADO******");
+				paisNuevoAutomata.toString();
+				System.out.println("Encontre el pais con el id: " + idNuevoPais);
+				for (int i = 0; i < cantVecinos; i++)//Armando las conexiones del nuevo agente.
+				{
+					Pais nuevoPaisVecino = new Pais();
+					ConexionPaises nuevaConexion = new ConexionPaises();
+					System.out.println("Recibiendo id temp pre");
+					idTempVecino = is.readLine();//Obtener el nombre del pais vecino (paisB)
+					System.out.println("Recibiendo id temp pos");
+					tipoConexion = is.readLine().charAt(0);//Obtener el tipo de conexion
+					nuevoPaisVecino = Pais.buscarPaisPorNombre(todosLosPaises, idTempVecino);
+					nuevaConexion.setPaisA(paisNuevoAutomata.getNombre());
+					nuevaConexion.setPaisB(nuevoPaisVecino.getNombre());
+					nuevaConexion.setMedioTransporte(tipoConexion);
+					paisesVecinos.add(nuevaConexion);
+					System.out.println("Recibiendo conexiones");
+				}
+				//Terminar de armar el agente
+				retorno.setConexiones(paisesVecinos);
+				retorno.setCovid19(covid19);
+				retorno.setMiPais(paisNuevoAutomata);
+				System.out.println("****AGENTE DE RETORNO*****");
+				retorno.toString();
 			}
 		} catch (IOException e) {
 			//e.printStackTrace();

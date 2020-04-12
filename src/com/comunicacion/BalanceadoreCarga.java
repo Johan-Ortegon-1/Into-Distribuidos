@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import com.negocio.ModeloVirus;
 import com.negocio.Pais;
 
 public class BalanceadoreCarga
@@ -21,14 +22,17 @@ public class BalanceadoreCarga
 	private final static int puertoServidor = 4445;
 	private int numMaquinasSistema = 0;
 	private List<hiloBalanceador> misHilos = new ArrayList<hiloBalanceador>();
-	
-	public void inciarBalanceador(List<Pais> pPaises, int numMaquinas)
+	private List<Pais> todosLosPaises = new ArrayList<Pais>();
+	private ModeloVirus covid19 = new ModeloVirus();
+	public void inciarBalanceador(List<Pais> pPaises, int numMaquinas, ModeloVirus pCovid19)
 	{
 		int numMaqActual = 0;
 		Socket s = null;
 		ServerSocket ss2 = null;
 		System.out.println("Server Listening......");
 		numMaquinasSistema = numMaquinas;
+		this.todosLosPaises = pPaises;
+		this.covid19 = pCovid19;
 		try
 		{
 			//Apertura del servidor
@@ -67,7 +71,6 @@ public class BalanceadoreCarga
 				if(paisesRandom[i] == paisesRandom[j])
 				{
 					i--;
-					System.out.println("MM: " + paisesRandom[i]);
 				}
 			}
 		}
@@ -155,14 +158,19 @@ public class BalanceadoreCarga
 					indexFin = misHilos.size()-1-i;
 					aux1 = misHilos.get(i).getPorcetajeCarga();
 					aux2 = misHilos.get(indexFin).getPorcetajeCarga();
-					aux1 = aux1-10; 
+					aux1 = aux1-20;//Supera en 20% 
+					System.out.println("Aux1: " + aux1 + " Aux2: " + aux2);
 					if(aux1 >= aux2)
 					{
 						System.out.println("Se ha encontrado un desbalance entre!!");
 						System.out.println("Sobre cargado: " + misHilos.get(i).toString());
 						System.out.println("Inutil: " + misHilos.get(indexFin).toString());
 						//Llamado para arreglar el desbalance:
-						
+						Agente agenteSustraido = new Agente();
+						System.out.println("EJECUTANDO BALANCEO");
+						agenteSustraido = misHilos.get(i).ordenarSustraccionAgente(this.todosLosPaises, this.covid19);//Sustraer agente del hilo
+						misHilos.get(indexFin).ordenarAdicionAgente(agenteSustraido);//Adicionar el agente sustraido a otra maquina
+						System.out.println("FIN DEL BALANCEO");
 					}
 				}
 				sumTotal = 0;
@@ -173,8 +181,27 @@ public class BalanceadoreCarga
 			}
 		}
 	}
+
 	public void arreglarDesconexion()
 	{
 		
 	}
+
+	public List<Pais> getTodosLosPaises() {
+		return todosLosPaises;
+	}
+
+	public void setTodosLosPaises(List<Pais> todosLosPaises) {
+		this.todosLosPaises = todosLosPaises;
+	}
+
+	public ModeloVirus getCovid19() {
+		return covid19;
+	}
+
+	public void setCovid19(ModeloVirus covid19) {
+		this.covid19 = covid19;
+	}
+
+	
 }

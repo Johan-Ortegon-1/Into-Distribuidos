@@ -105,7 +105,7 @@ public class Main
 				" 1. Agente -- 2. Balanceador");
 		tipoDeInicio = reader.nextInt();
 		
-		monitor.setPaises(monitor.getPaises()); 
+		monitor.setTodosLosPaises(monitor.getPaises()); 
 		
 		if(tipoDeInicio == 1)//Inicio como Agente
 		{

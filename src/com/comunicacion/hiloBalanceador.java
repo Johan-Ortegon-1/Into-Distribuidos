@@ -17,6 +17,7 @@ public class hiloBalanceador extends Thread {
 
 	private long cargaDeMaquina = 0;
 	private List<Integer> paises;
+	private float porcetajeCarga = 0;
 
 	public hiloBalanceador(Socket s, List<Integer> pPaises) {
 		this.s = s;
@@ -36,7 +37,7 @@ public class hiloBalanceador extends Thread {
 			/* Asignar a cada maquina los paises correspondientes */
 			os.println("distribucion");// Avisar que voy a asignar paises
 			os.flush();
-			os.println(paises.size());// Envair numero de paises que debe esperar la maquina
+			os.println(paises.size());// Enviar numero de paises que debe esperar la maquina
 			os.flush();
 			for (int i = 0; i < paises.size(); i++)// Envio de todos los paises
 			{
@@ -80,30 +81,28 @@ public class hiloBalanceador extends Thread {
 		}
 	}
 
-	public boolean datInformePeridodico() {
-		/* Re abrir la conexion 
-		try {
-			is = new BufferedReader(new InputStreamReader(s.getInputStream()));
-			os = new PrintWriter(s.getOutputStream());
-
-		} catch (IOException e) {
-			System.out.println("IO error in server thread");
-		}*/
+	public boolean darInformePeriodico() {
+		/*
+		 * Re abrir la conexion try { is = new BufferedReader(new
+		 * InputStreamReader(s.getInputStream())); os = new
+		 * PrintWriter(s.getOutputStream());
+		 * 
+		 * } catch (IOException e) { System.out.println("IO error in server thread"); }
+		 */
 		long retorno = 0;
-		try 
-		{
-			if(is != null)
-			{
+		try {
+			if (is != null) {
 				os.println("informar");
 				os.flush();
 				System.out.println("Enviando peticion de informe");
 				line = is.readLine();
 				retorno = Long.parseLong(line);
 				this.setCargaDeMaquina(retorno);
-				System.out.println("Cantidad de poblacion:  " + line + " en la instancia: " + s.getInetAddress().toString());
+				System.out.println(
+						"Cantidad de poblacion:  " + line + " en la instancia: " + s.getInetAddress().toString());
 			}
 		} catch (IOException e) {
-			//e.printStackTrace();
+			// e.printStackTrace();
 			System.out.println("CLIENTE DESCONECTADO ABRUPTAMENTE - SE A ABIERTO CAMPO PARA UNO NUEVO");
 			return false;
 		}
@@ -111,12 +110,45 @@ public class hiloBalanceador extends Thread {
 		return true;
 	}
 
-	public void ordenarSustraccionAgente() {
-
+	public Agente ordenarSustraccionAgente() {
+		Agente retorno = new Agente();
+		int idPaisSustraer = -1;
+		try 
+		{
+			if(is != null)
+			{
+				os.println("sustraer agente");
+				os.flush();
+				System.out.println("Enviando peticion de susteaccion de agente");
+				line = is.readLine();
+				idPaisSustraer = Integer.parseInt(line);
+			}
+		} catch (IOException e) {
+			//e.printStackTrace();
+			System.out.println("CLIENTE DESCONECTADO ABRUPTAMENTE");
+		}
+		return retorno;
 	}
 
-	public void ordenarAdicionAgente() {
-
+	public void ordenarAdicionAgente(Agente aActual) 
+	{
+		Pais tempP = aActual.getMiPais();
+		if(is != null)
+		{
+			os.println("agregar agente");
+			os.flush();
+			os.println(tempP.getId());//Enviar id del pais
+			os.flush();
+			os.println(aActual.getConexiones().size());//Enviar numero de coneciones del pais
+			os.flush();
+			for (int i = 0; i < aActual.getConexiones().size(); i++)//Envio de los paises con los que tiene conexion el agente 
+			{
+				os.println(aActual.getConexiones().get(i).getPaisB());
+				os.println(aActual.getConexiones().get(i).getMedioTransporte());
+			}
+			System.out.println("Enviando peticion para adicionar un agente");
+			//line = is.readLine();
+		}
 	}
 
 	/* GETTERS AND SETTERS */
@@ -136,10 +168,18 @@ public class hiloBalanceador extends Thread {
 		this.paises = paises;
 	}
 
+	public float getPorcetajeCarga() {
+		return porcetajeCarga;
+	}
+
+	public void setPorcetajeCarga(float porcetajeCarga) {
+		this.porcetajeCarga = porcetajeCarga;
+	}
+
 	public String toString() {
 		String retorno = "";
-		return retorno + "Cantidad de poblacion: " + this.getCargaDeMaquina() + " en el socket: "
-				+ s.getInetAddress().toString();
+		return retorno + "Cantidad de poblacion: " + this.getCargaDeMaquina() + " porcentaje de carga: "
+				+ this.getPorcetajeCarga() + " en el PC: " + s.getInetAddress().toString();
 	}
 
 }

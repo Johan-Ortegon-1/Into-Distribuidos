@@ -25,6 +25,7 @@ public class BalanceadoreCarga
 	private List<hiloBalanceador> misHilos = new ArrayList<hiloBalanceador>(); // Hilos Monitor
 	private List<hiloBroker> misBroker = new ArrayList<hiloBroker>(); // Hilos Broker
 	private List<Pais> mundo =  new Vector<Pais>();
+	private boolean entro = false;
 	
 	
 	public void inciarBalanceador(List<Pais> pPaises, int numMaquinas)
@@ -34,6 +35,7 @@ public class BalanceadoreCarga
 		ServerSocket ss2 = null;
 		System.out.println("Server Listening......");
 		numMaquinasSistema = numMaquinas;
+		
 		try
 		{
 			//Apertura del servidor
@@ -80,6 +82,7 @@ public class BalanceadoreCarga
 //		{
 //			System.out.println(paisesRandom[i] + " ");
 //		}
+		entro = true;
 		int indexIni = 0, indexFin = 0;
 		while (numMaqActual < numMaquinas)/*Esperar tantas conexiones como haya especificado el usuario*/
 		{
@@ -187,7 +190,7 @@ public class BalanceadoreCarga
 		int numMaqActual = 0;
 		Socket s = null;
 		ServerSocket ss2 = null;
-		System.out.println("Server Listening Broker......");
+		
 		try
 		{
 			//Apertura del servidor
@@ -199,7 +202,18 @@ public class BalanceadoreCarga
 			System.out.println("Server error");
 		}
 		
-		while (numMaqActual < numMaquinasSistema)/*Esperar tantas conexiones como haya especificado el usuario*/
+		while(entro == false) {
+			try
+			{
+				Thread.sleep(5000);
+			} catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		
+		System.out.println("Server Listening Broker......");
+		while (numMaqActual < numMaquinasSistema )/*Esperar tantas conexiones como haya especificado el usuario*/
 		{
 			try
 			{

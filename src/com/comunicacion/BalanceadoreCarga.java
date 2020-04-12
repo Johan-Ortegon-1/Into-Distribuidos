@@ -239,7 +239,8 @@ public class BalanceadoreCarga
 		List<Integer> paisesHuerfanos = hiloDesconectado.getPaises();
 		System.out.println("Estos son los id de los paises que quedaron huerfanos: ");
 		System.out.println(paisesHuerfanos.toString());
-		
+		System.out.println("Enviardo huerfanos a otra PC");
+		misHilos.get(0).ordenarApadrinamiento(paisesHuerfanos);		
 	}
 
 	public List<Pais> getTodosLosPaises() {

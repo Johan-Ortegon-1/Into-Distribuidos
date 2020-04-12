@@ -173,6 +173,33 @@ public class MonitorDeCarga
 					//Agregar el agente a la lista del Monitor
 					agentes.add(nuevoAgente);
 				}
+				if (response.equals("apadrinar"))
+				{
+					int numHuerfanos = 0, idhuerfanos = 0, inxNuevoPais;
+					numHuerfanos = Integer.parseInt(is.readLine());
+					Agente nuevoAgente = new Agente();
+					List<ConexionPaises> conexionNuevoP = new ArrayList<ConexionPaises>();
+					Pais pAux = new Pais();
+					for (int i = 0; i < numHuerfanos; i++)
+					{
+						idhuerfanos = Integer.parseInt(is.readLine());
+						inxNuevoPais = Pais.buscarPais(paises, idhuerfanos);
+						pAux = this.todosLosPaises.get(inxNuevoPais);
+						for(int j = 0; j < this.conexiones.size(); j++)
+						{
+							if(this.conexiones.get(j).getPaisA() == pAux.getNombre())
+							{
+								conexionNuevoP.add(this.conexiones.get(j));
+							}
+						}
+						nuevoAgente.setMiPais(this.todosLosPaises.get(inxNuevoPais));
+						nuevoAgente.setCovid19(covid19);
+						nuevoAgente.setConexiones(conexionNuevoP);
+						this.agentes.add(nuevoAgente);
+						System.out.println("Se apadrino el Agente: " + nuevoAgente.toString());
+					}
+					
+				}
 			}
 
 		} catch (IOException e)

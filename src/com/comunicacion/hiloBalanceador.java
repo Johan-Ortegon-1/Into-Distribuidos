@@ -193,13 +193,31 @@ public class hiloBalanceador extends Thread {
 			for (int i = 0; i < aActual.getConexiones().size(); i++)//Envio de los paises con los que tiene conexion el agente 
 			{
 				os.println(aActual.getConexiones().get(i).getPaisB());
+				os.flush();
 				os.println(aActual.getConexiones().get(i).getMedioTransporte());
+				os.flush();
 			}
 			System.out.println("Enviando peticion para adicionar un agente");
 			//line = is.readLine();
 		}
 	}
 
+	public void ordenarApadrinamiento(List<Integer> idPaisesHuerfanos)
+	{
+		if(is != null && this.hiloActivo)
+		{
+			os.println("apadrinar");
+			os.flush();
+			os.println(idPaisesHuerfanos.size());//Envio numero de huerfanos a recibir
+			os.flush();
+			for (int i = 0; i < idPaisesHuerfanos.size(); i++)//Envio de los id de paises huerfanos
+			{
+				os.println(idPaisesHuerfanos.get(i));
+				os.flush();
+			}
+			System.out.println("Enviando peticion para Apadrinar");
+		}
+	}
 	/* GETTERS AND SETTERS */
 	public long getCargaDeMaquina() {
 		return cargaDeMaquina;

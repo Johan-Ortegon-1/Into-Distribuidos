@@ -122,7 +122,7 @@ public class Main
 			System.out.println("Cuantas maquinas tiene la topologia inicial?(Sin contar con el balanceador):");
 			int numMaquinas = 0;  
 			numMaquinas = reader.nextInt();
-			bc.inciarBalanceador(monitor.getPaises(), numMaquinas);
+			bc.inciarBalanceador(monitor.getTodosLosPaises(), numMaquinas, monitor.getCovid19());
 		}
 		
 	}

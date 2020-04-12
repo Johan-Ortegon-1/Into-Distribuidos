@@ -47,6 +47,12 @@ public class Agente {
 	public void setConexiones(List<ConexionPaises> conexiones) {
 		this.conexiones = conexiones;
 	}
+
+	@Override
+	public String toString() {
+		return "Agente [miPais=" + miPais.getNombre() + " la pobalcion: "+ miPais.getPoblacionTotal() +"]";
+	}
+	
 	
 	
 	

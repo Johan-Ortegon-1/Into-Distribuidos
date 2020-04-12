@@ -20,8 +20,9 @@ public class hiloBalanceador extends Thread {
 
 	private long cargaDeMaquina = 0;
 	private List<Integer> paises;
-	private float porcetajeCarga = 0;
-
+	private double porcetajeCarga = 0;
+	private boolean hiloActivo = true;
+	
 	public hiloBalanceador(Socket s, List<Integer> pPaises) {
 		this.s = s;
 		this.paises = pPaises;
@@ -85,15 +86,9 @@ public class hiloBalanceador extends Thread {
 	}
 
 	public boolean darInformePeriodico() {
-		/*
-		 * Re abrir la conexion try { is = new BufferedReader(new
-		 * InputStreamReader(s.getInputStream())); os = new
-		 * PrintWriter(s.getOutputStream());
-		 * 
-		 * } catch (IOException e) { System.out.println("IO error in server thread"); }
-		 */
-		long retorno = 0;
-		try {
+		long retorno = -1;
+		try 
+		{
 			if (is != null) {
 				os.println("informar");
 				os.flush();
@@ -101,15 +96,35 @@ public class hiloBalanceador extends Thread {
 				line = is.readLine();
 				if(line != null)
 				{
-					retorno = Long.parseLong(line);
-					this.setCargaDeMaquina(retorno);
-					System.out.println(
-							"Cantidad de poblacion:  " + line + " en la instancia: " + s.getInetAddress().toString());
+					if(!line.equals("No hay paises activos en esta maquina"))
+					{
+						retorno = Long.parseLong(line);
+						this.setCargaDeMaquina(retorno);
+						if(retorno == -1)
+						{
+							this.hiloActivo = false;
+							return false;
+						}
+						//System.out.println("Cantidad de poblacion:  " + line + " en la instancia: " + s.getInetAddress().toString());
+					}
+					else
+					{
+						System.out.println("Ya no hay paises en la instancia: " + s.getInetAddress().toString());
+						this.hiloActivo = false;
+						return false;
+					}
+				}
+				else
+				{
+					this.hiloActivo = false;
+					return false;
 				}
 			}
 		} catch (IOException e) {
 			// e.printStackTrace();
-			System.out.println("CLIENTE DESCONECTADO ABRUPTAMENTE - SE A ABIERTO CAMPO PARA UNO NUEVO");
+			System.out.println("CLIENTE DESCONECTADO DE FORMA ABRUPTA");
+			System.out.println("**INICIANDO RE DISTRIBUCION DE SUS AGENTES");
+			this.hiloActivo = false;
 			return false;
 		}
 		this.cargaDeMaquina = retorno;
@@ -202,12 +217,20 @@ public class hiloBalanceador extends Thread {
 		this.paises = paises;
 	}
 
-	public float getPorcetajeCarga() {
+	public double getPorcetajeCarga() {
 		return porcetajeCarga;
 	}
 
-	public void setPorcetajeCarga(float porcetajeCarga) {
+	public void setPorcetajeCarga(double porcetajeCarga) {
 		this.porcetajeCarga = porcetajeCarga;
+	}
+
+	public boolean isHiloActivo() {
+		return hiloActivo;
+	}
+
+	public void setHiloActivo(boolean hiloActivo) {
+		this.hiloActivo = hiloActivo;
 	}
 
 	public String toString() {

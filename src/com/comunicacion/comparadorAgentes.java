@@ -12,9 +12,9 @@ public class comparadorAgentes implements Comparator<Agente>
 		if (o1.getMiPais().getPoblacionTotal() == o2.getMiPais().getPoblacionTotal()) {
             ret = 0;
         } else if (o1.getMiPais().getPoblacionTotal() > o2.getMiPais().getPoblacionTotal()) {
-            ret = -1;
-        } else if (o1.getMiPais().getPoblacionTotal() < o2.getMiPais().getPoblacionTotal()) {
             ret = 1;
+        } else if (o1.getMiPais().getPoblacionTotal() < o2.getMiPais().getPoblacionTotal()) {
+            ret = -1;
         }//end business logic
 		return ret;
 	}

@@ -52,13 +52,14 @@ public class AutomataCelular extends Thread {
 		
 		for(int i = 0; i<totalVecinos; i++) {
 			infectados = infectados+myAgente.getConexionesPais().get(i).getInfectados();
+			System.out.println("-------------------------- PUES ENTRO A VECINOS ");
 			totalPoblacion = totalPoblacion+myAgente.getConexionesPais().get(i).getPoblacionTotal();
 			// Preguntar al Broker, que nos devuelve informacion del contagio del Vecino cantidad personas contagiadas 
 			// y poblacion de ese vecino 
 		}
 
 		// Condicional para saber si mi pais esta infectado 
-		if(infectados >= (totalPoblacion * 0.33) && totalVecinos >= 1 ) {
+		if(infectados >= (totalPoblacion * 0.05) && totalVecinos >= 1 ) {
 			decision = true;
 		}else {
 			decision = false;

@@ -34,7 +34,7 @@ public class Broker {
 	public void actualizarAgentes (){
 		while(true) {
 			try {
-				Thread.sleep(15000);
+				Thread.sleep(30000);
 				
 				List<Pais> conexionesPais;
 				
@@ -64,7 +64,7 @@ public class Broker {
 	public void actualizarMundo ()throws IOException{ 
 
 		/* Elementos de conectividad */
-		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.13");
+		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.15");
 		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;

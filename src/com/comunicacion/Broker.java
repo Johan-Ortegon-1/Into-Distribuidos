@@ -49,6 +49,11 @@ public class Broker {
 								}
 							}
 							monitor.getAgentes().get(i).setConexionesPais(conexionesPais);
+							System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
+							for(int m = 0; m<conexionesPais.size();m++) {
+								System.out.println(conexionesPais.get(m).getNombre());
+							}
+							System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
 							conexionesPais = null;
 						}
 					}
@@ -141,6 +146,7 @@ public class Broker {
 					}
 					copiaMundo = null;
 					copiaMundo = copia;
+					System.out.println("*******************VALORRRRRR DE CAOPIA MUNDO :"+copiaMundo.size());
 					response = "";
 				}
 			}

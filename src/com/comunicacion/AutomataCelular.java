@@ -44,6 +44,8 @@ public class AutomataCelular extends Thread {
 	public boolean preguntarConexiones(){
 		boolean decision;
 		String vecino, miNombre;
+		System.out.println("MIRAAAA *************************************************************");
+		System.out.println(myAgente.getMiPais().getNombre());
 		int totalVecinos = myAgente.getConexionesPais().size();
 		long totalPoblacion = 0;
 		long infectados = 0;

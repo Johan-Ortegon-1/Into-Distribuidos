@@ -97,7 +97,7 @@ public class hiloBroker extends Thread{
 					os.flush();
 				}
 				
-				
+				System.out.println("--------------------- ----------Primer pais  (BROKER):  " +copiaMundo.size() );
 				System.out.println("--------------------- ----------Primer pais  (BROKER):  " +paisesLocales.size() );
 				System.out.println( " en la instancia: " + s.getInetAddress().toString());
 			}

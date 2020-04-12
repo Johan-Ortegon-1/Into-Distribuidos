@@ -16,7 +16,7 @@ public class comparadorCargasHilos implements Comparator<hiloBalanceador>
         } else if (o1.getCargaDeMaquina() < o2.getCargaDeMaquina()) {
             ret = -1;
         }//end business logic
-		return 0;
+		return ret;
 	}
 
 }

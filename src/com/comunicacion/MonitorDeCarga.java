@@ -143,21 +143,23 @@ public class MonitorDeCarga
 				if (response.equals("agregar agente"))
 				{
 					Agente nuevoAgente = new Agente();
-					int idNuevoPais = -1, indicePaisAct = 0, cantVecinos = 0, idTempVecino = 0;
-					Pais paisNuevoAutomata = null;
+					int idNuevoPais = -1, indicePaisAct = 0, cantVecinos = 0;
+					String nombreTempVecino = "";
+					Pais paisNuevoAutomata = new Pais();
 					char tipoConexion;
 					List<Integer> idVecinos = new ArrayList<Integer>();
 					List<ConexionPaises> paisesVecinos = new ArrayList<ConexionPaises>();
 					idNuevoPais = Integer.parseInt(is.readLine());
+					System.out.println("Llego el pais con id: " + idNuevoPais);
 					cantVecinos = Integer.parseInt(is.readLine());
 					paisNuevoAutomata = Pais.buscarPais(todosLosPaises, idNuevoPais);//Buscar pais del cual me dieron el id
 					for (int i = 0; i < cantVecinos; i++)//Armando las conexiones del nuevo agente.
 					{
 						Pais nuevoPaisVecino = new Pais();
 						ConexionPaises nuevaConexion = new ConexionPaises();
-						idTempVecino = Integer.parseInt(is.readLine());//Obtener el id del pais vecino (paisB)
+						nombreTempVecino = is.readLine();//Obtener el id del pais vecino (paisB)
 						tipoConexion = is.readLine().charAt(0);//Obtener el tipo de conexion
-						nuevoPaisVecino = Pais.buscarPais(todosLosPaises, idTempVecino);
+						nuevoPaisVecino = Pais.buscarPaisPorNombre(todosLosPaises, nombreTempVecino);
 						nuevaConexion.setPaisA(paisNuevoAutomata.getNombre());
 						nuevaConexion.setPaisB(nuevoPaisVecino.getNombre());
 						nuevaConexion.setMedioTransporte(tipoConexion);

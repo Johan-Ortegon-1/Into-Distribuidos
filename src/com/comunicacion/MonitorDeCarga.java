@@ -123,10 +123,21 @@ public class MonitorDeCarga
 				if (response.equals("sustraer agente"))
 				{
 					Pais tempP = null;
+					Agente aActual = new Agente();
 					Collections.sort(agentes, new comparadorAgentes());// Ordenar a los agentes por la poblacion total															// de su pais
-					tempP = agentes.get(0).getMiPais();// Extraer el pais con la menor poblacion
+					aActual = agentes.get(0);
+					tempP = aActual.getMiPais();// Extraer el pais con la menor poblacion
 					os.println(tempP.getId());// Enviar el id del pais
 					os.flush();
+					os.println(aActual.getConexiones().size());//Enviar numero de coneciones del pais
+					os.flush();
+					for (int i = 0; i < aActual.getConexiones().size(); i++)//Envio de los paises con los que tiene conexion el agente 
+					{
+						os.println(aActual.getConexiones().get(i).getPaisB());
+						os.flush();
+						os.println(aActual.getConexiones().get(i).getMedioTransporte());
+						os.flush();
+					}
 					agentes.remove(0);// Remover el agente el pais enviado
 				}
 				if (response.equals("agregar agente"))

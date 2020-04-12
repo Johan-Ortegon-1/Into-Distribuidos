@@ -69,7 +69,9 @@ public class hiloBroker extends Thread{
 				line = is.readLine();
 				
 				retorno = Long.parseLong(line);
+				//paisesLocales = null;
 				paisesLocales = null;
+				paisesLocales = new Vector<Pais>();
 				for(int i = 0;i<retorno ; i++) {
 					Pais nuevo = new Pais();
 					

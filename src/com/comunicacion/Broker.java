@@ -39,16 +39,18 @@ public class Broker {
 				List<Pais> conexionesPais;
 				
 				for(int i = 0; i < monitor.getAgentes().size(); i++) {
-					conexionesPais = new Vector<Pais>();
-					List<String> conexiones = monitor.getAgentes().get(i).getConexiones();
-					for(int j = 0; j < conexiones.size(); j++ ) {
-						for(int k = 0; k < copiaMundo.size(); k++) {
-							if(copiaMundo.get(k).getNombre().equals(conexiones.get(j))) {
-								conexionesPais.add(copiaMundo.get(k));
+					if(monitor.getAgentes().get(i).getMiPais().isInfectado() == false) {
+						conexionesPais = new Vector<Pais>();
+						List<String> conexiones = monitor.getAgentes().get(i).getConexiones();
+						for(int j = 0; j < conexiones.size(); j++ ) {
+							for(int k = 0; k < copiaMundo.size(); k++) {
+								if(copiaMundo.get(k).getNombre().equals(conexiones.get(j))) {
+									conexionesPais.add(copiaMundo.get(k));
+								}
 							}
+							monitor.getAgentes().get(i).setConexionesPais(conexionesPais);
+							conexionesPais = null;
 						}
-						monitor.getAgentes().get(i).setConexionesPais(conexionesPais);
-						conexionesPais = null;
 					}
 				}
 			} catch (InterruptedException e){
@@ -62,7 +64,7 @@ public class Broker {
 	public void actualizarMundo ()throws IOException{ 
 
 		/* Elementos de conectividad */
-		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.12");
+		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.13");
 		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;

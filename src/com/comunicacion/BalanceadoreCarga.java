@@ -105,31 +105,12 @@ public class BalanceadoreCarga
 		}
 		/*Empezar a analizar carga de ahora en adelante*/
 		this.analizarCarga();
-		
-		/*while (true)
-		{
-			try
-			{
-				s = ss2.accept();
-				System.out.println("connection Established");
-				hiloBalanceador st = new hiloBalanceador(s, pPaises, numMaquinas);
-				st.start();
-				contMaquinas++;
-			}
-
-			catch (Exception e)
-			{
-				e.printStackTrace();
-				System.out.println("Connection Error");
-			}
-		}*/
-
 	}
 
 	public void analizarCarga()
 	{
-		long sumTotal = 0;
-		float promedio = 0;
+		long sumTotal = 0, poblacionAct = 0;
+		float promedio = 0, porcentajeCagaAct = 0;
 		/* Solicitar el reporte de los monitores de forma permanente */
 		while (true)
 		{
@@ -138,7 +119,7 @@ public class BalanceadoreCarga
 				Thread.sleep(5000);
 				for (int i = 0; i < misHilos.size(); i++)//Actualiza los valores de carga en cada hilo
 				{
-					if(misHilos.get(i).datInformePeridodico() == false)
+					if(misHilos.get(i).darInformePeriodico() == false)
 					{
 						System.out.println("Cliente desconectado - Matando su hilo");
 						this.arreglarDesconexion();
@@ -153,7 +134,7 @@ public class BalanceadoreCarga
 				}
 				for (int i = 0; i < misHilos.size(); i++)
 				{
-					sumTotal =+ misHilos.get(i).getCargaDeMaquina();
+					sumTotal = sumTotal + misHilos.get(i).getCargaDeMaquina();
 				}
 				promedio = sumTotal/numMaquinasSistema;
 				System.out.println("Promedio de las poblaciones manejadas por cada maquina: " + promedio);
@@ -161,7 +142,28 @@ public class BalanceadoreCarga
 				System.out.println("Hilos y sus cargas depues de ordenamiento");
 				for (int i = 0; i < misHilos.size(); i++)
 				{
+					/*Calculo del procentaje de participacion en el manejo de poblacion por hilo*/
+					porcentajeCagaAct = (misHilos.get(i).getCargaDeMaquina()*100)/sumTotal;
+					misHilos.get(i).setPorcetajeCarga(porcentajeCagaAct);
 					System.out.println(misHilos.get(i).toString());
+				}
+				//Comparaciones entre el mas cargado y el menos cargado despues del ordenamiento 
+				int indexFin = 0;
+				float aux1 = 0, aux2 = 0;
+				for (int i = 0; i < misHilos.size()/2; i++) 
+				{
+					indexFin = misHilos.size()-1-i;
+					aux1 = misHilos.get(i).getPorcetajeCarga();
+					aux2 = misHilos.get(indexFin).getPorcetajeCarga();
+					aux1 = aux1-10; 
+					if(aux1 >= aux2)
+					{
+						System.out.println("Se ha encontrado un desbalance entre!!");
+						System.out.println("Sobre cargado: " + misHilos.get(i).toString());
+						System.out.println("Inutil: " + misHilos.get(indexFin).toString());
+						//Llamado para arreglar el desbalance:
+						
+					}
 				}
 				sumTotal = 0;
 				

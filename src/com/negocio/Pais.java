@@ -140,7 +140,7 @@ public class Pais
 		}
 	}
 	
-	public static Pais buscarPais(List<Pais> paises, int id)
+	public static int buscarPais(List<Pais> paises, int id)
 	{
 		int indicePaisAct=0;
 		for (int i = 0; i < paises.size(); i++)//Buscar el pais con ese id y crear un agente con el
@@ -148,11 +148,12 @@ public class Pais
 			if(paises.get(i).getId() == id)
 			{
 				indicePaisAct = i;
+				return indicePaisAct;
 				//Agente nuevoAgente = new Agente(paises.get(i),paises.get(i).);
 			}
 		}
 		System.out.println("En la funcion del Pais se encontro: " + paises.get(indicePaisAct).toString());
-		return paises.get(indicePaisAct);
+		return indicePaisAct;
 	}
 	public static Pais buscarPaisPorNombre(List<Pais> paises, String id)
 	{

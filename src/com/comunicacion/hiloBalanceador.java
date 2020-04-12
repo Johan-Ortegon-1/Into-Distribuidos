@@ -121,7 +121,7 @@ public class hiloBalanceador extends Thread {
 		int idPaisSustraer = -1;
 		int idNuevoPais = -1, indicePaisAct = 0, cantVecinos = 0;
 		String idTempVecino = "";
-		Pais paisNuevoAutomata = new Pais();
+		int paisNuevoAutomata = 0;
 		char tipoConexion;
 		List<Integer> idVecinos = new ArrayList<Integer>();
 		List<ConexionPaises> paisesVecinos = new ArrayList<ConexionPaises>();
@@ -138,7 +138,7 @@ public class hiloBalanceador extends Thread {
 				System.out.println("Recibi cant vecinos: " + cantVecinos);
 				paisNuevoAutomata = Pais.buscarPais(todosLosPaises, idNuevoPais);//Buscar pais del cual me dieron el id
 				System.out.println("****PAIS ENCONTRADO******");
-				paisNuevoAutomata.toString();
+				todosLosPaises.get(paisNuevoAutomata).toString();
 				System.out.println("Encontre el pais con el id: " + idNuevoPais);
 				for (int i = 0; i < cantVecinos; i++)//Armando las conexiones del nuevo agente.
 				{
@@ -148,7 +148,7 @@ public class hiloBalanceador extends Thread {
 					System.out.println("Recibiendo id temp pos: " + idTempVecino);
 					tipoConexion = is.readLine().charAt(0);//Obtener el tipo de conexion
 					nuevoPaisVecino = Pais.buscarPaisPorNombre(todosLosPaises, idTempVecino);
-					nuevaConexion.setPaisA(paisNuevoAutomata.getNombre());
+					nuevaConexion.setPaisA(todosLosPaises.get(paisNuevoAutomata).getNombre());
 					nuevaConexion.setPaisB(nuevoPaisVecino.getNombre());
 					nuevaConexion.setMedioTransporte(tipoConexion);
 					paisesVecinos.add(nuevaConexion);
@@ -157,7 +157,7 @@ public class hiloBalanceador extends Thread {
 				//Terminar de armar el agente
 				retorno.setConexiones(paisesVecinos);
 				retorno.setCovid19(covid19);
-				retorno.setMiPais(paisNuevoAutomata);
+				retorno.setMiPais(todosLosPaises.get(paisNuevoAutomata));
 				System.out.println("****AGENTE DE RETORNO*****");
 				retorno.toString();
 			}

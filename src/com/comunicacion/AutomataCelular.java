@@ -70,10 +70,13 @@ public class AutomataCelular extends Thread {
 		}
 
 		// Condicional para saber si mi pais esta infectado 
+		System.out.println("CANTIDAD DE INFECTADOS EN MIS VECINOS :"+infectados);
 		if(infectados >= (totalPoblacion * 0.001) && totalVecinos >= 1 ) {
 			decision = true;
+			System.out.println("TRUE");
 		}else {
 			decision = false;
+			System.out.println("FALSE");
 		}
 		oscilacion = true;
 		

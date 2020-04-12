@@ -30,7 +30,7 @@ public class MonitorDeCarga
 	public void iniciarMonitor() throws IOException
 	{
 		/* Elementos de conectividad */
-		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.13");
+		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.12");
 		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;
@@ -178,28 +178,56 @@ public class MonitorDeCarga
         	}
         }
         
-        for(int i = 0; i< conexiones.size();i++ ) {
+        System.out.println("PUTAS CONEXIOES ---------->"+conexiones.size());
+        for(int i = 0; i< conexiones.size();i++ ) { //Recorre conexiones mundiales
         	if(conexiones.get(i).getPaisA().equals(nombre) ) {
-        		for(int j = 0; j<myConexion.size();j++) {
-        			if(conexiones.get(i).getPaisB().equals(myConexion.get(j)) == false) {
+        		System.out.println("PUTA "+myConexion.size());
+        		if(myConexion.size() == 0) {
+        			System.out.println("PUERCO ");
+        			myConexion.add(conexiones.get(i).getPaisB());
+        		}else {
+        			boolean esta = false;
+        			for(int j = 0; j<myConexion.size();j++) {
+            			if(conexiones.get(i).getPaisB().equals(myConexion.get(j)) ) {
+            				System.out.println("JUMMMMM");
+            				esta = true;
+            			}
+            			
+            		}
+        			if(esta == false) {
         				myConexion.add(conexiones.get(i).getPaisB());
         			}
-        			
         		}
         		
         	}
         	if( conexiones.get(i).getPaisB().equals(nombre)) {
-        		for(int j = 0; j<myConexion.size();j++) {
-        			if(conexiones.get(i).getPaisA().equals(myConexion.get(j)) == false) {
+        		System.out.println("PUTA 2 "+myConexion.size());
+        		if(myConexion.size() == 0) {
+        			System.out.println("PUERCO 2s");
+        			myConexion.add(conexiones.get(i).getPaisA());
+        		}else {
+        			boolean esta = false;
+        			for(int j = 0; j<myConexion.size();j++) {
+            			if(conexiones.get(i).getPaisA().equals(myConexion.get(j))) {
+            				System.out.println("JUMMMMM 2");
+            				esta = true;
+            			}
+            			
+            		}
+        			if(esta == false) {
         				myConexion.add(conexiones.get(i).getPaisA());
         			}
-        			
         		}
         	}
         }
         
-        if(myConexion.size()>0) {
-        	myAgente.setConexiones(myConexion);
+        
+        myAgente.setConexiones(myConexion);
+        
+        System.out.println("___________________________ONDE ESTA EL ERROR_______________"+myAgente.getConexiones().size());
+        System.out.println("MY PAIS: "+myAgente.getMiPais().getNombre());
+        for(int j = 0; j<myAgente.getConexiones().size();j++) {
+        	System.out.println(myAgente.getConexiones().get(j));
         }
         myAgente.setCovid19(covid19);
         

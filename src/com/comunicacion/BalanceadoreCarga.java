@@ -1,5 +1,6 @@
 package com.comunicacion;
 import java.util.Random;
+import java.util.Vector;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -19,8 +20,12 @@ public class BalanceadoreCarga
 	private Thread balanceadorAuto;
 	private Thread serverAuto;
 	private final static int puertoServidor = 4445;
+	private final static int puertoServidorBroker = 4446;
 	private int numMaquinasSistema = 0;
-	private List<hiloBalanceador> misHilos = new ArrayList<hiloBalanceador>();
+	private List<hiloBalanceador> misHilos = new ArrayList<hiloBalanceador>(); // Hilos Monitor
+	private List<hiloBroker> misBroker = new ArrayList<hiloBroker>(); // Hilos Broker
+	private List<Pais> mundo =  new Vector<Pais>();
+	
 	
 	public void inciarBalanceador(List<Pais> pPaises, int numMaquinas)
 	{
@@ -171,8 +176,105 @@ public class BalanceadoreCarga
 			}
 		}
 	}
+	
 	public void arreglarDesconexion()
 	{
 		
 	}
+	
+	public void iniciarBroker()
+	{
+		int numMaqActual = 0;
+		Socket s = null;
+		ServerSocket ss2 = null;
+		System.out.println("Server Listening Broker......");
+		try
+		{
+			//Apertura del servidor
+			ss2 = new ServerSocket(puertoServidorBroker); 
+
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+			System.out.println("Server error");
+		}
+		
+		while (numMaqActual < numMaquinasSistema)/*Esperar tantas conexiones como haya especificado el usuario*/
+		{
+			try
+			{
+				s = ss2.accept();
+				System.out.println("Conexion establecida");
+				
+				hiloBroker st = new hiloBroker(s);
+				misBroker.add(st);
+				st.start();
+				numMaqActual++;
+			}
+
+			catch (Exception e)
+			{
+				e.printStackTrace();
+				System.out.println("Error en la conexion");
+			}
+		}
+		
+		this.actualizarPaises();
+		
+	}
+	
+	public void actualizarPaises() {
+
+		while (true)
+		{
+			try
+			{
+				Thread.sleep(5000);
+				for (int i = 0; i < misBroker.size(); i++)//Actualiza los valores de carga en cada hilo
+				{
+					if(misBroker.get(i).recibirPaises(mundo) == false)
+					{
+						System.out.println("Cliente desconectado - Matando su hilo");
+						this.arreglarDesconexion();
+						misBroker.get(i).matarConexiones();
+						misBroker.remove(i);
+						if(misBroker.size() == 0)
+						{
+							System.out.println("Ya no hay maquinas en el sistema (Broker)");
+							break;
+						}
+					}
+				}
+				for (int i = 0; i < misBroker.size(); i++) //Recorre hilos
+				{
+					List <Pais> copia =  new ArrayList<Pais>();
+					copia = misBroker.get(i).getPaisesLocales();
+					
+					for(int k = 0; k < copia.size();k++) { // Recorre paises del hilo
+						boolean encontro = false;
+						for(int j = 0;j <mundo.size();j++) { //Recorre mundo
+							if(copia.get(k).getNombre().equals(mundo.get(j).getNombre())) {
+								encontro = true;
+								mundo.get(j).setPoblacionTotal(copia.get(k).getPoblacionTotal());
+								mundo.get(j).setInfectados(copia.get(k).getInfectados());
+							}
+						}
+						if(encontro == false) {
+							mundo.add(misBroker.get(i).getPaisesLocales().get(k));
+						}
+					}
+					
+					
+				}
+				
+				// System.out.println("Promedio de las poblaciones manejadas por cada maquina: " + promedio);
+				
+			} catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	
 }

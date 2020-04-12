@@ -18,6 +18,7 @@ public class Main
 	static Cliente miCliente = new Cliente();
 	private static MonitorDeCarga monitor = new MonitorDeCarga();
 	private static BalanceadoreCarga bc = new BalanceadoreCarga(); 
+	private static Broker bre = new Broker(); 
 
 	
 	public static void main(String[] args)
@@ -109,20 +110,85 @@ public class Main
 		
 		if(tipoDeInicio == 1)//Inicio como Agente
 		{
-			try
+			
+			Thread monitorHilo;
+			
+			monitorHilo = new Thread(new Runnable()
 			{
-				monitor.iniciarMonitor();
-			} catch (IOException e)
+				public void run()
+				{
+					try
+					{
+						monitor.iniciarMonitor();
+					} catch (IOException e)
+					{
+						e.printStackTrace();
+					}
+				}
+			});
+			monitorHilo.start();
+			
+			Thread brokerHilo;
+			
+			brokerHilo = new Thread(new Runnable()
 			{
-				e.printStackTrace();
-			}
+				public void run()
+				{
+					try
+					{
+						bre.setMonitor(monitor);
+						bre.actualizarMundo();
+						
+					} catch (IOException e)
+					{
+						e.printStackTrace();
+					}
+				}
+			});
+			brokerHilo.start();
+			
+			Thread brokerAgentesHilo;
+			
+			brokerAgentesHilo = new Thread(new Runnable()
+			{
+				public void run()
+				{
+						bre.actualizarAgentes();
+				}
+			});
+			brokerAgentesHilo.start();
+			
+			
 		}
 		else if(tipoDeInicio == 2)//Inicio como balanceador
 		{
-			System.out.println("Cuantas maquinas tiene la topologia inicial?(Sin contar con el balanceador):");
-			int numMaquinas = 0;  
-			numMaquinas = reader.nextInt();
-			bc.inciarBalanceador(monitor.getPaises(), numMaquinas);
+			Thread balanceadorMonitor;
+			
+			balanceadorMonitor = new Thread(new Runnable()
+			{
+				public void run()
+				{
+					System.out.println("Cuantas maquinas tiene la topologia inicial?(Sin contar con el balanceador):");
+					int numMaquinas = 0;  
+					numMaquinas = reader.nextInt();
+
+					bc.inciarBalanceador(monitor.getPaises(), numMaquinas);
+					
+				}
+			});
+			balanceadorMonitor.start();
+			
+			Thread balanceadorBroker;
+			
+			balanceadorBroker = new Thread(new Runnable()
+			{
+				public void run()
+				{
+					bc.iniciarBroker();
+				}
+			});
+			balanceadorBroker.start();
+			
 		}
 		
 	}

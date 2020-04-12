@@ -10,13 +10,15 @@ import com.negocio.Pais;
 public class Agente {
 	
 	private Pais miPais;
-	private List<ConexionPaises> conexiones = new Vector<ConexionPaises>();
+	private List<String> conexiones = new Vector<String>();
+	private List<Pais> conexionesPais = new Vector<Pais>();
 	private ModeloVirus covid19 ;
 	
-	public Agente(Pais miPais, List<ConexionPaises> conexiones, ModeloVirus covid19) {
+	public Agente(Pais miPais, List<String> conexiones, List<Pais> conexionesPais, ModeloVirus covid19) {
 		super();
 		this.miPais = miPais;
 		this.conexiones = conexiones;
+		this.conexionesPais = conexionesPais;
 		this.covid19 = covid19;
 	}
 
@@ -40,13 +42,22 @@ public class Agente {
 		this.miPais = miPais;
 	}
 
-	public List<ConexionPaises> getConexiones() {
+	public List<String> getConexiones() {
 		return conexiones;
 	}
 
-	public void setConexiones(List<ConexionPaises> conexiones) {
+	public void setConexiones(List<String> conexiones) {
 		this.conexiones = conexiones;
 	}
+
+	public List<Pais> getConexionesPais() {
+		return conexionesPais;
+	}
+
+	public void setConexionesPais(List<Pais> conexionesPais) {
+		this.conexionesPais = conexionesPais;
+	}
+	
 	
 	
 	

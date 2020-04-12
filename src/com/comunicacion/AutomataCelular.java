@@ -45,30 +45,24 @@ public class AutomataCelular extends Thread {
 		boolean decision;
 		String vecino, miNombre;
 		int totalVecinos = myAgente.getConexiones().size();
-		int totalPoblacion = 0;
-		int infectados = 0;
+		long totalPoblacion = 0;
+		long infectados = 0;
 		
 		miNombre = myAgente.getMiPais().getNombre();
 		
 		for(int i = 0; i<totalVecinos; i++) {
-			if(myAgente.getConexiones().get(i).getPaisA().equals(miNombre)) {
-				vecino = myAgente.getConexiones().get(i).getPaisB();
-			}else {
-				vecino = myAgente.getConexiones().get(i).getPaisA();
-			}
-			
+			infectados = infectados+myAgente.getConexionesPais().get(i).getInfectados();
+			totalPoblacion = totalPoblacion+myAgente.getConexionesPais().get(i).getPoblacionTotal();
 			// Preguntar al Broker, que nos devuelve informacion del contagio del Vecino cantidad personas contagiadas 
 			// y poblacion de ese vecino 
 		}
 
 		// Condicional para saber si mi pais esta infectado 
-//		if(infectados >= (totalPoblacion * 0.33)) {
-//			decision = true;
-//		}else {
-//			decision = false;
-//		}
-		
-		decision = false;
+		if(infectados >= (totalPoblacion * 0.33) && totalVecinos >= 1 ) {
+			decision = true;
+		}else {
+			decision = false;
+		}
 		
 		return decision;
 	}

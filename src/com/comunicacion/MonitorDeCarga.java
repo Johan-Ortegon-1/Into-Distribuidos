@@ -174,7 +174,7 @@ public class MonitorDeCarga
 	public void asignarPais(int id) {
 		String nombre = "";
 		Agente myAgente = new Agente();
-		List<ConexionPaises> myConexion = new Vector<ConexionPaises>();
+		List<String> myConexion = new Vector<String>();
 		
         for(int i = 0; i< paises.size();i++ ) {
         	if(id == paises.get(i).getId()) {
@@ -184,8 +184,11 @@ public class MonitorDeCarga
         }
         
         for(int i = 0; i< conexiones.size();i++ ) {
-        	if(conexiones.get(i).getPaisA().equals(nombre) || conexiones.get(i).getPaisB().equals(nombre) ) {
-        		myConexion.add(conexiones.get(i));
+        	if(conexiones.get(i).getPaisA().equals(nombre) ) {
+        		myConexion.add(conexiones.get(i).getPaisA());
+        	}
+        	if( conexiones.get(i).getPaisB().equals(nombre)) {
+        		myConexion.add(conexiones.get(i).getPaisB());
         	}
         }
         

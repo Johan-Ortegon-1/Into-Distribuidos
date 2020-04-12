@@ -5,6 +5,7 @@ public class AutomataCelular extends Thread {
 	private Agente myAgente;
 	private int tiempo ; 
 	private boolean variacion ; 
+	private boolean oscilacion  ; 
 	
 	
 	
@@ -13,6 +14,7 @@ public class AutomataCelular extends Thread {
 		this.myAgente = myAgente;
 		this.tiempo = 0;
 		this.variacion = false;
+		this.oscilacion = false;
 	}
 
 	@Override
@@ -20,12 +22,14 @@ public class AutomataCelular extends Thread {
 //		if(myAgente.getMiPais().getNombre().equals("Colombia")) {
 //			myAgente.getMiPais().setNombre("Polombia");
 //		}
+		esperarTiempo(10);
 		while(true) {
 			if(myAgente.getMiPais().isInfectado()) {
 				contagioPais();
 			}else {
 				boolean infectado = preguntarConexiones();
 				myAgente.getMiPais().setInfectado(infectado);
+				esperarTiempo(4);
 			}
 //			System.out.print("Infectados: ");
 //			System.out.println(myAgente.getMiPais().getInfectados());
@@ -35,6 +39,10 @@ public class AutomataCelular extends Thread {
 //			System.out.print("TIEMPO ");
 //			System.out.println(tiempo );
 			esperarTiempo(10);
+//			if(oscilacion) {
+//				esperarTiempo(10);
+//				oscilacion = false;
+//			}
 			
 		}
 		
@@ -66,6 +74,7 @@ public class AutomataCelular extends Thread {
 		}else {
 			decision = false;
 		}
+		oscilacion = true;
 		
 		return decision;
 	}

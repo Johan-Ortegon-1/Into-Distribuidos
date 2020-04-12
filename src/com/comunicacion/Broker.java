@@ -32,20 +32,27 @@ public class Broker {
 
 
 	public void actualizarAgentes (){
+		try {
+			Thread.sleep(20000);
+		}
+		catch (InterruptedException e){
+			e.printStackTrace();
+		}
 		while(true) {
 			try {
-				Thread.sleep(20000);
+				
 				
 				List<Pais> conexionesPais;
 				
 				for(int i = 0; i < monitor.getAgentes().size(); i++) {
 					
 					if(monitor.getAgentes().get(i).getMiPais().isInfectado() == false) {
-						conexionesPais = new Vector<Pais>();
 						List<String> conexiones = monitor.getAgentes().get(i).getConexiones();
+						System.out.println("MUNDO: "+ copiaMundo.size());
 						
-						for(int j = 0; j < conexiones.size(); j++ ) {
-							for(int k = 0; k < copiaMundo.size(); k++) {
+						for(int j = 0; j < conexiones.size(); j++ ) { // Conexiones por pais
+							conexionesPais = new Vector<Pais>();
+							for(int k = 0; k < copiaMundo.size(); k++) { // Copiar info del mundo
 								if(copiaMundo.get(k).getNombre().equals(conexiones.get(j))) {
 									System.out.println("*****************************************POS ENTRA :)");
 									conexionesPais.add(copiaMundo.get(k));
@@ -59,9 +66,10 @@ public class Broker {
 								System.out.println(conexionesPais.get(m).getNombre());
 							}
 							System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
-							conexionesPais = null;
+							//conexionesPais = null;
 						}
 					}
+					Thread.sleep(24000);
 				}
 			} catch (InterruptedException e){
 				e.printStackTrace();
@@ -74,7 +82,7 @@ public class Broker {
 	public void actualizarMundo ()throws IOException{ 
 
 		/* Elementos de conectividad */
-		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.10");
+		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.16");
 		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;
@@ -129,6 +137,7 @@ public class Broker {
 					
 					response = "";
 				}
+				System.out.println("************SALIO DE ACTUALIZAR************");
 				
 				response = is.readLine();
 				

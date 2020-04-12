@@ -75,10 +75,13 @@ public class hiloBroker extends Thread{
 					
 					line = is.readLine();
 					nuevo.setPoblacionTotal(Long.parseLong(line));
+					System.out.println(nuevo.getPoblacionTotal());
 					line = is.readLine();
 					nuevo.setNombre(line);;
+					System.out.println(nuevo.getNombre());
 					line = is.readLine();
 					nuevo.setInfectados(Long.parseLong(line));
+					System.out.println(nuevo.getInfectados());
 					
 					paisesLocales.add(nuevo);
 					nuevo = null;

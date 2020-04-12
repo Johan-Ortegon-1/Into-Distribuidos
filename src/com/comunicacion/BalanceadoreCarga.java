@@ -243,7 +243,7 @@ public class BalanceadoreCarga
 		{
 			try
 			{
-				Thread.sleep(5000);
+				Thread.sleep(10000);
 				for (int i = 0; i < misBroker.size(); i++)//Actualiza los valores de carga en cada hilo
 				{
 					if(misBroker.get(i).recibirPaises(mundo) == false)

@@ -69,7 +69,7 @@ public class hiloBroker extends Thread{
 				line = is.readLine();
 				
 				retorno = Long.parseLong(line);
-				
+				paisesLocales = null;
 				for(int i = 0;i<retorno ; i++) {
 					Pais nuevo = new Pais();
 					

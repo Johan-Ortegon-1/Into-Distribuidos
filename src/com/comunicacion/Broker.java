@@ -34,7 +34,7 @@ public class Broker {
 	public void actualizarAgentes (){
 		while(true) {
 			try {
-				Thread.sleep(30000);
+				Thread.sleep(22000);
 				
 				List<Pais> conexionesPais;
 				
@@ -80,13 +80,13 @@ public class Broker {
 		BufferedReader br = null;
 		BufferedReader is = null;
 		PrintWriter os = null;
-		try
-		{
-			Thread.sleep(10000);
-		} catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
+//		try
+//		{
+//			Thread.sleep(10000);
+//		} catch (InterruptedException e)
+//		{
+//			e.printStackTrace();
+//		}
 		
 		System.out.println("EL HILO BROKER CORRE ");
 		//Establece conexion
@@ -114,7 +114,6 @@ public class Broker {
 					System.out.println("Llego la hora de actualizar");
 					os.println(monitor.getAgentes().size());
 					os.flush();
-					System.out.println("*************************************************************** "+agentes.size() );
 					System.out.println("*************************************************************** "+ monitor.getAgentes().size() );
 					for (int i = 0; i <  monitor.getAgentes().size(); i++)
 					{
@@ -154,7 +153,7 @@ public class Broker {
 						copia.add(nuevo);
 						nuevo = null;
 					}
-					copiaMundo = null;
+					//copiaMundo = null;
 					copiaMundo = copia;
 					System.out.println("*******************VALORRRRRR DE CAOPIA MUNDO :"+copiaMundo.size());
 					response = "";

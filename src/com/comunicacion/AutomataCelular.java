@@ -61,7 +61,7 @@ public class AutomataCelular extends Thread {
 		}
 
 		// Condicional para saber si mi pais esta infectado 
-		if(infectados >= (totalPoblacion * 0.02) && totalVecinos >= 1 ) {
+		if(infectados >= (totalPoblacion * 0.001) && totalVecinos >= 1 ) {
 			decision = true;
 		}else {
 			decision = false;

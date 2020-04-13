@@ -180,6 +180,7 @@ public class MonitorDeCarga
 					Agente nuevoAgente = new Agente();
 					List<ConexionPaises> conexionNuevoP = new ArrayList<ConexionPaises>();
 					Pais pAux = new Pais();
+					System.out.println("Numero de huerfanos para recibir: " + numHuerfanos);
 					for (int i = 0; i < numHuerfanos; i++)
 					{
 						idhuerfanos = Integer.parseInt(is.readLine());

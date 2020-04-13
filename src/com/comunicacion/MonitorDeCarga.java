@@ -179,28 +179,25 @@ public class MonitorDeCarga
 					numHuerfanos = Integer.parseInt(is.readLine());
 					List<ConexionPaises> conexionNuevoP = new ArrayList<ConexionPaises>();
 					Pais pAux = new Pais();
+					boolean agregarAgente = true;
 					System.out.println("Numero de huerfanos para recibir: " + numHuerfanos);
 					for (int i = 0; i < numHuerfanos; i++)
 					{
 						Agente nuevoAgente = new Agente();
 						idhuerfanos = Integer.parseInt(is.readLine());
-						this.asignarPais(idhuerfanos);
-						/*inxNuevoPais = Pais.buscarPais(todosLosPaises, idhuerfanos);
-						pAux = this.todosLosPaises.get(inxNuevoPais);
-						for(int j = 0; j < this.conexiones.size(); j++)
+						for (int j = 0; j < this.agentes.size(); j++)
 						{
-							if(this.conexiones.get(j).getPaisA() == pAux.getNombre())
+							if(this.agentes.get(i).getMiPais().getId() == idhuerfanos)
 							{
-								conexionNuevoP.add(this.conexiones.get(j));
+								System.out.println("huerfano repetido :(");
+								agregarAgente = false;
+								break;
 							}
 						}
-						nuevoAgente.setMiPais(this.todosLosPaises.get(inxNuevoPais));
-						nuevoAgente.setCovid19(covid19);
-						nuevoAgente.setConexiones(conexionNuevoP);
-						this.agentes.add(nuevoAgente);
-						System.out.println("Se apadrino el Agente: " + nuevoAgente.toString());*/
+						if(agregarAgente)
+							this.asignarPais(idhuerfanos);
+						agregarAgente = true;
 					}
-					
 				}
 			}
 

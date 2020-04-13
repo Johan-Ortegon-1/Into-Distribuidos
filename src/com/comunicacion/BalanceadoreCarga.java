@@ -246,7 +246,13 @@ public class BalanceadoreCarga
 		System.out.println("Estos son los id de los paises que quedaron huerfanos: ");
 		System.out.println(paisesHuerfanos.toString());
 		System.out.println("Enviardo huerfanos a otra PC");
-		misHilos.get(0).ordenarApadrinamiento(paisesHuerfanos);		
+		for(int i = 0; i < misHilos.size();i++)
+		{
+			if(misHilos.get(i).isHiloActivo())
+			{
+				misHilos.get(i).ordenarApadrinamiento(paisesHuerfanos);
+			}
+		}		
 	}
 	
 	public void iniciarBroker()

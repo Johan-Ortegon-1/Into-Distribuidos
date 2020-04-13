@@ -110,15 +110,22 @@ public class AutomataCelular extends Thread {
 					aislamiento = aislamiento+0.24;
 				}
 				
-				double tasa = 0;
-				tasa = (1-aislamiento)*myAgente.getCovid19().getTasaTransmision();
+//				double tasa = 0;
+//				tasa = (1-aislamiento)*myAgente.getCovid19().getTasaTransmision();
 //				System.out.print(myAgente.getCovid19().getTasaTransmision());
 //				System.out.print("MTRANSMISION: ");
 //				System.out.print(tasa);
-				myAgente.getCovid19().setTasaTransmision(tasa);
-				myAgente.getMiPais().setPorcenAislamiento(aislamiento);
+//				myAgente.getCovid19().setTasaTransmision(tasa);
+//				myAgente.getMiPais().setPorcenAislamiento(aislamiento);
 				
 				if(this.variacion == false) {
+					double tasa = 0;
+					tasa = (1-aislamiento)*myAgente.getCovid19().getTasaTransmision();
+//					System.out.print(myAgente.getCovid19().getTasaTransmision());
+//					System.out.print("MTRANSMISION: ");
+//					System.out.print(tasa);
+					myAgente.getCovid19().setTasaTransmision(tasa);
+					myAgente.getMiPais().setPorcenAislamiento(aislamiento);
 					//System.out.print("ENTRO EN EL PAIS ");
 					
 					

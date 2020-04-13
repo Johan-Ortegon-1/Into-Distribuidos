@@ -187,9 +187,9 @@ public class MonitorDeCarga
 						idhuerfanos = Integer.parseInt(is.readLine());
 						for (int j = 0; j < this.agentes.size(); j++)
 						{
-							if(this.agentes.get(i).getMiPais().getId() == idhuerfanos)
+							if(this.agentes.get(j).getMiPais().getId() == idhuerfanos)
 							{
-								System.out.println("huerfano repetido :(");
+								System.out.println("huerfano repetido :(" + idhuerfanos);
 								agregarAgente = false;
 								break;
 							}
@@ -198,7 +198,7 @@ public class MonitorDeCarga
 						{
 							if(this.paises.get(i).getId() == idhuerfanos)
 							{
-								System.out.println("huerfano repetido :(");
+								System.out.println("huerfano repetido :( = " + idhuerfanos);
 								agregarAgente = false;
 								break;
 							}

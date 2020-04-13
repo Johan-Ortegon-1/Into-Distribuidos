@@ -22,7 +22,7 @@ public class AutomataCelular extends Thread {
 //		if(myAgente.getMiPais().getNombre().equals("Colombia")) {
 //			myAgente.getMiPais().setNombre("Polombia");
 //		}
-		esperarTiempo(10);
+		//esperarTiempo(10);
 		while(true) {
 			if(myAgente.getMiPais().isInfectado()) {
 				contagioPais();
@@ -52,9 +52,9 @@ public class AutomataCelular extends Thread {
 	public boolean preguntarConexiones(){
 		boolean decision;
 		String vecino, miNombre;
-		System.out.println("MIRAAAA *************************************************************");
-		System.out.print(myAgente.getMiPais().getNombre());
-		System.out.println(myAgente.getConexionesPais().size());
+//		System.out.println("MIRAAAA *************************************************************");
+//		System.out.print(myAgente.getMiPais().getNombre());
+//		System.out.println(myAgente.getConexionesPais().size());
 		int totalVecinos = myAgente.getConexionesPais().size();
 		long totalPoblacion = 0;
 		long infectados = 0;
@@ -63,20 +63,20 @@ public class AutomataCelular extends Thread {
 		
 		for(int i = 0; i<totalVecinos; i++) {
 			infectados = infectados+myAgente.getConexionesPais().get(i).getInfectados();
-			System.out.println("-------------------------- PUES ENTRO A VECINOS ");
+			//System.out.println("-------------------------- PUES ENTRO A VECINOS ");
 			totalPoblacion = totalPoblacion+myAgente.getConexionesPais().get(i).getPoblacionTotal();
 			// Preguntar al Broker, que nos devuelve informacion del contagio del Vecino cantidad personas contagiadas 
 			// y poblacion de ese vecino 
 		}
 
 		// Condicional para saber si mi pais esta infectado 
-		System.out.println("CANTIDAD DE INFECTADOS EN MIS VECINOS :"+infectados);
-		if(infectados >= (totalPoblacion * 0.001) && totalVecinos >= 1 ) {
+		//System.out.println("CANTIDAD DE INFECTADOS EN MIS VECINOS :"+infectados);
+		if(infectados >= (totalPoblacion * 0.0001) && totalVecinos >= 1 ) {
 			decision = true;
-			System.out.println("TRUE");
+			//System.out.println("TRUE");
 		}else {
 			decision = false;
-			System.out.println("FALSE");
+			//System.out.println("FALSE");
 		}
 		oscilacion = true;
 		
@@ -100,26 +100,28 @@ public class AutomataCelular extends Thread {
 			
 			if(infectados>=(poblacion*0.00001)) {
 				double aislamiento = myAgente.getMiPais().getPorcenAislamiento();
-				if(aislamiento>0.7) {
+				if(aislamiento>0.7 &&  aislamiento<0.8) {
 					aislamiento = aislamiento+0.05;
 				}
 				if(aislamiento>0.5 && aislamiento<0.7) {
-					aislamiento = aislamiento+0.1;
+					aislamiento = aislamiento+0.12;
 				}
 				if(aislamiento>0.2 && aislamiento<0.5) {
-					aislamiento = aislamiento+0.16;
+					aislamiento = aislamiento+0.24;
 				}
+				
+				double tasa = 0;
+				tasa = (1-aislamiento)*myAgente.getCovid19().getTasaTransmision();
+//				System.out.print(myAgente.getCovid19().getTasaTransmision());
+//				System.out.print("MTRANSMISION: ");
+//				System.out.print(tasa);
+				myAgente.getCovid19().setTasaTransmision(tasa);
+				myAgente.getMiPais().setPorcenAislamiento(aislamiento);
 				
 				if(this.variacion == false) {
 					//System.out.print("ENTRO EN EL PAIS ");
 					
-					double tasa = 0;
-					tasa = (1-aislamiento)*myAgente.getCovid19().getTasaTransmision();
-//					System.out.print(myAgente.getCovid19().getTasaTransmision());
-//					System.out.print("MTRANSMISION: ");
-//					System.out.print(tasa);
-					myAgente.getCovid19().setTasaTransmision(tasa);
-					myAgente.getMiPais().setPorcenAislamiento(aislamiento);
+					
 					
 					tasa = 0;
 					tasa = (1-aislamiento)*myAgente.getCovid19().getTasaMortalidadNoVul();
@@ -154,16 +156,20 @@ public class AutomataCelular extends Thread {
 			muertes = muertes + (long)(noVulnerablesIn*myAgente.getCovid19().getTasaMortalidadNoVul()) ;
 			
 			poblacion = poblacion - muertes;
+			infectados = infectados-muertes;
 //			System.out.println("Poblacion Adentro");
 //			System.out.println(poblacion);
 //			System.out.print("Muertes: ");
 //			System.out.println((long)muertes);
 			if(poblacion <= 0 ) {
-				System.out.println("POBLACION EXTERMINADA");
-				System.out.println(myAgente.getMiPais().getNombre());
+//				System.out.println("POBLACION EXTERMINADA");
+//				System.out.println(myAgente.getMiPais().getNombre());
+				poblacion = 0;
+				infectados = 0;
+				
 			}
 			myAgente.getMiPais().setPoblacionTotal(poblacion);
-			infectados = infectados-muertes;
+			
 			myAgente.getMiPais().setInfectados(infectados);			
 		}
 		

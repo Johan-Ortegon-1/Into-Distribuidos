@@ -30,7 +30,7 @@ public class MonitorDeCarga
 	public void iniciarMonitor() throws IOException
 	{
 		/* Elementos de conectividad */
-		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.12");
+		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.23");
 		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;
@@ -116,6 +116,12 @@ public class MonitorDeCarga
 						System.out.println(agentes.get(j).getMiPais().getInfectados());
 						System.out.print("Poblacion : ");
 						System.out.println(agentes.get(j).getMiPais().getPoblacionTotal());
+						System.out.print("Tasa Transmision  : ");
+						System.out.println(agentes.get(j).getCovid19().getTasaTransmision());
+						System.out.print("Tasa Mortalidad  Vulnerable: ");
+						System.out.println(agentes.get(j).getCovid19().getTasaMortalidadVul());
+						System.out.print("Tasa Mortalidad No Vulnerable: ");
+						System.out.println(agentes.get(j).getCovid19().getTasaMortalidadNoVul());
 						System.out.println("-------------------------------------");
 					}
 					System.out.println("-------------------------------------");
@@ -178,18 +184,18 @@ public class MonitorDeCarga
         	}
         }
         
-        System.out.println("PUTAS CONEXIOES ---------->"+conexiones.size());
+        //System.out.println("PUTAS CONEXIOES ---------->"+conexiones.size());
         for(int i = 0; i< conexiones.size();i++ ) { //Recorre conexiones mundiales
         	if(conexiones.get(i).getPaisA().equals(nombre) ) {
-        		System.out.println("PUTA "+myConexion.size());
+        		//System.out.println("PUTA "+myConexion.size());
         		if(myConexion.size() == 0) {
-        			System.out.println("PUERCO ");
+        			//System.out.println("PUERCO ");
         			myConexion.add(conexiones.get(i).getPaisB());
         		}else {
         			boolean esta = false;
         			for(int j = 0; j<myConexion.size();j++) {
             			if(conexiones.get(i).getPaisB().equals(myConexion.get(j)) ) {
-            				System.out.println("JUMMMMM");
+            				//System.out.println("JUMMMMM");
             				esta = true;
             			}
             			
@@ -201,15 +207,15 @@ public class MonitorDeCarga
         		
         	}
         	if( conexiones.get(i).getPaisB().equals(nombre)) {
-        		System.out.println("PUTA 2 "+myConexion.size());
+        		//System.out.println("PUTA 2 "+myConexion.size());
         		if(myConexion.size() == 0) {
-        			System.out.println("PUERCO 2s");
+        			//System.out.println("PUERCO 2s");
         			myConexion.add(conexiones.get(i).getPaisA());
         		}else {
         			boolean esta = false;
         			for(int j = 0; j<myConexion.size();j++) {
             			if(conexiones.get(i).getPaisA().equals(myConexion.get(j))) {
-            				System.out.println("JUMMMMM 2");
+            				//System.out.println("JUMMMMM 2");
             				esta = true;
             			}
             			
@@ -224,12 +230,13 @@ public class MonitorDeCarga
         
         myAgente.setConexiones(myConexion);
         
-        System.out.println("___________________________ONDE ESTA EL ERROR_______________"+myAgente.getConexiones().size());
-        System.out.println("MY PAIS: "+myAgente.getMiPais().getNombre());
+//        System.out.println("___________________________ONDE ESTA EL ERROR_______________"+myAgente.getConexiones().size());
+//        System.out.println("MY PAIS: "+myAgente.getMiPais().getNombre());
         for(int j = 0; j<myAgente.getConexiones().size();j++) {
         	System.out.println(myAgente.getConexiones().get(j));
         }
-        myAgente.setCovid19(covid19);
+        ModeloVirus copiaModeloVirus = new ModeloVirus(covid19.getTasaTransmision(),covid19.getTasaMortalidadVul(),covid19.getTasaMortalidadNoVul());
+        myAgente.setCovid19(copiaModeloVirus);
         
         agentes.add(myAgente);
 	}

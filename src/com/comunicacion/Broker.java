@@ -33,7 +33,7 @@ public class Broker {
 
 	public void actualizarAgentes (){
 		try {
-			Thread.sleep(20000);
+			Thread.sleep(15000);
 		}
 		catch (InterruptedException e){
 			e.printStackTrace();
@@ -48,32 +48,34 @@ public class Broker {
 					
 					if(monitor.getAgentes().get(i).getMiPais().isInfectado() == false) {
 						List<String> conexiones = monitor.getAgentes().get(i).getConexiones();
-						System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbb  MUNDO: "+ copiaMundo.size());
+						//System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbb  MUNDO: "+ copiaMundo.size());
 						conexionesPais = new Vector<Pais>();
-						System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbb  CONEXIONES: "+ conexiones.size());
+						//System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbb  CONEXIONES: "+ conexiones.size());
 						
 						for(int j = 0; j < conexiones.size(); j++ ) { // Conexiones por pais
 							
 							for(int k = 0; k < copiaMundo.size(); k++) { // Copiar info del mundo
 								if(copiaMundo.get(k).getNombre().equals(conexiones.get(j))) {
-									System.out.println("*****************************************POS ENTRA :)");
+									//System.out.println("*****************************************POS ENTRA :)");
 									
 									conexionesPais.add(copiaMundo.get(k));
 								}
 							}
 							monitor.getAgentes().get(i).setConexionesPais(conexionesPais);
-							System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
-							System.out.println("PAIS: "+monitor.getAgentes().get(i).getMiPais().getNombre());
-							System.out.println(conexionesPais.size());
+//							System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
+//							System.out.println("PAIS: "+monitor.getAgentes().get(i).getMiPais().getNombre());
+//							System.out.println(conexionesPais.size());
 							for(int m = 0; m<conexionesPais.size();m++) {
 								System.out.println(conexionesPais.get(m).getNombre());
 							}
-							System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
+							//System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
 							//conexionesPais = null;
 						}
 					}
-					Thread.sleep(24000);
+					
 				}
+				
+				Thread.sleep(10000);
 			} catch (InterruptedException e){
 				e.printStackTrace();
 			}
@@ -85,7 +87,7 @@ public class Broker {
 	public void actualizarMundo ()throws IOException{ 
 
 		/* Elementos de conectividad */
-		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.12");
+		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.23");
 		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;
@@ -123,13 +125,13 @@ public class Broker {
 				response = is.readLine();
 				if (response.equals("actualizarMundo")) //Mundo del balanceador
 				{
-					System.out.println("Llego la hora de actualizar");
+					//System.out.println("Llego la hora de actualizar");
 					os.println(monitor.getAgentes().size());
 					os.flush();
-					System.out.println("*************************************************************** "+ monitor.getAgentes().size() );
+					//System.out.println("*************************************************************** "+ monitor.getAgentes().size() );
 					for (int i = 0; i <  monitor.getAgentes().size(); i++)
 					{
-						System.out.println("*************************************************************** ENTRAAAAAAAA A ACTUALIZAR");
+						//System.out.println("*************************************************************** ENTRAAAAAAAA A ACTUALIZAR");
 						os.println(monitor.getAgentes().get(i).getMiPais().getPoblacionTotal());
 						os.flush();
 						os.println(monitor.getAgentes().get(i).getMiPais().getNombre());
@@ -140,7 +142,7 @@ public class Broker {
 					
 					response = "";
 				}
-				System.out.println("************SALIO DE ACTUALIZAR************");
+				//System.out.println("************SALIO DE ACTUALIZAR************");
 				
 				response = is.readLine();
 				
@@ -149,11 +151,11 @@ public class Broker {
 					line = is.readLine();
 					
 					retorno = Long.parseLong(line);
-					System.out.println("*************************************************************** "+retorno );
+					//System.out.println("*************************************************************** "+retorno );
 					
 					for(int i = 0;i<retorno ; i++) {
 						
-						System.out.println("*************************************************************** ENTRAAAAAAAA A COPIA");
+						//System.out.println("*************************************************************** ENTRAAAAAAAA A COPIA");
 						Pais nuevo = new Pais();
 						
 						line = is.readLine();
@@ -168,7 +170,7 @@ public class Broker {
 					}
 					//copiaMundo = null;
 					copiaMundo = copia;
-					System.out.println("*******************VALORRRRRR DE CAOPIA MUNDO :"+copiaMundo.size());
+					//System.out.println("*******************VALORRRRRR DE CAOPIA MUNDO :"+copiaMundo.size());
 					response = "";
 				}
 			}

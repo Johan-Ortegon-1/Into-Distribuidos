@@ -189,16 +189,16 @@ public class MonitorDeCarga
 						{
 							if(this.agentes.get(j).getMiPais().getId() == idhuerfanos)
 							{
-								System.out.println("huerfano repetido :(" + idhuerfanos);
+								System.out.println("huerfano repetido :(asdsdhf =" + idhuerfanos);
 								agregarAgente = false;
 								break;
 							}
 						}
 						for (int j = 0; j < this.paises.size(); j++)
 						{
-							if(this.paises.get(i).getId() == idhuerfanos)
+							if(this.paises.get(j).getId() == idhuerfanos)
 							{
-								System.out.println("huerfano repetido :( = " + idhuerfanos);
+								System.out.println("huerfano repetido :(asdfasdf = " + idhuerfanos);
 								agregarAgente = false;
 								break;
 							}

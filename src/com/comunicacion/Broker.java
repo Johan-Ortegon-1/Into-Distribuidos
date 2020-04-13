@@ -87,7 +87,7 @@ public class Broker {
 	public void actualizarMundo ()throws IOException{ 
 
 		/* Elementos de conectividad */
-		InetAddress direccionBalanceador = InetAddress.getByName("192.168.0.23");
+		InetAddress direccionBalanceador = InetAddress.getByName("192.168.1.63");
 		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;

@@ -194,6 +194,15 @@ public class MonitorDeCarga
 								break;
 							}
 						}
+						for (int j = 0; j < this.paises.size(); j++)
+						{
+							if(this.paises.get(i).getId() == idhuerfanos)
+							{
+								System.out.println("huerfano repetido :(");
+								agregarAgente = false;
+								break;
+							}
+						}
 						if(agregarAgente)
 							this.asignarPais(idhuerfanos);
 						agregarAgente = true;

@@ -180,7 +180,7 @@ public class MonitorDeCarga
 					nuevoAgente.setMiPais(todosLosPaises.get(paisNuevoAutomata));
 					//Agregar el agente a la lista del Monitor
 					this.agentes.add(nuevoAgente);
-					AutomataCelular nuevoAutomataC = new AutomataCelular(this.agentes.get(this.agentes.size()));
+					AutomataCelular nuevoAutomataC = new AutomataCelular(this.agentes.get(this.agentes.size()-1));
 					this.misHilos.add(nuevoAutomataC);
 					nuevoAutomataC.start();
 				}

@@ -180,6 +180,9 @@ public class MonitorDeCarga
 					nuevoAgente.setMiPais(todosLosPaises.get(paisNuevoAutomata));
 					//Agregar el agente a la lista del Monitor
 					this.agentes.add(nuevoAgente);
+					AutomataCelular nuevoAutomataC = new AutomataCelular(this.agentes.get(this.agentes.size()));
+					this.misHilos.add(nuevoAutomataC);
+					nuevoAutomataC.start();
 				}
 				if (response.equals("apadrinar"))
 				{
@@ -308,9 +311,9 @@ public class MonitorDeCarga
         
 //        System.out.println("___________________________ONDE ESTA EL ERROR_______________"+myAgente.getConexiones().size());
 //        System.out.println("MY PAIS: "+myAgente.getMiPais().getNombre());
-        for(int j = 0; j<myAgente.getConexiones().size();j++) {
-        	System.out.println(myAgente.getConexiones().get(j));
-        }
+//        for(int j = 0; j<myAgente.getConexiones().size();j++) {
+//        	System.out.println(myAgente.getConexiones().get(j));
+//        }
         ModeloVirus copiaModeloVirus = new ModeloVirus(covid19.getTasaTransmision(),covid19.getTasaMortalidadVul(),covid19.getTasaMortalidadNoVul());
         myAgente.setCovid19(copiaModeloVirus);
         

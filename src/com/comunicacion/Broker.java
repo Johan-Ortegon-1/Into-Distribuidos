@@ -65,9 +65,9 @@ public class Broker {
 //							System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
 //							System.out.println("PAIS: "+monitor.getAgentes().get(i).getMiPais().getNombre());
 //							System.out.println(conexionesPais.size());
-							for(int m = 0; m<conexionesPais.size();m++) {
-								System.out.println(conexionesPais.get(m).getNombre());
-							}
+//							for(int m = 0; m<conexionesPais.size();m++) {
+//								System.out.println(conexionesPais.get(m).getNombre());
+//							}
 							//System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
 							//conexionesPais = null;
 						}

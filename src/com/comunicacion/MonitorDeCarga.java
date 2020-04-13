@@ -139,7 +139,7 @@ public class MonitorDeCarga
 						os.println(aActual.getConexiones().get(i).getMedioTransporte());
 						os.flush();
 					}
-					agentes.remove(0);// Remover el agente el pais enviado
+					this.agentes.remove(0);// Remover el agente el pais enviado
 				}
 				if (response.equals("agregar agente"))
 				{
@@ -171,20 +171,21 @@ public class MonitorDeCarga
 					nuevoAgente.setCovid19(covid19);
 					nuevoAgente.setMiPais(todosLosPaises.get(paisNuevoAutomata));
 					//Agregar el agente a la lista del Monitor
-					agentes.add(nuevoAgente);
+					this.agentes.add(nuevoAgente);
 				}
 				if (response.equals("apadrinar"))
 				{
 					int numHuerfanos = 0, idhuerfanos = 0, inxNuevoPais;
 					numHuerfanos = Integer.parseInt(is.readLine());
-					Agente nuevoAgente = new Agente();
 					List<ConexionPaises> conexionNuevoP = new ArrayList<ConexionPaises>();
 					Pais pAux = new Pais();
 					System.out.println("Numero de huerfanos para recibir: " + numHuerfanos);
 					for (int i = 0; i < numHuerfanos; i++)
 					{
+						Agente nuevoAgente = new Agente();
 						idhuerfanos = Integer.parseInt(is.readLine());
-						inxNuevoPais = Pais.buscarPais(paises, idhuerfanos);
+						this.asignarPais(idhuerfanos);
+						/*inxNuevoPais = Pais.buscarPais(todosLosPaises, idhuerfanos);
 						pAux = this.todosLosPaises.get(inxNuevoPais);
 						for(int j = 0; j < this.conexiones.size(); j++)
 						{
@@ -197,7 +198,7 @@ public class MonitorDeCarga
 						nuevoAgente.setCovid19(covid19);
 						nuevoAgente.setConexiones(conexionNuevoP);
 						this.agentes.add(nuevoAgente);
-						System.out.println("Se apadrino el Agente: " + nuevoAgente.toString());
+						System.out.println("Se apadrino el Agente: " + nuevoAgente.toString());*/
 					}
 					
 				}

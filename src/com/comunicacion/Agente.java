@@ -57,9 +57,8 @@ public class Agente {
 	public synchronized void setConexionesPais(List<Pais> conexionesPais) {
 		this.conexionesPais = conexionesPais;
 	}
-	
-	
-	
-	
-
+	@Override
+	public String toString() {
+		return "Agente [miPais=" + miPais.getNombre() + " la pobalcion: "+ miPais.getPoblacionTotal() +"]";
+	}
 }

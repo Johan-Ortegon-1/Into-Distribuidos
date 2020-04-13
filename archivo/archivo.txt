@@ -12,25 +12,25 @@ Infectado
 1
 Peru
 No infectado
-309600000
+30000000
 0.35455
 0.35221
 2
 Ecuador
 No infectado
-209600000
+20000000
 0.25455
 0.25221
 3
 Bolivia
 No infectado
-109600000
+10000000
 0.15455
 0.15221
 4
 Estados Unidos
 Infectado
-40005600
+40000000
 0.6614
 0.8898
 *CONEXION-PAIS-PAIS*

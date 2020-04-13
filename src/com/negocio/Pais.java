@@ -139,7 +139,36 @@ public class Pais
 			e.printStackTrace();
 		}
 	}
-
+	
+	public static int buscarPais(List<Pais> paises, int id)
+	{
+		int indicePaisAct=0;
+		for (int i = 0; i < paises.size(); i++)//Buscar el pais con ese id y crear un agente con el
+		{
+			if(paises.get(i).getId() == id)
+			{
+				indicePaisAct = i;
+				return indicePaisAct;
+				//Agente nuevoAgente = new Agente(paises.get(i),paises.get(i).);
+			}
+		}
+		System.out.println("En la funcion del Pais se encontro: " + paises.get(indicePaisAct).toString());
+		return indicePaisAct;
+	}
+	public static Pais buscarPaisPorNombre(List<Pais> paises, String id)
+	{
+		int indicePaisAct=0;
+		for (int i = 0; i < paises.size(); i++)//Buscar el pais con ese id y crear un agente con el
+		{
+			if(paises.get(i).getNombre().equals(id))
+			{
+				indicePaisAct = i;
+				//Agente nuevoAgente = new Agente(paises.get(i),paises.get(i).);
+			}
+		}
+		return paises.get(indicePaisAct);
+	}
+	
 	@Override
 	public String toString()
 	{

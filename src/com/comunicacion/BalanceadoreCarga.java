@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import com.negocio.ModeloVirus;
 import com.negocio.Pais;
 
 public class BalanceadoreCarga
@@ -26,16 +27,17 @@ public class BalanceadoreCarga
 	private List<hiloBroker> misBroker = new ArrayList<hiloBroker>(); // Hilos Broker
 	private List<Pais> mundo =  new Vector<Pais>();
 	private boolean entro = false;
-	
-	
-	public void inciarBalanceador(List<Pais> pPaises, int numMaquinas)
+	private List<Pais> todosLosPaises = new ArrayList<Pais>();
+	private ModeloVirus covid19 = new ModeloVirus();
+	public void inciarBalanceador(List<Pais> pPaises, int numMaquinas, ModeloVirus pCovid19)
 	{
 		int numMaqActual = 0;
 		Socket s = null;
 		ServerSocket ss2 = null;
 		System.out.println("Server Listening......");
 		numMaquinasSistema = numMaquinas;
-		
+		this.todosLosPaises = pPaises;
+		this.covid19 = pCovid19;
 		try
 		{
 			//Apertura del servidor
@@ -62,6 +64,8 @@ public class BalanceadoreCarga
 				break;
 			}
 			randomInt = random.nextInt(numPaises);
+			if(randomInt == 0)
+				randomInt = 1;
 			paisesXMaqu.add(randomInt);
 			aux = aux - randomInt;	
 		}
@@ -74,7 +78,6 @@ public class BalanceadoreCarga
 				if(paisesRandom[i] == paisesRandom[j])
 				{
 					i--;
-					System.out.println("MM: " + paisesRandom[i]);
 				}
 			}
 		}
@@ -113,76 +116,137 @@ public class BalanceadoreCarga
 		}
 		/*Empezar a analizar carga de ahora en adelante*/
 		this.analizarCarga();
-		
-		/*while (true)
-		{
-			try
-			{
-				s = ss2.accept();
-				System.out.println("connection Established");
-				hiloBalanceador st = new hiloBalanceador(s, pPaises, numMaquinas);
-				st.start();
-				contMaquinas++;
-			}
-
-			catch (Exception e)
-			{
-				e.printStackTrace();
-				System.out.println("Connection Error");
-			}
-		}*/
-
 	}
 
 	public void analizarCarga()
 	{
-		long sumTotal = 0;
-		float promedio = 0;
+		double sumTotal = 0, poblacionAct = 0;
+		double promedio = 0, porcentajeCagaAct = 0;
+		boolean notificacion = true;
 		/* Solicitar el reporte de los monitores de forma permanente */
-		while (true)
+		while (this.numMaquinasSistema > 0)
 		{
+			System.out.println("CANTIDAD DE MAQUINAS EN EL SISTEMA: " + this.numMaquinasSistema);
 			try
 			{
+				//Parte del informe
 				Thread.sleep(5000);
 				for (int i = 0; i < misHilos.size(); i++)//Actualiza los valores de carga en cada hilo
 				{
-					if(misHilos.get(i).datInformePeridodico() == false)
+					if(misHilos.get(i).darInformePeriodico() == false)//Hilo desconectado
 					{
 						System.out.println("Cliente desconectado - Matando su hilo");
-						this.arreglarDesconexion();
+						this.arreglarDesconexion(misHilos.get(i));
 						misHilos.get(i).matarConexiones();
 						misHilos.remove(i);
+						this.numMaquinasSistema = this.numMaquinasSistema-1; 
 						if(misHilos.size() == 0)
 						{
 							System.out.println("Ya no hay maquinas en el sistema");
 							break;
 						}
 					}
+					else if(numMaquinasSistema == 1)
+					{
+						System.out.println("Unica maquina corriendo");
+						System.out.println("Info: " + misHilos.get(i).toString());
+						System.out.print(" Manejando un porcentaje de: ");
+						System.out.printf("%.3f", 100.000);
+						System.out.println(" %");
+					}
 				}
-				for (int i = 0; i < misHilos.size(); i++)
+				//Parte de analisis de carga
+				if(this.numMaquinasSistema > 1)
 				{
-					sumTotal =+ misHilos.get(i).getCargaDeMaquina();
+					for (int i = 0; i < misHilos.size(); i++)
+					{
+						sumTotal = sumTotal + misHilos.get(i).getCargaDeMaquina();
+					}
+					promedio = sumTotal/numMaquinasSistema;
+					System.out.println("Promedio de las poblaciones manejadas por cada maquina: " + promedio);
+					Collections.sort(misHilos, new comparadorCargasHilos());
+					System.out.println("PCs y sus cargas depues de ordenamiento");
+					for (int i = 0; i < misHilos.size(); i++)
+					{
+						/*Calculo del procentaje de participacion en el manejo de poblacion por hilo*/
+						porcentajeCagaAct = (misHilos.get(i).getCargaDeMaquina()*100)/sumTotal;
+						misHilos.get(i).setPorcetajeCarga(porcentajeCagaAct);
+						System.out.println(misHilos.get(i).toString());
+					}
+					//Comparaciones entre el mas cargado y el menos cargado despues del ordenamiento 
+					int indexFin = 0;
+					double aux1 = 0, aux2 = 0;
+					for (int i = 0; i < misHilos.size()/2; i++) 
+					{
+						indexFin = misHilos.size()-1-i;
+						aux1 = misHilos.get(i).getPorcetajeCarga();
+						aux2 = misHilos.get(indexFin).getPorcetajeCarga();
+						aux1 = aux1-20;//Supera en 20% 
+						//System.out.println("Aux1: " + aux1 + " Aux2: " + aux2);
+						if(aux1 >= aux2)
+						{
+							System.out.println("Se ha encontrado un desbalance entre!!");
+							System.out.println("Sobre cargado: " + misHilos.get(i).toString());
+							System.out.print(" Manejando un porcentaje de: ");
+							System.out.printf("%.3f", misHilos.get(i).getPorcetajeCarga());
+							System.out.println(" %");
+							System.out.println("Ocioso: " + misHilos.get(indexFin).toString());
+							System.out.print(" Manejando un porcentaje de: ");
+							System.out.printf("%.3f", misHilos.get(indexFin).getPorcetajeCarga());
+							System.out.println(" %");
+							//Llamado para arreglar el desbalance:
+							Agente agenteSustraido = new Agente();
+							System.out.println("EJECUTANDO BALANCEO");
+							if(misHilos.get(i).isHiloActivo())
+							{
+								agenteSustraido = misHilos.get(i).ordenarSustraccionAgente(this.todosLosPaises, this.covid19);//Sustraer agente del hilo
+								misHilos.get(indexFin).ordenarAdicionAgente(agenteSustraido);//Adicionar el agente sustraido a otra maquina
+								System.out.println("FIN DEL BALANCEO");
+							}
+							else
+							{
+								System.out.println("HILO INACTIVO, BALANCEO CANCELADO");
+							}
+						}
+						else
+						{
+							System.out.println("El Sistema esta balanceado: ");
+							System.out.println("PC " + i + ": " + misHilos.get(i).toString());
+							System.out.print(" Manejando un porcentaje de: ");
+							System.out.printf("%.3f", misHilos.get(i).getPorcetajeCarga());
+							System.out.println(" %");
+							System.out.println("PC " + indexFin + ": " + misHilos.get(indexFin).toString());
+							System.out.print(" Manejando un porcentaje de: ");
+							System.out.printf("%.3f", misHilos.get(indexFin).getPorcetajeCarga());
+							System.out.println(" %");
+						}
+							
+					}
+					aux1 = 0;
+					aux2 = 0;
+					sumTotal = 0;
 				}
-				promedio = sumTotal/numMaquinasSistema;
-				System.out.println("Promedio de las poblaciones manejadas por cada maquina: " + promedio);
-				Collections.sort(misHilos, new comparadorCargasHilos());
-				System.out.println("Hilos y sus cargas depues de ordenamiento");
-				for (int i = 0; i < misHilos.size(); i++)
+				else if(this.numMaquinasSistema == 1 && notificacion)
 				{
-					System.out.println(misHilos.get(i).toString());
+					System.out.println("Solo existe una maquina en el sistema -> Deteniendo balanceador!!!");
+					notificacion = false;
 				}
-				sumTotal = 0;
 				
 			} catch (InterruptedException e)
 			{
 				e.printStackTrace();
 			}
 		}
+		System.out.println("NO HAY MAQUINAS CONECTADAS, TERMINANDO PROGRAMA...");
 	}
-	
-	public void arreglarDesconexion()
+
+	public void arreglarDesconexion(hiloBalanceador hiloDesconectado)
 	{
-		
+		List<Integer> paisesHuerfanos = hiloDesconectado.getPaises();
+		System.out.println("Estos son los id de los paises que quedaron huerfanos: ");
+		System.out.println(paisesHuerfanos.toString());
+		System.out.println("Enviardo huerfanos a otra PC");
+		misHilos.get(0).ordenarApadrinamiento(paisesHuerfanos);		
 	}
 	
 	public void iniciarBroker()
@@ -249,7 +313,7 @@ public class BalanceadoreCarga
 					if(misBroker.get(i).recibirPaises(mundo) == false)
 					{
 						System.out.println("Cliente desconectado - Matando su hilo");
-						this.arreglarDesconexion();
+						//this.arreglarDesconexion();
 						misBroker.get(i).matarConexiones();
 						misBroker.remove(i);
 						if(misBroker.size() == 0)
@@ -289,6 +353,20 @@ public class BalanceadoreCarga
 			}
 		}
 	}
-	
+	public List<Pais> getTodosLosPaises() {
+		return todosLosPaises;
+	}
+
+	public void setTodosLosPaises(List<Pais> todosLosPaises) {
+		this.todosLosPaises = todosLosPaises;
+	}
+
+	public ModeloVirus getCovid19() {
+		return covid19;
+	}
+
+	public void setCovid19(ModeloVirus covid19) {
+		this.covid19 = covid19;
+	}
 	
 }

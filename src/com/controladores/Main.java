@@ -106,7 +106,7 @@ public class Main
 				" 1. Agente -- 2. Balanceador");
 		tipoDeInicio = reader.nextInt();
 		
-		monitor.setPaises(monitor.getPaises()); 
+		monitor.setTodosLosPaises(monitor.getPaises()); 
 		
 		if(tipoDeInicio == 1)//Inicio como Agente
 		{
@@ -172,7 +172,7 @@ public class Main
 					int numMaquinas = 0;  
 					numMaquinas = reader.nextInt();
 
-					bc.inciarBalanceador(monitor.getPaises(), numMaquinas);
+					bc.inciarBalanceador(monitor.getPaises(), numMaquinas, monitor.getCovid19());
 					
 				}
 			});
@@ -188,7 +188,6 @@ public class Main
 				}
 			});
 			balanceadorBroker.start();
-			
 		}
 		
 	}

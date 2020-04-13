@@ -148,6 +148,14 @@ public class hiloBalanceador extends Thread {
 				os.println("sustraer agente");
 				os.flush();
 				idNuevoPais = Integer.parseInt(is.readLine());
+				for (int i = 0; i < paises.size(); i++)
+				{
+					if(paises.get(i) == idNuevoPais)
+					{
+						paises.remove(i);
+						break;
+					}
+				}
 				System.out.println("Trasladando agente con id: " + idNuevoPais);
 				cantVecinos = Integer.parseInt(is.readLine());
 				System.out.println("Conexiones del agente: " + cantVecinos);
@@ -184,6 +192,7 @@ public class hiloBalanceador extends Thread {
 		Pais tempP = aActual.getMiPais();
 		if(is != null)
 		{
+			this.paises.add(aActual.getMiPais().getId());
 			os.println("agregar agente");
 			os.flush();
 			os.println(tempP.getId());//Enviar id del pais

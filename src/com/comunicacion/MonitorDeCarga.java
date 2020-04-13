@@ -139,7 +139,7 @@ public class MonitorDeCarga
 						os.println(aActual.getConexiones().get(i).getMedioTransporte());
 						os.flush();
 					}
-					this.agentes.remove(0);// Remover el agente el pais enviado
+					this.agentes.remove(0);// Remover el agente el pais enviado !!!BOOMMM
 				}
 				if (response.equals("agregar agente"))
 				{

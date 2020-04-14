@@ -118,7 +118,6 @@ public class ManejadorDeArchivo
             	    
 	            }
 	            if(exitoDi && (cadena.equals("*DIRECCION*")==false) ) {
-	            	System.out.println("ENTRO AL IFFFFFF");
 	            	direccion = cadena;
 	            }
 	           

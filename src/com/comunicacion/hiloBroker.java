@@ -64,7 +64,7 @@ public class hiloBroker extends Thread{
 			{
 				os.println("actualizarMundo");
 				os.flush();
-				System.out.println("Enviando peticion de actualizacion");
+				System.out.println("**BROKER: Enviando peticion de actualizacion");
 				line = is.readLine();
 				
 				retorno = Long.parseLong(line);
@@ -76,13 +76,13 @@ public class hiloBroker extends Thread{
 					
 					line = is.readLine();
 					nuevo.setPoblacionTotal(Long.parseLong(line));
-					System.out.println(nuevo.getPoblacionTotal());
+					System.out.println("Población actualizada: " + nuevo.getPoblacionTotal());
 					line = is.readLine();
 					nuevo.setNombre(line);;
-					System.out.println(nuevo.getNombre());
+					System.out.println("Nombre del país: " + nuevo.getNombre());
 					line = is.readLine();
 					nuevo.setInfectados(Long.parseLong(line));
-					System.out.println(nuevo.getInfectados());
+					System.out.println("Número de infectados: " + nuevo.getInfectados());
 					
 					paisesLocales.add(nuevo);
 					nuevo = null;
@@ -103,7 +103,7 @@ public class hiloBroker extends Thread{
 				
 			}
 		} catch (IOException e) {
-			System.out.println("CLIENTE DESCONECTADO ABRUPTAMENTE (BROKER) - SE A ABIERTO CAMPO PARA UNO NUEVO");
+			System.out.println("CLIENTE DESCONECTADO ABRUPTAMENTE del BROKER)");
 			respuesta = false;
 		}
 		return respuesta;

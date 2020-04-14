@@ -152,9 +152,9 @@ public class BalanceadoreCarga
 						sumTotal = sumTotal + misHilos.get(i).getCargaDeMaquina();
 					}
 					promedio = sumTotal/numMaquinasSistema;
-					System.out.println("Promedio de las poblaciones manejadas por cada maquina: " + promedio);
+					System.out.println("	*Balanceador: Promedio de las poblaciones manejadas por cada máquina: " + promedio);
 					Collections.sort(misHilos, new comparadorCargasHilos());
-					System.out.println("PCs y sus cargas depues de ordenamiento");
+					System.out.println("	*Balanceador: PCs y su carga por orden descendente:");
 					for (int i = 0; i < misHilos.size(); i++)
 					{
 						/*Calculo del procentaje de participacion en el manejo de poblacion por hilo*/
@@ -174,7 +174,9 @@ public class BalanceadoreCarga
 						//System.out.println("Aux1: " + aux1 + " Aux2: " + aux2);
 						if(aux1 >= aux2)
 						{
-							System.out.println("Se ha encontrado un desbalance entre!!");
+							System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+							System.out.println("*Balanceador: Se ha encontrado un desbalance entre: ");
+							System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 							System.out.println("Sobre cargado: " + misHilos.get(i).toString());
 							System.out.print(" Manejando un porcentaje de: ");
 							System.out.printf("%.3f", misHilos.get(i).getPorcetajeCarga());
@@ -185,7 +187,7 @@ public class BalanceadoreCarga
 							System.out.println(" %");
 							//Llamado para arreglar el desbalance:
 							Agente agenteSustraido = new Agente();
-							System.out.println("EJECUTANDO BALANCEO");
+							System.out.println("**Balanceador: EJECUTANDO BALANCEO");
 							if(misHilos.get(i).isHiloActivo())
 							{
 								agenteSustraido = misHilos.get(i).ordenarSustraccionAgente(this.todosLosPaises, this.covid19);//Sustraer agente del hilo

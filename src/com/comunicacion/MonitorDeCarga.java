@@ -180,7 +180,7 @@ public class MonitorDeCarga
 					nuevoAgente.setMiPais(todosLosPaises.get(paisNuevoAutomata));
 					//Agregar el agente a la lista del Monitor
 					this.agentes.add(nuevoAgente);
-					AutomataCelular nuevoAutomataC = new AutomataCelular(this.agentes.get(this.agentes.size()));
+					AutomataCelular nuevoAutomataC = new AutomataCelular(this.agentes.get(this.agentes.size()-1));
 					this.misHilos.add(nuevoAutomataC);
 					nuevoAutomataC.start();
 				}
@@ -240,7 +240,7 @@ public class MonitorDeCarga
         }
 			//Hilos por cada uno de los agentes
 			for(int k = 0; k < agentes.size(); k++) {
-				System.out.println("TAMAÑO DE AGENTES "+ agentes.size());
+				System.out.println("TAMAï¿½O DE AGENTES "+ agentes.size());
 				AutomataCelular st = new AutomataCelular(agentes.get(k));
 				misHilos.add(st);
 				st.start();

@@ -12,7 +12,7 @@ import com.negocio.Pais;
 
 public class ManejadorDeArchivo
 {
-	public static void leerArchivo(String archivo, MonitorDeCarga monitor, String direccion )
+	public static String leerArchivo(String archivo, MonitorDeCarga monitor, String direccion )
 	{
 		try
 		{
@@ -118,6 +118,7 @@ public class ManejadorDeArchivo
             	    
 	            }
 	            if(exitoDi && (cadena.equals("*DIRECCION*")==false) ) {
+	            	System.out.println("ENTRO AL IFFFFFF");
 	            	direccion = cadena;
 	            }
 	           
@@ -127,12 +128,12 @@ public class ManejadorDeArchivo
 	        monitor.setPaises(misPaises);
 	        monitor.setConexiones(conexiones);
 	        monitor.setCovid19(covid19);
-	        
 	        b.close();
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
+		return direccion;
 	}
 }

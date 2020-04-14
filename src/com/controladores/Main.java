@@ -9,14 +9,14 @@ public class Main
 	private static MonitorDeCarga monitor = new MonitorDeCarga();
 	private static BalanceadoreCarga bc = new BalanceadoreCarga(); 
 	private static Broker bre = new Broker(); 
-	private static String direccion ;
-
+	private static String direccion;
 	
 	public static void main(String[] args)
 	{
 		Scanner reader = new Scanner(System.in);
 		int tipoDeInicio = 0;
-		ManejadorDeArchivo.leerArchivo("archivo/archivo.txt", monitor, direccion);
+		direccion = ManejadorDeArchivo.leerArchivo("archivo/archivo.txt", monitor, direccion);
+		System.out.println("La direccion es: " + direccion);
 		System.out.println("Como desea iniciar esta maquina: " + 
 				" 1. Agente -- 2. Balanceador");
 		tipoDeInicio = reader.nextInt();

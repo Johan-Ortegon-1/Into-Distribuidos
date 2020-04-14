@@ -81,22 +81,22 @@ public class MonitorDeCarga
 					{
 						asignarPais(idPaises.get(i));
 					}
-					System.out.println("Mis paises por id son: " + idPaises.toString());
+					System.out.println("**Monitor: Mis paises por id son: " + idPaises.toString());
 					for (int i = 0; i < agentes.size(); i++)
 					{
-						System.out.println("Mis paises son: " + agentes.get(i).getMiPais().getNombre());
+						System.out.println("	Mis paises son: " + agentes.get(i).getMiPais().getNombre());
 					}
 					llamadaHilos();
 
 				}
 				if (response.equals("informar"))
 				{
-					System.out.println("Llego la hora de informar");
+					System.out.println("**Monitor: Hora de informar");
 					for (int i = 0; i < agentes.size(); i++)
 					{
 						totalpoblacion = totalpoblacion + agentes.get(i).getMiPais().getPoblacionTotal();
 					}
-					System.out.println("Poblacion total: " + totalpoblacion);
+					System.out.println("Poblacion total que estoy manejando: " + totalpoblacion);
 					System.out.println("***********************************************");
 					for(int j = 0; j<agentes.size();j++) {
 						System.out.print("PAIS: ");
@@ -129,7 +129,8 @@ public class MonitorDeCarga
 					Collections.sort(agentes, new comparadorAgentes());// Ordenar a los agentes por la poblacion total															// de su pais
 					aActual = agentes.get(0);
 					tempP = aActual.getMiPais();// Extraer el pais con la menor poblacion
-					System.out.println("Pais a sustraer: " + tempP);
+					System.out.println("**Monitor: Eliminando un agente de mi lista:");
+					System.out.println("	Pais a sustraer: " + tempP);
 					os.println(tempP.getId());// Enviar el id del pais
 					os.flush();
 					os.println(aActual.getConexiones().size());//Enviar numero de coneciones del pais
@@ -153,7 +154,8 @@ public class MonitorDeCarga
 					List<Integer> idVecinos = new ArrayList<Integer>();
 					List<String> paisesVecinos = new ArrayList<String>();
 					idNuevoPais = Integer.parseInt(is.readLine());
-					System.out.println("Llego el Agente con id: " + idNuevoPais);
+					System.out.println("**Monitor: Llego Recibiendo al Agente con id: " + idNuevoPais);
+					System.out.println();
 					cantVecinos = Integer.parseInt(is.readLine());
 					paisNuevoAutomata = Pais.buscarPais(todosLosPaises, idNuevoPais);//Buscar pais del cual me dieron el id
 					for (int i = 0; i < cantVecinos; i++)//Armando las conexiones del nuevo agente.
@@ -182,7 +184,10 @@ public class MonitorDeCarga
 					List<ConexionPaises> conexionNuevoP = new ArrayList<ConexionPaises>();
 					Pais pAux = new Pais();
 					boolean agregarAgente = true;
+					System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+					System.out.println("Monitor: Una máquina ha dejado de funcionar: ");
 					System.out.println("Numero de huerfanos para recibir: " + numHuerfanos);
+					System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 					for (int i = 0; i < numHuerfanos; i++)
 					{
 						Agente nuevoAgente = new Agente();
@@ -191,7 +196,6 @@ public class MonitorDeCarga
 						{
 							if(this.agentes.get(j).getMiPais().getId() == idhuerfanos)
 							{
-								System.out.println("huerfano repetido :(asdsdhf =" + idhuerfanos);
 								agregarAgente = false;
 								break;
 							}
@@ -223,14 +227,14 @@ public class MonitorDeCarga
 	{
 			//Hilos por cada uno de los agentes
 			for(int k = 0; k < agentes.size(); k++) {
-				System.out.println("TAMAÑO DE AGENTES "+ agentes.size());
+				System.out.println("CREANDO HILO POR EL AGENTE "+ agentes.get(k).getMiPais().getNombre());
 				AutomataCelular st = new AutomataCelular(agentes.get(k));
 				misHilos.add(st);
 				st.start();
 				//st = null;
 			}
 			
-			System.out.println("Salio del hilo-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
+			System.out.println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-");
 	}
 
 	public void asignarPais(int id)

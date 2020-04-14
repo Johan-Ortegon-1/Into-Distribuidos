@@ -7,8 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
-import com.comunicacion.Agente;
 import com.comunicacion.MonitorDeCarga;
+import com.negocio.Agente;
 import com.negocio.ConexionPaises;
 import com.negocio.ModeloVirus;
 import com.negocio.Pais;

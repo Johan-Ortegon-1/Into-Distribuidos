@@ -2,6 +2,8 @@ package com.comunicacion;
 
 import java.util.Comparator;
 
+import com.negocio.Agente;
+
 public class comparadorAgentes implements Comparator<Agente>
 {
 

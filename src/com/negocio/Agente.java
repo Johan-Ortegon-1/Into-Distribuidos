@@ -1,11 +1,7 @@
-package com.comunicacion;
+package com.negocio;
 
 import java.util.List;
 import java.util.Vector;
-
-import com.negocio.ConexionPaises;
-import com.negocio.ModeloVirus;
-import com.negocio.Pais;
 
 public class Agente {
 	

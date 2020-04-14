@@ -8,6 +8,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.negocio.Agente;
 import com.negocio.ConexionPaises;
 import com.negocio.ModeloVirus;
 import com.negocio.Pais;

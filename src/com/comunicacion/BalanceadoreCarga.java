@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import com.negocio.Agente;
 import com.negocio.ModeloVirus;
 import com.negocio.Pais;
 

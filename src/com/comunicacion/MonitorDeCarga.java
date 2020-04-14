@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
+import com.negocio.Agente;
+import com.negocio.AutomataCelular;
 import com.negocio.ConexionPaises;
 import com.negocio.ModeloVirus;
 import com.negocio.Pais;

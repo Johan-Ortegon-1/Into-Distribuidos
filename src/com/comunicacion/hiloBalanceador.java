@@ -84,7 +84,7 @@ public class hiloBalanceador extends Thread {
 			if (is != null) {
 				os.println("informar");
 				os.flush();
-				System.out.println("Enviando peticion de informe");
+				System.out.println("**Balanceador: Enviando peticion de informe");
 				line = is.readLine();
 				if(line != null)
 				{
@@ -133,7 +133,7 @@ public class hiloBalanceador extends Thread {
 		{
 			if(is != null)
 			{
-				System.out.println("Enviando peticion de sustraccion de agente");
+				System.out.println("**Balanceador: Enviando peticion de sustraccion de agente");
 				os.println("sustraer agente");
 				os.flush();
 				idNuevoPais = Integer.parseInt(is.readLine());
@@ -145,11 +145,10 @@ public class hiloBalanceador extends Thread {
 						break;
 					}
 				}
-				System.out.println("Trasladando agente con id: " + idNuevoPais);
+				System.out.println("	Trasladando agente con id: " + idNuevoPais);
 				cantVecinos = Integer.parseInt(is.readLine());
-				System.out.println("Conexiones del agente: " + cantVecinos);
+				System.out.println("	Conexiones del agente: " + cantVecinos);
 				paisNuevoAutomata = Pais.buscarPais(todosLosPaises, idNuevoPais);//Buscar pais del cual me dieron el id
-				System.out.println("****PAIS ENCONTRADO******");
 				todosLosPaises.get(paisNuevoAutomata).toString();
 				for (int i = 0; i < cantVecinos; i++)//Armando las conexiones del nuevo agente.
 				{
@@ -195,7 +194,7 @@ public class hiloBalanceador extends Thread {
 				os.println(" ");
 				os.flush();
 			}
-			System.out.println("Enviando peticion para adicionar un agente");
+			System.out.println("	Enviando peticion para adicionar un agente");
 			//line = is.readLine();
 		}
 	}

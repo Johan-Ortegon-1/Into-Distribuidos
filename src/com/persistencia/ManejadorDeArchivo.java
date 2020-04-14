@@ -3,19 +3,16 @@ package com.persistencia;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
-
 import com.comunicacion.MonitorDeCarga;
-import com.negocio.Agente;
 import com.negocio.ConexionPaises;
 import com.negocio.ModeloVirus;
 import com.negocio.Pais;
 
 public class ManejadorDeArchivo
 {
-	public static void leerArchivo(String archivo, MonitorDeCarga monitor )
+	public static void leerArchivo(String archivo, MonitorDeCarga monitor, String direccion )
 	{
 		try
 		{
@@ -27,6 +24,7 @@ public class ManejadorDeArchivo
 	        boolean exitosa = false;
 	        boolean exitoPais = false;
 	        boolean exitoConex = false;
+	        boolean exitoDi = false;
 	        ModeloVirus covid19 = new ModeloVirus();
 	        Pais temp = new Pais();
 	        List<Pais> misPaises = new Vector<Pais>();
@@ -59,6 +57,12 @@ public class ManejadorDeArchivo
 	            if(cadena.equals("*CONEXION-PAIS-PAIS*") ) {
 	            	exitoConex = true;
 	            	exitoPais = false;
+	            }
+	            
+	            
+	            if(cadena.equals("*DIRECCION*") ) {
+	            	exitoConex = false;
+	            	exitoDi = true;
 	            }
 	            if(exitoPais) {
 	            	
@@ -113,6 +117,9 @@ public class ManejadorDeArchivo
             	    }
             	    
 	            }
+	            if(exitoDi && (cadena.equals("*DIRECCION*")==false) ) {
+	            	direccion = cadena;
+	            }
 	           
 	            cont ++;
 	        }
@@ -121,13 +128,6 @@ public class ManejadorDeArchivo
 	        monitor.setConexiones(conexiones);
 	        monitor.setCovid19(covid19);
 	        
-//	        for(int i = 0; i< misPaises.size();i++ ) {
-//            	System.out.println(misPaises.get(i).getNombre());
-//            }
-//	        for(int i = 0; i< conexiones.size();i++ ) {
-//            	System.out.println(conexiones.get(i).getMedioTransporte());
-//            }
-        	
 	        b.close();
 		}
 		catch (IOException e)

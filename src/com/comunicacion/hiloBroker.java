@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -102,12 +101,8 @@ public class hiloBroker extends Thread{
 					os.flush();
 				}
 				
-				System.out.println("--------------------- ----------Primer pais  (BROKER):  " +copiaMundo.size() );
-				System.out.println("--------------------- ----------Primer pais  (BROKER):  " +paisesLocales.size() );
-				System.out.println( " en la instancia: " + s.getInetAddress().toString());
 			}
 		} catch (IOException e) {
-			//e.printStackTrace();
 			System.out.println("CLIENTE DESCONECTADO ABRUPTAMENTE (BROKER) - SE A ABIERTO CAMPO PARA UNO NUEVO");
 			respuesta = false;
 		}

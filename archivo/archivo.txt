@@ -49,3 +49,5 @@ T-Peru-Ecuador
 A-Peru-Bolivia
 M-Estados Unidos-Bolivia
 M-Estados Unidos-Peru
+*DIRECCION*
+192.168.1.63

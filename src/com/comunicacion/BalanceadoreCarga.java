@@ -6,21 +6,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-
 import com.negocio.Agente;
 import com.negocio.ModeloVirus;
 import com.negocio.Pais;
 
 public class BalanceadoreCarga
 {
-	/*
-	 * https://stackoverflow.com/questions/10131377/socket-programming-multiple-
-	 * client-to-one-server
-	 */
-	private Thread balanceadorAuto;
-	private Thread serverAuto;
 	private final static int puertoServidor = 4445;
 	private final static int puertoServidorBroker = 4446;
 	private int numMaquinasSistema = 0;
@@ -82,10 +74,6 @@ public class BalanceadoreCarga
 				}
 			}
 		}
-//		for (int i = 0; i < paisesRandom.length; i++) 
-//		{
-//			System.out.println(paisesRandom[i] + " ");
-//		}
 		entro = true;
 		int indexIni = 0, indexFin = 0;
 		while (numMaqActual < numMaquinas)/*Esperar tantas conexiones como haya especificado el usuario*/
@@ -99,7 +87,7 @@ public class BalanceadoreCarga
 				{
 					paisesCorrespondientes.add(paisesRandom[i]);
 				}
-				//System.out.println("Paises que el corresponden a la instancia: " + numMaqActual + " " + paisesCorrespondientes.toString());
+			
 				s = ss2.accept();
 				System.out.println("Conexion establecida");
 				hiloBalanceador st = new hiloBalanceador(s, paisesCorrespondientes);

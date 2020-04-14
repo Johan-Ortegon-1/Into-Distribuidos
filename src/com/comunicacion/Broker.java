@@ -9,10 +9,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-
 import com.negocio.Agente;
-import com.negocio.ConexionPaises;
-import com.negocio.ModeloVirus;
 import com.negocio.Pais;
 
 public class Broker {
@@ -49,28 +46,17 @@ public class Broker {
 					
 					if(monitor.getAgentes().get(i).getMiPais().isInfectado() == false) {
 						List<String> conexiones = monitor.getAgentes().get(i).getConexiones();
-						//System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbb  MUNDO: "+ copiaMundo.size());
 						conexionesPais = new Vector<Pais>();
-						//System.out.println("bbbbbbbbbbbbbbbbbbbbbbbbbbbb  CONEXIONES: "+ conexiones.size());
 						
 						for(int j = 0; j < conexiones.size(); j++ ) { // Conexiones por pais
 							
 							for(int k = 0; k < copiaMundo.size(); k++) { // Copiar info del mundo
 								if(copiaMundo.get(k).getNombre().equals(conexiones.get(j))) {
-									//System.out.println("*****************************************POS ENTRA :)");
 									
 									conexionesPais.add(copiaMundo.get(k));
 								}
 							}
 							monitor.getAgentes().get(i).setConexionesPais(conexionesPais);
-//							System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
-//							System.out.println("PAIS: "+monitor.getAgentes().get(i).getMiPais().getNombre());
-//							System.out.println(conexionesPais.size());
-//							for(int m = 0; m<conexionesPais.size();m++) {
-//								System.out.println(conexionesPais.get(m).getNombre());
-//							}
-							//System.out.println("MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM");
-							//conexionesPais = null;
 						}
 					}
 					
@@ -85,23 +71,16 @@ public class Broker {
 		
 	}
 	
-	public void actualizarMundo ()throws IOException{ 
+	public void actualizarMundo (String direccion)throws IOException{ 
 
 		/* Elementos de conectividad */
-		InetAddress direccionBalanceador = InetAddress.getByName("192.168.1.63");
+		InetAddress direccionBalanceador = InetAddress.getByName(direccion);
 		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;
 		BufferedReader br = null;
 		BufferedReader is = null;
 		PrintWriter os = null;
-//		try
-//		{
-//			Thread.sleep(10000);
-//		} catch (InterruptedException e)
-//		{
-//			e.printStackTrace();
-//		}
 		
 		System.out.println("EL HILO BROKER CORRE ");
 		//Establece conexion
@@ -126,13 +105,10 @@ public class Broker {
 				response = is.readLine();
 				if (response.equals("actualizarMundo")) //Mundo del balanceador
 				{
-					//System.out.println("Llego la hora de actualizar");
 					os.println(monitor.getAgentes().size());
 					os.flush();
-					//System.out.println("*************************************************************** "+ monitor.getAgentes().size() );
 					for (int i = 0; i <  monitor.getAgentes().size(); i++)
 					{
-						//System.out.println("*************************************************************** ENTRAAAAAAAA A ACTUALIZAR");
 						os.println(monitor.getAgentes().get(i).getMiPais().getPoblacionTotal());
 						os.flush();
 						os.println(monitor.getAgentes().get(i).getMiPais().getNombre());
@@ -143,8 +119,6 @@ public class Broker {
 					
 					response = "";
 				}
-				//System.out.println("************SALIO DE ACTUALIZAR************");
-				
 				response = is.readLine();
 				
 				if (response.equals("recibirMundo")) { // Recibe copia desde balanceador
@@ -152,11 +126,9 @@ public class Broker {
 					line = is.readLine();
 					
 					retorno = Long.parseLong(line);
-					//System.out.println("*************************************************************** "+retorno );
 					
 					for(int i = 0;i<retorno ; i++) {
 						
-						//System.out.println("*************************************************************** ENTRAAAAAAAA A COPIA");
 						Pais nuevo = new Pais();
 						
 						line = is.readLine();
@@ -169,9 +141,7 @@ public class Broker {
 						copia.add(nuevo);
 						nuevo = null;
 					}
-					//copiaMundo = null;
 					copiaMundo = copia;
-					//System.out.println("*******************VALORRRRRR DE CAOPIA MUNDO :"+copiaMundo.size());
 					response = "";
 				}
 			}
@@ -191,11 +161,6 @@ public class Broker {
 
 		}
 	}
-
-	
-//	public void recibirMundo (){ 
-//		
-//	}
 	
 	public List<Agente> getAgentes() {
 		return agentes;

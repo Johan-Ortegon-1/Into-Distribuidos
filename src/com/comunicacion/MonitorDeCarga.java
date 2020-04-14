@@ -27,13 +27,13 @@ public class MonitorDeCarga
 	private List<ConexionPaises> conexiones = new Vector<ConexionPaises>();
 	private ModeloVirus covid19 = new ModeloVirus();
 	private List<AutomataCelular> misHilos = new ArrayList<AutomataCelular>();
-	private Thread autoARP;
 	private int j = 0;
 
-	public void iniciarMonitor() throws IOException
+	public void iniciarMonitor(String direccion) throws IOException
 	{
+		
 		/* Elementos de conectividad */
-		InetAddress direccionBalanceador = InetAddress.getByName("192.168.1.63");
+		InetAddress direccionBalanceador = InetAddress.getByName(direccion);
 		InetAddress direccionAgente = InetAddress.getLocalHost();
 		Socket s1 = null;
 		String line = null;
@@ -59,12 +59,6 @@ public class MonitorDeCarga
 
 		System.out.println("DIRECCION DEL Monitor: " + direccionAgente);
 		/* poner a trabajar a los paises en hilos diferentes */
-
-		/*
-		 * for (j = 0; j < paises.size(); j++) { this.autoARP = new Thread(new
-		 * Runnable() { public void run() { paises.get(0).experimentacion(); } });
-		 * this.autoARP.start(); }
-		 */
 
 		String response = "";
 		try
@@ -125,9 +119,7 @@ public class MonitorDeCarga
 					else
 						os.println("No hay paises activos en esta maquina");// Enviarle informacion al servidor
 					os.flush();
-					// System.out.println("Server Response : " + response);
 					totalpoblacion = 0;
-					// line = br.readLine();
 					response = "";
 				}
 				if (response.equals("sustraer agente"))
@@ -171,9 +163,6 @@ public class MonitorDeCarga
 						nombreTempVecino = is.readLine();//Obtener el id del pais vecino (paisB)
 						tipoConexion = is.readLine().charAt(0);//Obtener el tipo de conexion
 						nuevoPaisVecino = Pais.buscarPaisPorNombre(todosLosPaises, nombreTempVecino);
-						/*nuevaConexion.setPaisA(todosLosPaises.get(paisNuevoAutomata).getNombre());
-						nuevaConexion.setPaisB(nuevoPaisVecino.getNombre());
-						nuevaConexion.setMedioTransporte(tipoConexion);*/
 						paisesVecinos.add(nuevoPaisVecino.getNombre());
 					}
 					//Terminar de armar el agente
@@ -232,14 +221,6 @@ public class MonitorDeCarga
 	}	
 	public void llamadaHilos()
 	{
-
-		for (int j = 0; j < agentes.size(); j++)
-		{
-//				System.out.println(agentes.get(i).getMiPais().getNombre());
-//				System.out.println(agentes.get(i).getMiPais().isInfectado());
-//				System.out.println(agentes.get(i).getMiPais().getInfectados());
-//				System.out.println(agentes.get(i).getMiPais().getPoblacionTotal());
-        }
 			//Hilos por cada uno de los agentes
 			for(int k = 0; k < agentes.size(); k++) {
 				System.out.println("TAMAÑO DE AGENTES "+ agentes.size());
@@ -265,18 +246,14 @@ public class MonitorDeCarga
         	}
         }
         
-        //System.out.println("PUTAS CONEXIOES ---------->"+conexiones.size());
         for(int i = 0; i< conexiones.size();i++ ) { //Recorre conexiones mundiales
         	if(conexiones.get(i).getPaisA().equals(nombre) ) {
-        		//System.out.println("PUTA "+myConexion.size());
         		if(myConexion.size() == 0) {
-        			//System.out.println("PUERCO ");
         			myConexion.add(conexiones.get(i).getPaisB());
         		}else {
         			boolean esta = false;
         			for(int j = 0; j<myConexion.size();j++) {
             			if(conexiones.get(i).getPaisB().equals(myConexion.get(j)) ) {
-            				//System.out.println("JUMMMMM");
             				esta = true;
             			}
             			
@@ -288,15 +265,12 @@ public class MonitorDeCarga
         		
         	}
         	if( conexiones.get(i).getPaisB().equals(nombre)) {
-        		//System.out.println("PUTA 2 "+myConexion.size());
         		if(myConexion.size() == 0) {
-        			//System.out.println("PUERCO 2s");
         			myConexion.add(conexiones.get(i).getPaisA());
         		}else {
         			boolean esta = false;
         			for(int j = 0; j<myConexion.size();j++) {
             			if(conexiones.get(i).getPaisA().equals(myConexion.get(j))) {
-            				//System.out.println("JUMMMMM 2");
             				esta = true;
             			}
             			
@@ -310,12 +284,7 @@ public class MonitorDeCarga
         
         
         myAgente.setConexiones(myConexion);
-        
-//        System.out.println("___________________________ONDE ESTA EL ERROR_______________"+myAgente.getConexiones().size());
-//        System.out.println("MY PAIS: "+myAgente.getMiPais().getNombre());
-//        for(int j = 0; j<myAgente.getConexiones().size();j++) {
-//        	System.out.println(myAgente.getConexiones().get(j));
-//        }
+
         ModeloVirus copiaModeloVirus = new ModeloVirus(covid19.getTasaTransmision(),covid19.getTasaMortalidadVul(),covid19.getTasaMortalidadNoVul());
         myAgente.setCovid19(copiaModeloVirus);
         

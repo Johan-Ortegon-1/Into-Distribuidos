@@ -7,7 +7,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-
 import com.negocio.Agente;
 import com.negocio.ConexionPaises;
 import com.negocio.ModeloVirus;
@@ -49,14 +48,6 @@ public class hiloBalanceador extends Thread {
 				os.println(paises.get(i));
 				os.flush();
 			}
-
-			/* Cada 5 segudos pedir el informe a los monitores */
-			/*
-			 * while (true) { Thread.sleep(5000); os.println("informar"); os.flush();
-			 * System.out.println("Enviando peticion de informe"); line = is.readLine();
-			 * System.out.println("Cantidad de operaciones:  " + line + " en la instancia: "
-			 * + s.getInetAddress().toString()); }
-			 */
 		} catch (NullPointerException e) {
 			line = this.getName(); // reused String line for getting thread name
 			System.out.println("Client " + line + " Closed");
@@ -106,7 +97,6 @@ public class hiloBalanceador extends Thread {
 							this.hiloActivo = false;
 							return false;
 						}
-						//System.out.println("Cantidad de poblacion:  " + line + " en la instancia: " + s.getInetAddress().toString());
 					}
 					else
 					{
@@ -122,7 +112,6 @@ public class hiloBalanceador extends Thread {
 				}
 			}
 		} catch (IOException e) {
-			// e.printStackTrace();
 			System.out.println("CLIENTE DESCONECTADO DE FORMA ABRUPTA");
 			System.out.println("**INICIANDO RE DISTRIBUCION DE SUS AGENTES");
 			this.hiloActivo = false;
@@ -134,8 +123,7 @@ public class hiloBalanceador extends Thread {
 
 	public Agente ordenarSustraccionAgente(List<Pais> todosLosPaises, ModeloVirus covid19) {
 		Agente retorno = new Agente();
-		int idPaisSustraer = -1;
-		int idNuevoPais = -1, indicePaisAct = 0, cantVecinos = 0;
+		int idNuevoPais = -1, cantVecinos = 0;
 		String idTempVecino = "";
 		int paisNuevoAutomata = 0;
 		char tipoConexion;

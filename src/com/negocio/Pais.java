@@ -115,30 +115,6 @@ public class Pais
 	public void setInfectados(long infectados) {
 		this.infectados = infectados;
 	}
-
-	public double calcularTasaDePropagacion()
-	{
-		/*Se haran calculos dependiendo lo que se investigue de automatas celulares y las reglas de propagacion de un virus*/
-		return 0;
-	}
-	/*Funcion de prueba para el balanceador - de uso temporal*/
-	public void experimentacion()
-	{
-		try
-		{
-			while(true)
-			{
-				System.out.println("**Experimentando**");
-				contOperacionesRealizadas++;
-				this.setContOperacionesRealizadas(contOperacionesRealizadas);
-				Thread.sleep(4000);
-			}
-			
-		} catch (InterruptedException e)
-		{
-			e.printStackTrace();
-		}
-	}
 	
 	public static int buscarPais(List<Pais> paises, int id)
 	{

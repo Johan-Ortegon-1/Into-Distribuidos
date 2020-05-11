@@ -1,4 +1,4 @@
-package com.negocio;
+package com.controladores;
 
 public class Main
 {

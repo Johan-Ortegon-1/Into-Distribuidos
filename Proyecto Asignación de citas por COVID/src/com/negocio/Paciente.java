@@ -6,32 +6,35 @@ import java.util.List;
 public class Paciente {
 	
 	private String nombre;
-	private double documento;
+	private long documento;
 	private int edad;
 	private String eps;
 	private int idCita;
 	private String prioridad;
 	private List<Cita> historial;
 	private List<Boolean> sintomas = new ArrayList<Boolean>();
-	private Boolean patologiasAdicionales;
+	private boolean patologiasAdicionales;
 	//Falta constructor de verdad
 	public Paciente() 
 	{
 		
 	}
 	
-	public Paciente(String nombre, double documento, int edad, String eps, int idCita, String prioridad,
-			List<Cita> historial)
+	
+
+	public Paciente(String nombre, long documento, int edad, String eps, List<Boolean> sintomas,
+			boolean patologiasAdicionales)
 	{
 		super();
 		this.nombre = nombre;
 		this.documento = documento;
 		this.edad = edad;
 		this.eps = eps;
-		this.idCita = idCita;
-		this.prioridad = prioridad;
-		this.historial = historial;
+		this.sintomas = sintomas;
+		this.patologiasAdicionales = patologiasAdicionales;
 	}
+
+
 
 	public String getNombre() {
 		return nombre;
@@ -39,10 +42,10 @@ public class Paciente {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public double getDocumento() {
+	public long getDocumento() {
 		return documento;
 	}
-	public void setDocumento(double documento) {
+	public void setDocumento(long documento) {
 		this.documento = documento;
 	}
 	public int getEdad() {

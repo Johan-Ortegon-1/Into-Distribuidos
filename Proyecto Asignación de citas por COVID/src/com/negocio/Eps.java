@@ -3,8 +3,10 @@ package com.negocio;
 import java.util.List;
 
 public class Eps {
-	List<Paciente> pacientesAfiliados;
-	List<Paciente> pacientesConCita;
+	
+	private String nobmreEps;
+	private List<Paciente> pacientesAfiliados;
+	private List<Paciente> pacientesConCita;
 	public Eps() {
 		
 	}

@@ -12,9 +12,9 @@ public class ManejadorArchivos
 {
 	public static List<Paciente> leerArchivo(String archivo)
 	{
+		List<Paciente> retorno = new ArrayList<Paciente>();
 		try
 		{
-			List<Paciente> retorno = new ArrayList<Paciente>();
 			String cadena;
 	        FileReader f = new FileReader(archivo);
 	        BufferedReader b = new BufferedReader(f);
@@ -29,13 +29,13 @@ public class ManejadorArchivos
 	        
 	        while((cadena = b.readLine())!=null) 
 	        {
-	        	System.out.println("Paciente nuevo: ");
 	        	String[] words = cadena.split("\\-");
+	        	/*System.out.println("Paciente nuevo: ");
 	        	for(int i = 0; i< words.length; i++)
 	        	{
 	        		System.out.println(words[i] + "+");
 	        	}
-	        	System.out.println();
+	        	System.out.println();*/
 	        	//Asignacion de valores
 	        	fecha = words[0];
 	        	nombre = words[1];
@@ -55,13 +55,14 @@ public class ManejadorArchivos
 	        	{
 	        		patologiaAdicional = true;
 	        	}
+	        	retorno.add(new Paciente(nombre,documento,edad,eps,sintomas,patologiaAdicional));
 	        }
 	        b.close();
-	        
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
+		return retorno;
 	}
 }

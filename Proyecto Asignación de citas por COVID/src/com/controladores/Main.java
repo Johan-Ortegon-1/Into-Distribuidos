@@ -26,6 +26,8 @@ public class Main
     		System.out.println(pacientesGlobales.get(i).getNombre() + " + ");
     		
     	}
+		
+		// COMENTARIO DE ALDEMAR
 	}
 	public static boolean buscarEsp(String nombre)
 	{

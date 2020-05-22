@@ -11,5 +11,29 @@ public class Cita {
 		this.fecha = fecha;
 		this.identificador = identificador;
 	}
+
+	public boolean isAutorizacion() {
+		return autorizacion;
+	}
+
+	public void setAutorizacion(boolean autorizacion) {
+		this.autorizacion = autorizacion;
+	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+
+	public int getIdentificador() {
+		return identificador;
+	}
+
+	public void setIdentificador(int identificador) {
+		this.identificador = identificador;
+	}
 	
 }

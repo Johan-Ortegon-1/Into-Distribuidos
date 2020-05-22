@@ -6,7 +6,7 @@ public class Cita {
 	private int identificador;
 
 	public Cita(boolean autorizacion, String fecha, int identificador) {
-		super();
+		
 		this.autorizacion = autorizacion;
 		this.fecha = fecha;
 		this.identificador = identificador;

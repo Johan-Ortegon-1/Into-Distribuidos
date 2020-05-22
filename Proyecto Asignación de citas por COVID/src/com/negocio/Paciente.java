@@ -6,7 +6,7 @@ import java.util.List;
 public class Paciente {
 	
 	private String nombre;
-	private double documento;
+	private long documento;
 	private int edad;
 	private String eps;
 	private int idCita;
@@ -20,7 +20,7 @@ public class Paciente {
 		
 	}
 	
-	public Paciente(String nombre, double documento, int edad, String eps, int idCita, String prioridad,
+	public Paciente(String nombre, long documento, int edad, String eps, int idCita, String prioridad,
 			List<Cita> historial)
 	{
 		super();
@@ -42,7 +42,7 @@ public class Paciente {
 	public double getDocumento() {
 		return documento;
 	}
-	public void setDocumento(double documento) {
+	public void setDocumento(long documento) {
 		this.documento = documento;
 	}
 	public int getEdad() {

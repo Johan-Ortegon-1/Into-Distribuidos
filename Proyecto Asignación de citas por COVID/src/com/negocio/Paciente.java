@@ -9,7 +9,7 @@ public class Paciente {
 	private String eps;
 	private int idCita;
 	private String prioridad;
-	List<Cita> historial;
+	private List<Cita> historial;
 	
 	//Falta constructor de verdad
 	public Paciente() {

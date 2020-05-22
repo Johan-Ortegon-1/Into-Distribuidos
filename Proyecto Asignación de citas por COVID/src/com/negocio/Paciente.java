@@ -19,8 +19,6 @@ public class Paciente {
 	{
 		
 	}
-	
-	
 
 	public Paciente(String nombre, long documento, int edad, String eps, List<Boolean> sintomas,
 			boolean patologiasAdicionales)

@@ -8,6 +8,14 @@ public class Eps {
 	public Eps() {
 		
 	}
+		
+	public Eps(List<Paciente> pacientesAfiliados, List<Paciente> pacientesConCita)
+	{
+		super();
+		this.pacientesAfiliados = pacientesAfiliados;
+		this.pacientesConCita = pacientesConCita;
+	}
+
 	public List<Paciente> getPacientesAfiliados() {
 		return pacientesAfiliados;
 	}

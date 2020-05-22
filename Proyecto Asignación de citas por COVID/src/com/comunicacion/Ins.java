@@ -12,6 +12,16 @@ public class Ins
 	public Ins() {
 		
 	}
+	
+	
+
+	public Ins(List<Cita> casosReportados)
+	{
+		super();
+		this.casosReportados = casosReportados;
+	}
+
+
 
 	public List<Cita> getCasosReportados() {
 		return casosReportados;

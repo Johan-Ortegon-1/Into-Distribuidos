@@ -1,8 +1,10 @@
 package com.negocio;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Paciente {
+	
 	private String nombre;
 	private double documento;
 	private int edad;
@@ -10,11 +12,27 @@ public class Paciente {
 	private int idCita;
 	private String prioridad;
 	private List<Cita> historial;
-	
+	private List<Boolean> sintomas = new ArrayList<Boolean>();
+	private Boolean patologiasAdicionales;
 	//Falta constructor de verdad
-	public Paciente() {
+	public Paciente() 
+	{
 		
 	}
+	
+	public Paciente(String nombre, double documento, int edad, String eps, int idCita, String prioridad,
+			List<Cita> historial)
+	{
+		super();
+		this.nombre = nombre;
+		this.documento = documento;
+		this.edad = edad;
+		this.eps = eps;
+		this.idCita = idCita;
+		this.prioridad = prioridad;
+		this.historial = historial;
+	}
+
 	public String getNombre() {
 		return nombre;
 	}
@@ -57,6 +75,28 @@ public class Paciente {
 	public void setHistorial(List<Cita> historial) {
 		this.historial = historial;
 	}
+
+	public List<Boolean> getSintomas()
+	{
+		return sintomas;
+	}
+
+	public void setSintomas(List<Boolean> sintomas)
+	{
+		this.sintomas = sintomas;
+	}
+
+	public Boolean getPatologiasAdicionales()
+	{
+		return patologiasAdicionales;
+	}
+
+	public void setPatologiasAdicionales(Boolean patologiasAdicionales)
+	{
+		this.patologiasAdicionales = patologiasAdicionales;
+	}
+	
+	
 	
 	
 	

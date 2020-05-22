@@ -13,6 +13,14 @@ public class Ips
 	public Ips() {
 		
 	}
+	
+	public Ips(List<Paciente> pacientesAAtender, List<Cita> citasProgramadas)
+	{
+		super();
+		this.pacientesAAtender = pacientesAAtender;
+		this.citasProgramadas = citasProgramadas;
+	}
+
 	public List<Paciente> getPacientesAAtender() {
 		return pacientesAAtender;
 	}

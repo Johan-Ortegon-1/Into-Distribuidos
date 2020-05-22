@@ -4,7 +4,12 @@ public class Cita {
 	private boolean autorizacion;
 	private String fecha;
 	private int identificador;
-
+	
+	public Cita()
+	{
+		
+	}
+	
 	public Cita(boolean autorizacion, String fecha, int identificador) {
 		
 		this.autorizacion = autorizacion;

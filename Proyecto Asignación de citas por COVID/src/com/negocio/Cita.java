@@ -1,6 +1,6 @@
 package com.negocio;
 
-public class Cliente
+public class Cita
 {
 
 }

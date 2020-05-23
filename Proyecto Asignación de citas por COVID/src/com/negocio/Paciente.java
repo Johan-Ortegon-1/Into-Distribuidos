@@ -1,10 +1,15 @@
 package com.negocio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Paciente {
+public class Paciente implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String nombre;
 	private long documento;
 	private int edad;

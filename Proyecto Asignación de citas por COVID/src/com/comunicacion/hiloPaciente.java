@@ -14,6 +14,7 @@ public class hiloPaciente extends Thread
 	public void run() 
 	{
 		Servidor servidorCliente = new Servidor();
+		System.out.println("iniciando servidor con el paciente: " + pacienteActual.getNombre());
 		servidorCliente.iniciarServidor(puerto, pacienteActual);
 	}
 }

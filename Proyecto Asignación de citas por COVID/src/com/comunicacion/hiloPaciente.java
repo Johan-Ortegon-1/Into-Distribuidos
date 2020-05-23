@@ -14,6 +14,6 @@ public class hiloPaciente extends Thread
 	public void run() 
 	{
 		Servidor servidorCliente = new Servidor();
-		servidorCliente.iniciarServidor(puerto);
+		servidorCliente.iniciarServidor(puerto, pacienteActual);
 	}
 }

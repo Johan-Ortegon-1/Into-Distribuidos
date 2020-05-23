@@ -10,10 +10,11 @@ import com.negocio.Paciente;
 
 public class Rmi extends UnicastRemoteObject implements ClienteServidorIpsCliente
 {
+	private Paciente pacienteActual;
 	private List<Paciente> pacientesGlobales = new ArrayList<Paciente>();
-	public Rmi() throws RemoteException
+	public Rmi(Paciente pActual) throws RemoteException
 	{
-		
+		this.pacienteActual = pActual;
 	}
 
 	@Override
@@ -31,13 +32,8 @@ public class Rmi extends UnicastRemoteObject implements ClienteServidorIpsClient
 	
 	@Override
 	public Paciente obtenerPacientes() throws RemoteException
-	{
-		List<Paciente> pacientesGlobales = new ArrayList<Paciente>();
-		pacientesGlobales = Main.getPacientesGlobales();
-		
-		//Creacion de hilo por paciente
-		
-		return null;
+	{		
+		return pacienteActual;
 	}
 	
 	public List<Paciente> getPacientesGlobales()

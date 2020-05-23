@@ -9,6 +9,8 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.negocio.Paciente;
+
 public class Cliente//IPS-EPS
 {
 	private List<Long> documentoGlobales = new ArrayList<Long>();
@@ -18,7 +20,8 @@ public class Cliente//IPS-EPS
 		{
 			Registry registry = LocateRegistry.getRegistry("192.168.1.63", 1099);
 			ClienteServidorIpsCliente cs = (ClienteServidorIpsCliente)Naming.lookup("//192.168.1.63/ClienteServidorIpsCliente");
-			documentoGlobales = cs.obtenerDocumento();
+			Paciente pActual = cs.obtenerPacientes();
+			System.out.println("Paciente actual: " + pActual);
 			System.out.println("Documentos de afiliados: ");
 			for(Long iter : documentoGlobales)
 			{

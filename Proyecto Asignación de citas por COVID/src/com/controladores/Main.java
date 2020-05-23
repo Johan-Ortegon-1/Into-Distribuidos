@@ -26,14 +26,6 @@ public class Main
 	public static void main(String[] args)
 	{
 		int j = 0;
-		try
-		{
-			miRmi = new Rmi();
-		} catch (RemoteException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		pacientesGlobales = ManejadorArchivos.leerArchivo("Archivo/pacientes.txt");
 		for(int i = 0; i< pacientesGlobales.size(); i++)
     	{
@@ -61,7 +53,6 @@ public class Main
 				System.out.println("Paciente: " + p.getDocumento());
 			}
 		}	
-		miRmi.setPacientesGlobales(pacientesGlobales);
 		inciarEquipo();
 	}
 	public static Eps buscarEsp(String nombre)

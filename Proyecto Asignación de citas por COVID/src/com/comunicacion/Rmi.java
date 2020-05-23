@@ -15,7 +15,7 @@ public class Rmi extends UnicastRemoteObject implements ClienteServidorIpsClient
 	 */
 	private static final long serialVersionUID = 1L;
 	Paciente pacienteActual;
-	int contadorLol = 0;
+	int contadorLol = -1;
 	private List<Paciente> pacientesGlobales = new ArrayList<Paciente>();
 	public Rmi() throws RemoteException
 	{
@@ -37,8 +37,9 @@ public class Rmi extends UnicastRemoteObject implements ClienteServidorIpsClient
 	
 	@Override
 	public Paciente obtenerPacientes() throws RemoteException
-	{	
-		return this.pacienteActual;
+	{
+		contadorLol++;
+		return this.pacientesGlobales.get(contadorLol);
 	}
 	
 	public List<Paciente> getPacientesGlobales()

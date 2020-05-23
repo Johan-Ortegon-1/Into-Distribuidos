@@ -5,6 +5,7 @@ import java.rmi.registry.Registry;
 
 import javax.swing.JOptionPane;
 
+import com.controladores.Main;
 import com.negocio.Paciente;
 
 public class Servidor
@@ -15,7 +16,9 @@ public class Servidor
 		{
 			System.out.println("Puerto: " + puerto);
 			Registry r = java.rmi.registry.LocateRegistry.createRegistry(puerto);
-			r.rebind("ClienteServidorIpsCliente", new Rmi());
+			Rmi nuevoRmi = new Rmi();
+			nuevoRmi.setPacientesGlobales(Main.getPacientesGlobales());
+			r.rebind("ClienteServidorIpsCliente", nuevoRmi);
 			JOptionPane.showMessageDialog(null, "Servidor iniciado");
 		} catch (RemoteException e)
 		{

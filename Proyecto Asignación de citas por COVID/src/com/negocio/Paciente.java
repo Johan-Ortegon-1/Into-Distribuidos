@@ -102,6 +102,9 @@ public class Paciente implements Serializable {
 		this.patologiasAdicionales = patologiasAdicionales;
 	}
 	
-		
+	public String toString()
+	{
+		return this.nombre + " " + this.documento + " " + this.sintomas.get(0);
+	}
 	
 }

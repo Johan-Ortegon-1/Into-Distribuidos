@@ -21,7 +21,7 @@ public class Cliente//IPS-EPS
 			Registry registry = LocateRegistry.getRegistry("192.168.1.63", 1099);
 			ClienteServidorIpsCliente cs = (ClienteServidorIpsCliente)Naming.lookup("//192.168.1.63/ClienteServidorIpsCliente");
 			Paciente pActual = cs.obtenerPacientes();
-			System.out.println("Paciente actual: " + pActual);
+			System.out.println("Paciente actual: " + pActual.toString());
 			System.out.println("Documentos de afiliados: ");
 			for(Long iter : documentoGlobales)
 			{

@@ -1,6 +1,7 @@
 package com.controladores;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import com.negocio.Eps;
@@ -26,7 +27,6 @@ public class Main
     		System.out.println(pacientesGlobales.get(i).getNombre() + " + ");
     		
     	}
-		
 		// COMENTARIO DE ALDEMAR
 		//Der komentar
 	}

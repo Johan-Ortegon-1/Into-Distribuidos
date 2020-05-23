@@ -11,9 +11,11 @@ public class Paciente {
 	private String eps;
 	private int idCita;
 	private String prioridad;
+	private int evaluacion;
 	private List<Cita> historial;
 	private List<Boolean> sintomas = new ArrayList<Boolean>();
 	private boolean patologiasAdicionales;
+	private int cubrimiento; //Es un numero de 0 a 100
 	//Falta constructor de verdad
 	public Paciente() 
 	{
@@ -31,8 +33,6 @@ public class Paciente {
 		this.sintomas = sintomas;
 		this.patologiasAdicionales = patologiasAdicionales;
 	}
-
-
 
 	public String getNombre() {
 		return nombre;
@@ -87,15 +87,31 @@ public class Paciente {
 		this.sintomas = sintomas;
 	}
 
-	public Boolean getPatologiasAdicionales()
-	{
+	public int getEvaluacion() {
+		return evaluacion;
+	}
+
+	public void setEvaluacion(int evaluacion) {
+		this.evaluacion = evaluacion;
+	}
+
+	public void setPatologiasAdicionales(boolean patologiasAdicionales) {
+		this.patologiasAdicionales = patologiasAdicionales;
+	}
+
+	public boolean isPatologiasAdicionales() {
 		return patologiasAdicionales;
 	}
 
-	public void setPatologiasAdicionales(Boolean patologiasAdicionales)
-	{
-		this.patologiasAdicionales = patologiasAdicionales;
+	public int getCubrimiento() {
+		return cubrimiento;
 	}
+
+	public void setCubrimiento(int cubrimiento) {
+		this.cubrimiento = cubrimiento;
+	}
+	
+	
 	
 	
 	

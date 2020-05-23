@@ -3,14 +3,14 @@ package com.negocio;
 public class Cita {
 	private boolean autorizacion;
 	private String fecha;
-	private int identificador;
+	private long identificador;
 	
 	public Cita()
 	{
 		
 	}
 	
-	public Cita(boolean autorizacion, String fecha, int identificador) {
+	public Cita(boolean autorizacion, String fecha, long identificador) {
 		
 		this.autorizacion = autorizacion;
 		this.fecha = fecha;
@@ -33,11 +33,11 @@ public class Cita {
 		this.fecha = fecha;
 	}
 
-	public int getIdentificador() {
+	public long getIdentificador() {
 		return identificador;
 	}
 
-	public void setIdentificador(int identificador) {
+	public void setIdentificador(long identificador) {
 		this.identificador = identificador;
 	}
 	

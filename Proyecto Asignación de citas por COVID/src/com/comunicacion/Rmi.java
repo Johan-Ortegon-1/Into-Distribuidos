@@ -26,13 +26,16 @@ public class Rmi extends UnicastRemoteObject implements ClienteServidorIpsClient
 		{
 			documento.add(iter.getDocumento());
 		}
-		/*for(Paciente iter : pacientesGlobales)
-		{
-			documento.add(iter.getDocumento());
-		}*/
 		return documento;
 	}
-
+	
+	@Override
+	public Paciente obtenerPacientes() throws RemoteException
+	{
+		
+		return null;
+	}
+	
 	public List<Paciente> getPacientesGlobales()
 	{
 		return pacientesGlobales;

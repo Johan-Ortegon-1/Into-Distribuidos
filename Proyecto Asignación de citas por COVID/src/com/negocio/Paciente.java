@@ -102,8 +102,6 @@ public class Paciente implements Serializable {
 		this.patologiasAdicionales = patologiasAdicionales;
 	}
 	
-	
-	
-	
+		
 	
 }

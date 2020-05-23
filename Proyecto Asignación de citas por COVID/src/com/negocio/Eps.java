@@ -1,10 +1,10 @@
 package com.negocio;
 
 import java.util.Calendar;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Eps {
-	
 	private String nombreEps;
 	private List<Paciente> pacientesAfiliados;
 	public Eps() {
@@ -12,7 +12,6 @@ public class Eps {
 	}
 
 	public Eps(String nombreEps, List<Paciente> pacientesAfiliados) {
-		super();
 		this.nombreEps = nombreEps;
 		this.pacientesAfiliados = pacientesAfiliados;
 	}
@@ -64,6 +63,16 @@ public class Eps {
 			}
 		}
 		return atiendo;
+	}
+
+	public String getNobmreEps()
+	{
+		return nobmreEps;
+	}
+
+	public void setNobmreEps(String nobmreEps)
+	{
+		this.nobmreEps = nobmreEps;
 	}
 	
 }

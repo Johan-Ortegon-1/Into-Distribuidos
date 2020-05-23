@@ -1,6 +1,12 @@
 package com.negocio;
 
-public class Cita {
+import java.io.Serializable;
+
+public class Cita implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2L;
 	private boolean autorizacion;
 	private String fecha;
 	private long identificador;

@@ -13,7 +13,6 @@ public class Ins
 		
 	}
 	
-	
 
 	public Ins(List<Paciente> casosReportados)
 	{

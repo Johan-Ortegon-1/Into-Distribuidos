@@ -8,6 +8,8 @@ import java.util.Scanner;
 import com.comunicacion.Cliente;
 import com.comunicacion.Rmi;
 import com.comunicacion.Servidor;
+import com.comunicacion.hiloIPSxCliente;
+import com.comunicacion.hiloPaciente;
 import com.negocio.Eps;
 import com.negocio.Paciente;
 import com.persistencia.ManejadorArchivos;
@@ -17,7 +19,10 @@ public class Main
 {
 	static List<Paciente> pacientesGlobales = new ArrayList<Paciente>();
 	static List<Eps> epsGlobales = new ArrayList<Eps>();
+	static List<hiloPaciente> misHilosPaciente = new ArrayList<hiloPaciente>();
+	static List<hiloIPSxCliente> miIPS = new ArrayList<hiloIPSxCliente>();
 	static Rmi miRmi;
+	static int puertoActual = 1099;
 	public static void main(String[] args)
 	{
 		int j = 0;
@@ -85,7 +90,7 @@ public class Main
 	public static void inciarEquipo()
 	{
 		int tipoDeInicio = 0;
-		System.out.println("Como desea iniciar esta maquina: 1. Eps, 2. Ips, 3.Ins, 4. Clientes");
+		System.out.println("Como desea iniciar esta maquina: 1. Eps, 2. Ips, 3.Ins, 4. Cliente");
 		Scanner reader = new Scanner(System.in);
 		tipoDeInicio = reader.nextInt();
 		if(tipoDeInicio == 1)
@@ -94,17 +99,27 @@ public class Main
 		}
 		if(tipoDeInicio == 2)//IPS
 		{
-			Cliente clienteIPS = new Cliente();
-			clienteIPS.iniciarCliente();
+			for (Paciente iterP : pacientesGlobales)
+			{
+				hiloIPSxCliente nuevoIPS = new hiloIPSxCliente(puertoActual);
+				miIPS.add(nuevoIPS);
+				nuevoIPS.start();
+				puertoActual++;
+			}
 		}
 		if(tipoDeInicio == 3)
 		{
 			
 		}
-		if(tipoDeInicio == 4)
+		if(tipoDeInicio == 4)//Cliente
 		{
-			Servidor servidorCliente = new Servidor();
-			servidorCliente.iniciarServidor();
+			for (Paciente iterP : pacientesGlobales)
+			{
+				hiloPaciente nuevoPaciente = new hiloPaciente(iterP, puertoActual);
+				misHilosPaciente.add(nuevoPaciente);
+				nuevoPaciente.start();
+				puertoActual++;
+			}
 		}
 	}
 	public static List<Paciente> getPacientesGlobales()

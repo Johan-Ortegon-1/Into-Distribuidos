@@ -32,6 +32,10 @@ public class Rmi extends UnicastRemoteObject implements ClienteServidorIpsClient
 	@Override
 	public Paciente obtenerPacientes() throws RemoteException
 	{
+		List<Paciente> pacientesGlobales = new ArrayList<Paciente>();
+		pacientesGlobales = Main.getPacientesGlobales();
+		
+		//Creacion de hilo por paciente
 		
 		return null;
 	}

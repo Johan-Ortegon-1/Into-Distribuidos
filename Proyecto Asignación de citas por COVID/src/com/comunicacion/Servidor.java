@@ -7,11 +7,11 @@ import javax.swing.JOptionPane;
 
 public class Servidor
 {
-	public void iniciarServidor()
+	public void iniciarServidor(int puerto)
 	{
 		try
 		{
-			Registry r = java.rmi.registry.LocateRegistry.createRegistry(1099);
+			Registry r = java.rmi.registry.LocateRegistry.createRegistry(puerto);
 			r.rebind("ClienteServidorIpsCliente", new Rmi());
 			JOptionPane.showMessageDialog(null, "Servidor iniciado");
 		} catch (RemoteException e)

@@ -10,6 +10,6 @@ public class hiloIPSxCliente extends Thread
 	public void run() 
 	{
 		Cliente clienteIPS = new Cliente();
-		clienteIPS.iniciarCliente();
+		clienteIPS.iniciarCliente(this.puerto);
 	}
 }

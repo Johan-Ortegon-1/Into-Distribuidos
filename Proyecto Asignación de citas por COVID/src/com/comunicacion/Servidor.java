@@ -13,8 +13,9 @@ public class Servidor
 	{
 		try
 		{
+			System.out.println("Puerto: " + puerto);
 			Registry r = java.rmi.registry.LocateRegistry.createRegistry(puerto);
-			r.rebind("ClienteServidorIpsCliente", new Rmi(p));
+			r.rebind("ClienteServidorIpsCliente", new Rmi());
 			JOptionPane.showMessageDialog(null, "Servidor iniciado");
 		} catch (RemoteException e)
 		{

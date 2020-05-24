@@ -16,7 +16,7 @@ public class ClienteIpsServidorIns {
     
     public 	ClienteIpsServidorIns() throws SocketException, UnknownHostException {
         socket = new DatagramSocket();
-        address = InetAddress.getByName("localhost"); // AQUI VA LA IP
+        address = InetAddress.getByName("192.168.1.63"); // AQUI VA LA IP
     }
     
  

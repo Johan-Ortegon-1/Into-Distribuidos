@@ -1,15 +1,11 @@
 package com.controladores;
 
 import java.net.SocketException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
-import com.comunicacion.ClienteAsIPS;
 import com.comunicacion.RmiPaciente_IPS;
-import com.comunicacion.ServidorAsPaciente;
 import com.comunicacion.ServidorUDP;
 import com.comunicacion.hiloIPSSolicitaPaciente;
 import com.comunicacion.hiloPacienteRespondeIPS;
@@ -19,16 +15,6 @@ import com.persistencia.ManejadorArchivos;
 
 import comunicacionRMI.hiloIPS;
 import comunicacionRMI.hiloPaciente;
-import com.comunicacion.Cliente;
-import com.comunicacion.Ins;
-import com.comunicacion.Ips;
-import com.comunicacion.Rmi;
-import com.comunicacion.Servidor;
-import com.comunicacion.hiloIPSxCliente;
-import com.comunicacion.hiloPaciente;
-import com.negocio.Eps;
-import com.negocio.Paciente;
-import com.persistencia.ManejadorArchivos;
 
 public class Main
 {
@@ -42,38 +28,9 @@ public class Main
 	public static void main(String[] args)
 	{
 		//ManejadorArchivos.leerArchivo("Archivo/pacientes.txt", pacientesGlobales, epsGlobales);
-
-		/*
 		int j = 0;
-		pacientesGlobales = ManejadorArchivos.leerArchivo("Archivo/pacientes.txt");
-		for(int i = 0; i< pacientesGlobales.size(); i++)
-    	{
-			String nombreEps = pacientesGlobales.get(i).getEps();
-			Eps epsActual = buscarEsp(nombreEps);
-			if(epsActual == null)//Nueva Eps
-			{
-				Eps nuevaEps = new Eps();
-				nuevaEps.setNobmreEps(nombreEps);
-				List<Paciente> pacientesActuales = new ArrayList<Paciente>();
-				pacientesActuales = pacientePorEps(nombreEps);
-				nuevaEps.setPacientesAfiliados(pacientesActuales);
-				epsGlobales.add(nuevaEps);
-				j++;
-			}
-			epsActual = null;
-    	}
-
-
-		System.out.println("Infor de Eps");
-		for(Eps iter : epsGlobales)
-		{
-			System.out.println(iter.getNobmreEps() + " Pacientes: " + iter.getPacientesAfiliados());
-			for(Paciente p : iter.getPacientesAfiliados())
-			{
-				System.out.println("Paciente: " + p.getDocumento());
-			}
-		}	
-		inciarEquipo();*/
+		ManejadorArchivos.leerArchivo("Archivo/pacientes.txt", pacientesGlobales, epsGlobales);
+		inciarEquipo();
 	}
 	public static Eps buscarEsp(String nombre)
 	{

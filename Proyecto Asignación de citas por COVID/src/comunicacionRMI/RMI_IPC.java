@@ -30,7 +30,7 @@ public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
 		//Logica y funciones de INS y EPS
 		
 		//UDP
-		ClienteIpsServidorIns clienteUDP;
+		/*ClienteIpsServidorIns clienteUDP;
 		try
 		{
 			clienteUDP = new ClienteIpsServidorIns (pacienteActual);
@@ -47,7 +47,7 @@ public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}	
+		}*/	
 		if(pacienteActual.getNombre().equals("Zeuz"))//Logica de EPS y INS
 			return true;
 		return false;

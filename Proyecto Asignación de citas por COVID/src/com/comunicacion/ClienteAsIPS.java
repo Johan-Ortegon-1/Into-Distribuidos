@@ -37,7 +37,7 @@ public class ClienteAsIPS
 			//UDP
 			ClienteIpsServidorIns clienteUDP = new ClienteIpsServidorIns (pActual);	
 			clienteUDP.enviar(pActual);
-			origin/Udp-_pls_funciona
+
 		} 
 		catch(RemoteException e)
 		{

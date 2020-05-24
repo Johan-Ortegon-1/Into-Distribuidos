@@ -2,18 +2,24 @@ package com.comunicacion;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 
+import com.negocio.Paciente;
+
 public class ServidorUDP extends Thread {
 	private DatagramSocket socket;
 	private boolean ejecucion;
 	private byte[] buffer;
-
+	private String respuesta = "negativo";
+	
 	public ServidorUDP() throws SocketException {
 		socket = new DatagramSocket(4445);
 		;
@@ -31,9 +37,14 @@ public class ServidorUDP extends Thread {
 			}
 			ByteArrayInputStream byteStream = new ByteArrayInputStream(buffer);
 			ObjectInputStream iStream;
-			try {
+			try {//Recibe el paciente desde IPS
 				iStream = new ObjectInputStream(new ByteArrayInputStream(buffer));
-				Object o = iStream.readObject();
+				Paciente pacienteActual = (Paciente) iStream.readObject();
+				if(pacienteActual.getNombre().equals("Zeuz"))
+				{
+					System.out.println("!!!!!!!!!! ES ZEUZ !!!!!!!!!");
+					respuesta = "positivo";
+				}
 				iStream.close();
 			} catch (IOException e1) {
 				e1.printStackTrace();
@@ -43,7 +54,10 @@ public class ServidorUDP extends Thread {
 			catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-
+			
+			//Devolver Respuesta a la IPS
+			buffer = respuesta.getBytes();
+			
 			InetAddress direccion = packet.getAddress();
 			int puerto = packet.getPort();
 			packet = new DatagramPacket(buffer, buffer.length, direccion, puerto);

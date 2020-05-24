@@ -37,7 +37,9 @@ public class ClienteIpsServidorIns {
 		socket.send(packet);
 		packet = new DatagramPacket(buffer, buffer.length);
 		socket.receive(packet);
-		//String received = new String(packet.getData(), 0, packet.getLength());
+		
+		String received = new String(packet.getData(), 0, packet.getLength());
+		System.out.println("!!!!!!!!!!!!!Resultado UDP: " + received);
 		//return received;
 	}
 

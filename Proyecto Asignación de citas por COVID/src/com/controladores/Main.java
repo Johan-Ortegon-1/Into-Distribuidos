@@ -1,5 +1,6 @@
 package com.controladores;
 
+import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Scanner;
 import com.comunicacion.ClienteAsIPS;
 import com.comunicacion.RmiPaciente_IPS;
 import com.comunicacion.ServidorAsPaciente;
+import com.comunicacion.ServidorUDP;
 import com.comunicacion.hiloIPSSolicitaPaciente;
 import com.comunicacion.hiloPacienteRespondeIPS;
 import com.negocio.Eps;
@@ -110,8 +112,13 @@ public class Main
 		}
 		if(tipoDeInicio == 3)//INS
 		{
-			for(Paciente p : pacientesGlobales) {
-				//
+			try
+			{
+				new ServidorUDP().start();
+			} catch (SocketException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		if(tipoDeInicio == 4)//Cliente

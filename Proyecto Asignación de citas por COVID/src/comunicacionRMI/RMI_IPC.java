@@ -68,8 +68,8 @@ public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
 	{
 		try 
 		{
-			Registry registry = LocateRegistry.getRegistry("192.168.1.114", puerto);
-			INS_Server cs = (INS_Server)Naming.lookup("//192.168.1.114/INS_Server");
+			Registry registry = LocateRegistry.getRegistry("192.168.1.63", puerto);
+			INS_Server cs = (INS_Server)Naming.lookup("//192.168.1.63/INS_Server");
 			int pActual = cs.responderPeticionPuntaje(pacienteActual);
 			return pActual;
 		} 

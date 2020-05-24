@@ -13,7 +13,6 @@ import com.comunicacion.hiloPacienteRespondeIPS;
 import com.negocio.Eps;
 import com.negocio.Paciente;
 import com.persistencia.ManejadorArchivos;
-import com.sun.org.apache.xml.internal.security.c14n.InvalidCanonicalizerException;
 
 import comunicacionRMI.hiloIPS;
 import comunicacionRMI.hiloPaciente;
@@ -111,7 +110,9 @@ public class Main
 		}
 		if(tipoDeInicio == 3)//INS
 		{
-			
+			for(Paciente p : pacientesGlobales) {
+				//
+			}
 		}
 		if(tipoDeInicio == 4)//Cliente
 		{

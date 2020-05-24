@@ -1,6 +1,9 @@
 package com.comunicacion;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -13,7 +16,8 @@ import com.negocio.Paciente;
 
 public class ClienteAsIPS
 {
-	public void iniciarCliente(int puerto)
+	
+	public void iniciarCliente(int puerto) throws IOException
 	{
 		try 
 		{
@@ -23,12 +27,17 @@ public class ClienteAsIPS
 			ClienteIPSServidorPaciente cs = (ClienteIPSServidorPaciente)Naming.lookup("//192.168.1.63/ClienteIPSServidorPaciente");
 			Paciente pActual = cs.obtenerPacientes();
 			System.out.println("Paciente actual: " + pActual.toString());
+
 			//INTERNARNA - Validar paciente con EPS
 			
 			//UDP - Validar paciente INS
 			
 			//RMI - Devolver resultado al paciente
 			
+			//UDP
+			ClienteIpsServidorIns clienteUDP = new ClienteIpsServidorIns (pActual);	
+			clienteUDP.enviar(pActual);
+			origin/Udp-_pls_funciona
 		} 
 		catch(RemoteException e)
 		{

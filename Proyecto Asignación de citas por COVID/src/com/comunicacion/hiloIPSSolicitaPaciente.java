@@ -1,5 +1,7 @@
 package com.comunicacion;
 
+import java.io.IOException;
+
 public class hiloIPSSolicitaPaciente extends Thread
 {
 	private int puerto;
@@ -10,6 +12,11 @@ public class hiloIPSSolicitaPaciente extends Thread
 	public void run() 
 	{
 		ClienteAsIPS clienteIPS = new ClienteAsIPS();
-		clienteIPS.iniciarCliente(this.puerto);
+		try {
+			clienteIPS.iniciarCliente(this.puerto);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

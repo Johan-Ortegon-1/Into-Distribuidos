@@ -15,12 +15,16 @@ import com.negocio.Paciente;
 import com.persistencia.ManejadorArchivos;
 import com.sun.org.apache.xml.internal.security.c14n.InvalidCanonicalizerException;
 
+import comunicacionRMI.hiloIPS;
+import comunicacionRMI.hiloPaciente;
+
 public class Main
 {
 	static List<Paciente> pacientesGlobales = new ArrayList<Paciente>();
 	static List<Eps> epsGlobales = new ArrayList<Eps>();
 	static List<hiloPacienteRespondeIPS> misHilosPaciente = new ArrayList<hiloPacienteRespondeIPS>();
 	static List<hiloIPSSolicitaPaciente> miIPS = new ArrayList<hiloIPSSolicitaPaciente>();
+	static List<hiloIPS> miHilosIPS = new ArrayList<hiloIPS>();
 	static RmiPaciente_IPS miRmi;
 	static int puertoActual = 1099;
 	public static void main(String[] args)
@@ -92,11 +96,18 @@ public class Main
 		{
 			for (Paciente iterP : pacientesGlobales)
 			{
+				hiloIPS nuevoIPS = new hiloIPS(puertoActual);
+				miHilosIPS.add(nuevoIPS);
+				nuevoIPS.start();
+				puertoActual++;
+			}
+			/*for (Paciente iterP : pacientesGlobales)
+			{
 				hiloIPSSolicitaPaciente nuevoIPS = new hiloIPSSolicitaPaciente(puertoActual);
 				miIPS.add(nuevoIPS);
 				nuevoIPS.start();
 				puertoActual++;
-			}
+			}*/
 		}
 		if(tipoDeInicio == 3)//INS
 		{
@@ -106,11 +117,17 @@ public class Main
 		{
 			for (Paciente iterP : pacientesGlobales)
 			{
+				hiloPaciente nuevoPaciente = new hiloPaciente(puertoActual, iterP);
+				nuevoPaciente.start();
+				puertoActual++;
+			}
+			/*for (Paciente iterP : pacientesGlobales)
+			{
 				hiloPacienteRespondeIPS nuevoPaciente = new hiloPacienteRespondeIPS(iterP, puertoActual);
 				misHilosPaciente.add(nuevoPaciente);
 				nuevoPaciente.start();
 				puertoActual++;
-			}
+			}*/
 		}
 	}
 	public static List<Paciente> getPacientesGlobales()

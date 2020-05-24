@@ -1,4 +1,4 @@
-package com.comunicacion;
+package comunicacionRMI;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -6,29 +6,28 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.ArrayList;
-import java.util.List;
+import javax.swing.JOptionPane;
 
+import com.comunicacion.ClienteIPSServidorPaciente;
 import com.negocio.Paciente;
 
-public class ClienteAsIPS
+public class hiloPaciente extends Thread
 {
-	public void iniciarCliente(int puerto)
+	private int puerto;
+	private Paciente pacienteActual;
+	public hiloPaciente(int puerto, Paciente pActual)
+	{
+		this.puerto = puerto;
+		this.pacienteActual = pActual;
+	}
+	public void run() 
 	{
 		try 
 		{
-			//RMI - Recibir datos del paciente
-			System.out.println("Solicitando puerto: " + puerto);
 			Registry registry = LocateRegistry.getRegistry("192.168.1.63", puerto);
-			ClienteIPSServidorPaciente cs = (ClienteIPSServidorPaciente)Naming.lookup("//192.168.1.63/ClienteIPSServidorPaciente");
-			Paciente pActual = cs.obtenerPacientes();
-			System.out.println("Paciente actual: " + pActual.toString());
-			//INTERNARNA - Validar paciente con EPS
-			
-			//UDP - Validar paciente INS
-			
-			//RMI - Devolver resultado al paciente
-			
+			IPS_Server cs = (IPS_Server)Naming.lookup("//192.168.1.63/IPS_Server");
+			boolean pActual = cs.responderPeticionCita(this.pacienteActual);
+			System.out.println("La respuesta del servidor: " + pActual + " Yo soy: " + pacienteActual.getNombre());
 		} 
 		catch(RemoteException e)
 		{

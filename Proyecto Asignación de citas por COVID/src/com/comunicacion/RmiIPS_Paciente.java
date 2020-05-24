@@ -6,6 +6,11 @@ import java.rmi.server.UnicastRemoteObject;
 public class RmiIPS_Paciente extends UnicastRemoteObject implements ClientePacienteServidorIPS
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3L;
+
 	protected RmiIPS_Paciente() throws RemoteException
 	{
 		

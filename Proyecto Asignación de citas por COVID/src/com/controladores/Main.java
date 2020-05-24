@@ -3,6 +3,7 @@ package com.controladores;
 import java.net.SocketException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
@@ -48,6 +49,7 @@ public class Main
 			}
 			epsActual = null;
     	}
+
 
 		System.out.println("Infor de Eps");
 		for(Eps iter : epsGlobales)

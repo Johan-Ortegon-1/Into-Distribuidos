@@ -24,8 +24,8 @@ public class hiloPaciente extends Thread
 	{
 		try 
 		{
-			Registry registry = LocateRegistry.getRegistry("192.168.1.63", puerto);
-			IPS_Server cs = (IPS_Server)Naming.lookup("//192.168.1.63/IPS_Server");
+			Registry registry = LocateRegistry.getRegistry("192.168.1.114", puerto);
+			IPS_Server cs = (IPS_Server)Naming.lookup("//192.168.1.114/IPS_Server");
 			boolean pActual = cs.responderPeticionCita(this.pacienteActual, puerto);
 			
 			System.out.println("La respuesta del servidor: " + pActual + " Yo soy: " + pacienteActual.getNombre());

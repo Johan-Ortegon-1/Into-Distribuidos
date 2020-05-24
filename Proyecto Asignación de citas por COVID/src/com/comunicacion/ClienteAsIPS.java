@@ -22,6 +22,8 @@ public class ClienteAsIPS
 			ClienteIPSServidorPaciente cs = (ClienteIPSServidorPaciente)Naming.lookup("//192.168.1.63/ClienteIPSServidorPaciente");
 			Paciente pActual = cs.obtenerPacientes();
 			System.out.println("Paciente actual: " + pActual.toString());
+			//UDP
+			
 		} 
 		catch(RemoteException e)
 		{

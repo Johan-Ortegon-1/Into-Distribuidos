@@ -98,7 +98,7 @@ public class Main
 				puertoActual++;
 			}
 		}
-		if(tipoDeInicio == 3)
+		if(tipoDeInicio == 3)//INS
 		{
 			
 		}

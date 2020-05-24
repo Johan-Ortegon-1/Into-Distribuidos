@@ -114,7 +114,10 @@ public class Main
 		{
 			try
 			{
-				new ServidorUDP().start();
+				System.out.println("Iniciando INS");
+				ServidorUDP nuevoUDP  =  new ServidorUDP();
+				nuevoUDP.start();
+				System.out.println("Iniciando FIN");
 			} catch (SocketException e)
 			{
 				// TODO Auto-generated catch block

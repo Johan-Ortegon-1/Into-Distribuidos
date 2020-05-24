@@ -17,7 +17,7 @@ public class Paciente implements Serializable {
 	private int idCita;
 	private String prioridad;
 	private int evaluacion;
-	private List<Cita> historial;
+	private List<Cita> historial =  new ArrayList<Cita>();
 	private List<Boolean> sintomas = new ArrayList<Boolean>();
 	private boolean patologiasAdicionales;
 	private int cubrimiento; //Es un numero de 0 a 100

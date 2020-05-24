@@ -19,6 +19,16 @@ import com.persistencia.ManejadorArchivos;
 
 import comunicacionRMI.hiloIPS;
 import comunicacionRMI.hiloPaciente;
+import com.comunicacion.Cliente;
+import com.comunicacion.Ins;
+import com.comunicacion.Ips;
+import com.comunicacion.Rmi;
+import com.comunicacion.Servidor;
+import com.comunicacion.hiloIPSxCliente;
+import com.comunicacion.hiloPaciente;
+import com.negocio.Eps;
+import com.negocio.Paciente;
+import com.persistencia.ManejadorArchivos;
 
 public class Main
 {
@@ -31,6 +41,9 @@ public class Main
 	static int puertoActual = 1099;
 	public static void main(String[] args)
 	{
+		//ManejadorArchivos.leerArchivo("Archivo/pacientes.txt", pacientesGlobales, epsGlobales);
+
+		/*
 		int j = 0;
 		pacientesGlobales = ManejadorArchivos.leerArchivo("Archivo/pacientes.txt");
 		for(int i = 0; i< pacientesGlobales.size(); i++)
@@ -60,13 +73,13 @@ public class Main
 				System.out.println("Paciente: " + p.getDocumento());
 			}
 		}	
-		inciarEquipo();
+		inciarEquipo();*/
 	}
 	public static Eps buscarEsp(String nombre)
 	{
 		for(Eps iter : epsGlobales)
 		{
-			if(iter.getNobmreEps().equals(nombre))
+			if(iter.getNombreEps().equals(nombre))
 			{
 				return iter;
 			}
@@ -93,7 +106,7 @@ public class Main
 		tipoDeInicio = reader.nextInt();
 		if(tipoDeInicio == 1)
 		{
-			
+
 		}
 		if(tipoDeInicio == 2)//IPS
 		{

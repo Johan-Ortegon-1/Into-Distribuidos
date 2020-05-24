@@ -14,9 +14,11 @@ public class Ips
 	private List<Eps> entidadesEPS;
 	private Ins entidadIns;
 	private int maxCitasDia;
-	
+
 	public Ips() {
-		
+		citasProgramadas = new ArrayList<Paciente>();
+		entidadesEPS = new ArrayList<Eps>();
+		maxCitasDia = 5;
 	}
 
 
@@ -69,92 +71,121 @@ public class Ips
 	}
 
 
-	public void asignarCitas(Paciente paciente) {
+	public String asignarCitas(Paciente paciente) {
 		Paciente copia;
+		String respuesta = " ";
+		//System.out.println(entidadesEPS.size());
 		for (int i = 0; i < entidadesEPS.size(); i++) {
-			if (entidadesEPS.get(i).getNombreEps() == paciente.getEps()) {
+			//System.out.println(entidadesEPS.get(i).getNombreEps()+" "+paciente.getEps());
+			if (entidadesEPS.get(i).getNombreEps().equals(paciente.getEps())) {
+				//System.out.println("entro?");
 				if(entidadesEPS.get(i).pacientesQueAtiendo(paciente)) {
-					int evaluacion = entidadIns.evaluarPaciente(paciente);
-					paciente.setEvaluacion(evaluacion);
-					copia = entidadesEPS.get(i).darAutorizacion(paciente);
-					ordenarPrioridad(copia);
-				}else {
+					entidadIns.evaluarPaciente(paciente);
+					if(entidadesEPS.get(i).darAutorizacion(paciente)) {
+						System.out.println("HAY UNA EPS PARA "+ paciente.getDocumento()+" "+entidadesEPS.get(i).getNombreEps()
+								+" "+paciente.getEvaluacion());
+						ordenarPrioridad(paciente);
+					}else {
+						System.out.println("+++++++++++NO TIENE CUBRIMIENTO CON SU NIVEL DE GRAVEDAD  "+ paciente.getDocumento());
+						respuesta = "El PACIENTE "+ paciente.getNombre()+" CON DOCUMENTO "+paciente.getDocumento()+" NO TIENE CUBRIMIENTO CON SU NIVEL DE GRAVEDAD";
+					}
 					
+				}else {
+					//Informar que el PACIENTE NO ESTA REGISTRADO EN LA EPS A LA QUE DICE PERTENECER
+					System.out.println("_______________NO ESTA AFILIADO A ESA EPS "+ paciente.getDocumento());
+					respuesta = "El PACIENTE "+ paciente.getNombre()+" CON DOCUMENTO "+paciente.getDocumento()+" NO ESTA AFILIADO A LA EPS QUE DICE";
 				}
 			}
 		}
+		return respuesta;
 	}
-	
+
 	public void reprogramarCita(Paciente paciente) {
 		Calendar fecha = Calendar.getInstance();
 		long day = fecha.get(Calendar.DAY_OF_MONTH);
 		long month = fecha.get(Calendar.MONTH);
 		long year = fecha.get(Calendar.YEAR);
 		String fechas = Long.toString(day+1)+" "+Long.toString(month+1)
-		                  +" "+Long.toString(year);
-		
+		+" "+Long.toString(year);
+
 		int tamHistorial = paciente.getHistorial().size();
-		paciente.getHistorial().get(tamHistorial-1).setFecha(fechas);	
+		if(!fechas.equals(paciente.getHistorial().get(tamHistorial-1).getFecha())) {
+			paciente.getHistorial().get(tamHistorial-1).setFecha(fechas);
+			System.out.println("***************SE MOVIO DE FECHA "+paciente.getDocumento());
+		}
 		
+
 		//Se debe informar reprogamacion de la cita
-		
+
 	}
-	
-	
+
+
 	public void ordenarPrioridad(Paciente paciente) {
 		//Queda ordenar por orden de llegada cuando hay un empate
 		boolean seProgramo = false;
 		boolean tieneCita = false;
 		boolean tieneCoronavirus = false;
 		List<Paciente> copiaCitasProgramadas = new ArrayList<Paciente>();
-		
 		for (int i = 0; i < citasProgramadas.size(); i++) {
 			if (citasProgramadas.get(i).getDocumento() == paciente.getDocumento()) {
 				tieneCita = true;
 			}
 		}
-		
+
 		if(paciente.getPrioridad() != "No enfermo" && paciente.getPrioridad() != "Leve")
 			tieneCoronavirus = true;
-		
+
 		if(citasProgramadas.size()>=0 && !tieneCita && tieneCoronavirus) { //Existen citas disponibles
 			for (int i = 0; i < citasProgramadas.size(); i++) {
-				
-				if (!seProgramo && i+1 < citasProgramadas.size() && i < maxCitasDia) {
-					
+
+				if (!seProgramo && i+1 < citasProgramadas.size()) {
+					boolean entro = false;
 					if(paciente.getEvaluacion() == citasProgramadas.get(i).getEvaluacion()
 							&& paciente.getEvaluacion() > citasProgramadas.get(i+1).getEvaluacion()) {
+						//System.out.println("***************** USO ESTA OPCION ****** "+paciente.getDocumento());
+						//System.out.println(citasProgramadas.get(i).getDocumento());
+						//System.out.println(citasProgramadas.get(i+1).getDocumento());
 						copiaCitasProgramadas.add(citasProgramadas.get(i));
-						if(i == maxCitasDia-1)
-							reprogramarCita(paciente);
 						copiaCitasProgramadas.add(paciente);
 						seProgramo = true;
+						entro = true;
+						
 					}
-					
+
 					if (paciente.getEvaluacion()>citasProgramadas.get(i).getEvaluacion()) {
+						//System.out.println("+++++++++ USO ESTA OPCION +++++++++ "+paciente.getDocumento());
+						//System.out.println(citasProgramadas.get(i).getDocumento());
 						copiaCitasProgramadas.add(paciente);
-						if(i == maxCitasDia-1)
-							reprogramarCita(citasProgramadas.get(i));
 						copiaCitasProgramadas.add(citasProgramadas.get(i));
+						
 						seProgramo = true;
+						entro = true;
 					}
-				}else
+					if (!entro) {
+						copiaCitasProgramadas.add(citasProgramadas.get(i));
+					}
+				}else {
 					copiaCitasProgramadas.add(citasProgramadas.get(i));
+				}
+					
 			}
 			if (!seProgramo) {
 				copiaCitasProgramadas.add(paciente);
 			}
+			/*for (int j = 0 ; j < copiaCitasProgramadas.size(); j++) {
+				System.out.println(copiaCitasProgramadas.get(j).getDocumento()+" "+copiaCitasProgramadas.get(j).getEvaluacion());
+			}*/
+			for (int k = maxCitasDia ; k < copiaCitasProgramadas.size(); k++) {
+				reprogramarCita(copiaCitasProgramadas.get(k));
+			}
+			citasProgramadas = copiaCitasProgramadas;
 		}
+
 		
-		if (citasProgramadas.size() == 0) {
-			copiaCitasProgramadas.add(paciente);
-		}
-		
-		citasProgramadas = copiaCitasProgramadas;
-		
-		
+
+
 	}
-	
-	
-	
+
+
+
 }

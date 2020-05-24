@@ -11,60 +11,55 @@ import java.net.SocketException;
 
 public class ServidorUDP extends Thread {
 	private DatagramSocket socket;
-    private boolean ejecucion;
-    private byte[] buffer ;
- 
-    public ServidorUDP() throws SocketException {
-    	socket=new DatagramSocket(4445);
-;    }
- 
-    public void run() {
-        ejecucion = true;
- 
-        while (ejecucion) {
-            DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
-            try {
+	private boolean ejecucion;
+	private byte[] buffer;
+
+	public ServidorUDP() throws SocketException {
+		socket = new DatagramSocket(4445);
+		;
+	}
+
+	public void run() {
+		ejecucion = true;
+
+		while (ejecucion) {
+			DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+			try {
 				socket.receive(packet);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-            ByteArrayInputStream byteStream = new ByteArrayInputStream(buffer);
-            ObjectInputStream iStream;
+			ByteArrayInputStream byteStream = new ByteArrayInputStream(buffer);
+			ObjectInputStream iStream;
 			try {
 				iStream = new ObjectInputStream(new ByteArrayInputStream(buffer));
 				Object o = iStream.readObject();
-	            iStream.close();
+				iStream.close();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-            //ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(byteStream));
- catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
+			// ObjectInputStream is = new ObjectInputStream(new
+			// BufferedInputStream(byteStream));
+			catch (ClassNotFoundException e) {
 				e.printStackTrace();
 			}
-            
-            
-            
-            InetAddress direccion = packet.getAddress();
-            int puerto = packet.getPort();
-            packet = new DatagramPacket(buffer, buffer.length, direccion, puerto);
-            
-                      
-           //String recibido = new String(packet.getData(), 0, packet.getLength());
-             
+
+			InetAddress direccion = packet.getAddress();
+			int puerto = packet.getPort();
+			packet = new DatagramPacket(buffer, buffer.length, direccion, puerto);
+
+			// String recibido = new String(packet.getData(), 0, packet.getLength());
+
 //            if (recibido.equals("end")) {
 //            	ejecucion = false;
 //                continue;
 //            }
-            try {
+			try {
 				socket.send(packet);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-        }
-        socket.close(); //
-    }
+		}
+		socket.close();
+	}
 }

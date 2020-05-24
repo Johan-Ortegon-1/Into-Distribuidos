@@ -99,7 +99,9 @@ public class Main
 		}
 		if(tipoDeInicio == 3)//INS
 		{
-			
+			for(Paciente p : pacientesGlobales) {
+				//
+			}
 		}
 		if(tipoDeInicio == 4)//Cliente
 		{

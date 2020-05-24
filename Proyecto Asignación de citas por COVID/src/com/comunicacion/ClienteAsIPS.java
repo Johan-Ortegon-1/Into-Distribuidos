@@ -19,7 +19,7 @@ public class ClienteAsIPS
 		{
 			System.out.println("Solicitando puerto: " + puerto);
 			Registry registry = LocateRegistry.getRegistry("192.168.1.63", puerto);
-			ClienteIPSServidorCliente cs = (ClienteIPSServidorCliente)Naming.lookup("//192.168.1.63/ClienteIPSServidorCliente");
+			ClienteIPSServidorPaciente cs = (ClienteIPSServidorPaciente)Naming.lookup("//192.168.1.63/ClienteIPSServidorPaciente");
 			Paciente pActual = cs.obtenerPacientes();
 			System.out.println("Paciente actual: " + pActual.toString());
 		} 

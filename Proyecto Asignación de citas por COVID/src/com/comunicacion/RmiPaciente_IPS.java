@@ -8,7 +8,7 @@ import java.util.List;
 import com.controladores.Main;
 import com.negocio.Paciente;
 
-public class RmiPaciente_IPS extends UnicastRemoteObject implements ClienteIPSServidorCliente
+public class RmiPaciente_IPS extends UnicastRemoteObject implements ClienteIPSServidorPaciente
 {
 	/**
 	 * 

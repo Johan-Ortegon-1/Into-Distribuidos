@@ -29,4 +29,18 @@ public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
 		return false;
 	}
 
+	@Override
+	public String actualizacionFecha() throws RemoteException
+	{
+		while(true)
+		{
+			/*llego paciente con mayor prioridad*/
+			if(true)
+			{
+				return "25/10/20";
+			}
+		}
+		
+	}
+
 }

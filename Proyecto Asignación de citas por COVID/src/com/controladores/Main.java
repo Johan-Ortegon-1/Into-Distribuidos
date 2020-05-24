@@ -13,6 +13,7 @@ import com.negocio.Eps;
 import com.negocio.Paciente;
 import com.persistencia.ManejadorArchivos;
 
+import comunicacionRMI.hiloINS;
 import comunicacionRMI.hiloIPS;
 import comunicacionRMI.hiloPaciente;
 
@@ -23,6 +24,7 @@ public class Main
 	static List<hiloPacienteRespondeIPS> misHilosPaciente = new ArrayList<hiloPacienteRespondeIPS>();
 	static List<hiloIPSSolicitaPaciente> miIPS = new ArrayList<hiloIPSSolicitaPaciente>();
 	static List<hiloIPS> miHilosIPS = new ArrayList<hiloIPS>();
+	static List<hiloINS> miHilosINS = new ArrayList<hiloINS>();
 	static RmiPaciente_IPS miRmi;
 	static int puertoActual = 1099;
 	public static void main(String[] args)
@@ -74,13 +76,6 @@ public class Main
 				nuevoIPS.start();
 				puertoActual++;
 			}
-			/*for (Paciente iterP : pacientesGlobales)
-			{
-				hiloIPSSolicitaPaciente nuevoIPS = new hiloIPSSolicitaPaciente(puertoActual);
-				miIPS.add(nuevoIPS);
-				nuevoIPS.start();
-				puertoActual++;
-			}*/
 		}
 		if(tipoDeInicio == 3)//INS
 		{
@@ -88,8 +83,16 @@ public class Main
 			{
 				System.out.println("Iniciando INS");
 				ServidorUDP nuevoUDP  =  new ServidorUDP();
-				nuevoUDP.start();
 				System.out.println("Iniciando FIN");
+				
+				for (Paciente iterP : pacientesGlobales)
+				{
+					hiloINS nuevoINS = new hiloINS(puertoActual);
+					miHilosINS.add(nuevoINS);
+					nuevoINS.start();
+					puertoActual++;
+				}
+				
 			} catch (SocketException e)
 			{
 				// TODO Auto-generated catch block

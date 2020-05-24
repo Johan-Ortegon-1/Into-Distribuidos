@@ -11,7 +11,7 @@ import java.util.List;
 
 import com.negocio.Paciente;
 
-public class Cliente//IPS-EPS
+public class ClienteAsIPS
 {
 	public void iniciarCliente(int puerto)
 	{
@@ -19,7 +19,7 @@ public class Cliente//IPS-EPS
 		{
 			System.out.println("Solicitando puerto: " + puerto);
 			Registry registry = LocateRegistry.getRegistry("192.168.1.63", puerto);
-			ClienteServidorIpsCliente cs = (ClienteServidorIpsCliente)Naming.lookup("//192.168.1.63/ClienteServidorIpsCliente");
+			ClienteIPSServidorCliente cs = (ClienteIPSServidorCliente)Naming.lookup("//192.168.1.63/ClienteIPSServidorCliente");
 			Paciente pActual = cs.obtenerPacientes();
 			System.out.println("Paciente actual: " + pActual.toString());
 		} 

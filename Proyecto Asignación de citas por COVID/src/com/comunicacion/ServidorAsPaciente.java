@@ -8,15 +8,14 @@ import javax.swing.JOptionPane;
 import com.controladores.Main;
 import com.negocio.Paciente;
 
-public class Servidor
+public class ServidorAsPaciente
 {
 	public void iniciarServidor(int puerto, Paciente p)
 	{
 		try
 		{
-			System.out.println("Puerto: " + puerto);
 			Registry r = java.rmi.registry.LocateRegistry.createRegistry(puerto);
-			Rmi nuevoRmi = new Rmi();
+			RmiPaciente_IPS nuevoRmi = new RmiPaciente_IPS();
 			nuevoRmi.setPacientesGlobales(Main.getPacientesGlobales());
 			r.rebind("ClienteServidorIpsCliente", nuevoRmi);
 			JOptionPane.showMessageDialog(null, "Servidor iniciado");

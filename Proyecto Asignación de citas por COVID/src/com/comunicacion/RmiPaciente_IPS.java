@@ -8,7 +8,7 @@ import java.util.List;
 import com.controladores.Main;
 import com.negocio.Paciente;
 
-public class Rmi extends UnicastRemoteObject implements ClienteServidorIpsCliente
+public class RmiPaciente_IPS extends UnicastRemoteObject implements ClienteIPSServidorCliente
 {
 	/**
 	 * 
@@ -17,7 +17,7 @@ public class Rmi extends UnicastRemoteObject implements ClienteServidorIpsClient
 	Paciente pacienteActual;
 	int contadorLol = -1;
 	private List<Paciente> pacientesGlobales = new ArrayList<Paciente>();
-	public Rmi() throws RemoteException
+	public RmiPaciente_IPS() throws RemoteException
 	{
 		
 	}
@@ -36,8 +36,9 @@ public class Rmi extends UnicastRemoteObject implements ClienteServidorIpsClient
 	}
 	
 	@Override
-	public Paciente obtenerPacientes() throws RemoteException
+	public synchronized Paciente obtenerPacientes() throws RemoteException
 	{
+		
 		contadorLol++;
 		return this.pacientesGlobales.get(contadorLol);
 	}

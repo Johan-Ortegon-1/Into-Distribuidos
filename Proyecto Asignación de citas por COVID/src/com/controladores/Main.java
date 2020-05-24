@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.comunicacion.Cliente;
-import com.comunicacion.Rmi;
-import com.comunicacion.Servidor;
-import com.comunicacion.hiloIPSxCliente;
-import com.comunicacion.hiloPaciente;
+import com.comunicacion.ClienteAsIPS;
+import com.comunicacion.RmiPaciente_IPS;
+import com.comunicacion.ServidorAsPaciente;
+import com.comunicacion.hiloIPSSolicitaPaciente;
+import com.comunicacion.hiloPacienteRespondeIPS;
 import com.negocio.Eps;
 import com.negocio.Paciente;
 import com.persistencia.ManejadorArchivos;
@@ -19,9 +19,9 @@ public class Main
 {
 	static List<Paciente> pacientesGlobales = new ArrayList<Paciente>();
 	static List<Eps> epsGlobales = new ArrayList<Eps>();
-	static List<hiloPaciente> misHilosPaciente = new ArrayList<hiloPaciente>();
-	static List<hiloIPSxCliente> miIPS = new ArrayList<hiloIPSxCliente>();
-	static Rmi miRmi;
+	static List<hiloPacienteRespondeIPS> misHilosPaciente = new ArrayList<hiloPacienteRespondeIPS>();
+	static List<hiloIPSSolicitaPaciente> miIPS = new ArrayList<hiloIPSSolicitaPaciente>();
+	static RmiPaciente_IPS miRmi;
 	static int puertoActual = 1099;
 	public static void main(String[] args)
 	{
@@ -92,7 +92,7 @@ public class Main
 		{
 			for (Paciente iterP : pacientesGlobales)
 			{
-				hiloIPSxCliente nuevoIPS = new hiloIPSxCliente(puertoActual);
+				hiloIPSSolicitaPaciente nuevoIPS = new hiloIPSSolicitaPaciente(puertoActual);
 				miIPS.add(nuevoIPS);
 				nuevoIPS.start();
 				puertoActual++;
@@ -106,7 +106,7 @@ public class Main
 		{
 			for (Paciente iterP : pacientesGlobales)
 			{
-				hiloPaciente nuevoPaciente = new hiloPaciente(iterP, puertoActual);
+				hiloPacienteRespondeIPS nuevoPaciente = new hiloPacienteRespondeIPS(iterP, puertoActual);
 				misHilosPaciente.add(nuevoPaciente);
 				nuevoPaciente.start();
 				puertoActual++;

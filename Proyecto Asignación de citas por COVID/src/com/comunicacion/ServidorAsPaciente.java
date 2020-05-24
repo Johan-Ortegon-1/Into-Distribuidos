@@ -17,7 +17,7 @@ public class ServidorAsPaciente
 			Registry r = java.rmi.registry.LocateRegistry.createRegistry(puerto);
 			RmiPaciente_IPS nuevoRmi = new RmiPaciente_IPS();
 			nuevoRmi.setPacientesGlobales(Main.getPacientesGlobales());
-			r.rebind("ClienteServidorIpsCliente", nuevoRmi);
+			r.rebind("ClienteIPSServidorCliente", nuevoRmi);
 			JOptionPane.showMessageDialog(null, "Servidor iniciado");
 		} catch (RemoteException e)
 		{

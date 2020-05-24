@@ -1,6 +1,9 @@
 package com.comunicacion;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -13,7 +16,8 @@ import com.negocio.Paciente;
 
 public class ClienteAsIPS
 {
-	public void iniciarCliente(int puerto)
+	
+	public void iniciarCliente(int puerto) throws IOException
 	{
 		try 
 		{
@@ -23,7 +27,8 @@ public class ClienteAsIPS
 			Paciente pActual = cs.obtenerPacientes();
 			System.out.println("Paciente actual: " + pActual.toString());
 			//UDP
-			
+			ClienteIpsServidorIns clienteUDP = new ClienteIpsServidorIns (pActual);	
+			clienteUDP.enviar(pActual);
 		} 
 		catch(RemoteException e)
 		{

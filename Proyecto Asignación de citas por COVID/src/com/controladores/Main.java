@@ -13,7 +13,6 @@ import com.comunicacion.hiloPacienteRespondeIPS;
 import com.negocio.Eps;
 import com.negocio.Paciente;
 import com.persistencia.ManejadorArchivos;
-import com.sun.org.apache.xml.internal.security.c14n.InvalidCanonicalizerException;
 
 public class Main
 {

@@ -1,5 +1,6 @@
 package com.comunicacion;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.negocio.Cita;
@@ -10,7 +11,7 @@ public class Ins
 	private List<Paciente> casosReportados;
 
 	public Ins() {
-		
+		casosReportados = new ArrayList<Paciente>();
 	}
 	
 
@@ -30,7 +31,7 @@ public class Ins
 		this.casosReportados = casosReportados;
 	}
 	
-	public int evaluarPaciente(Paciente paciente) {
+	public void evaluarPaciente(Paciente paciente) {
 		//SintomasLeves SintomaFiebre - SintomaTos - SintomaCansancio - SintomaDolor 
 		//SintomasGraves FaltaAire - InsuficienciaPulmonar - ShockSeptico - FallaMultiorganica 
 		int evaluacion = 0;
@@ -39,43 +40,96 @@ public class Ins
 		String prioridad = "No enfermo";
 		//PatologiasAdicionales o Cirugias
 		
+		
 		List<Boolean> sintomasPa = paciente.getSintomas();
-		for (int i = 0; i < sintomasPa.size(); i++) {
-			if(i == 0) 	sintomas += 5;
-			if(i == 1) 	sintomas += 5;
-			if(i == 2) 	sintomas += 5;
-			if(i == 3) 	sintomas += 5;
-			if(i == 4) 	sintomas += 10;
-			if(i == 5) 	sintomas += 10;
-			if(i == 6) 	sintomas += 10;
-			if(i == 7) 	sintomas += 10;
+		for (int i = 0; i < 4; i++) {
+			if(sintomasPa.get(i)) {
+				//System.out.println(i);
+				sintomas += 5;
+			}	
+		}
+		for (int i = 4; i < 7; i++) {
+			if(sintomasPa.get(i)) {
+				//System.out.println(i);
+				sintomas += 10;
+			}		
+		}
+		if (paciente.isPatologiasAdicionales()) {
+			//System.out.println("ADICIONAL");
+			evaluacion += 20;
+		}
+
+		if(paciente.getEdad()>=50) {
+			//System.out.println("EDAD 50");
+			edad += 5;
+		}
+		if(paciente.getEdad()>=60) {
+			//System.out.println("EDAD 60");
+			edad += 5;
+		}
+		if(paciente.getEdad()>=70) {
+			//System.out.println("EDAD 70");
+			edad += 5;
+		}
+		if(paciente.getEdad()>=80) {
+			//System.out.println("EDAD 80");
+			edad += 5;
 		}
 		
-		if (paciente.isPatologiasAdicionales()) 
-			evaluacion += 20;
-		
-		if(paciente.getEdad()>=50) edad += 5;
-		if(paciente.getEdad()>=60) edad += 5;
-		if(paciente.getEdad()>=80) edad += 5;
-		if(paciente.getEdad()>=90) edad += 5;
-		
-		if(paciente.getEdad()<=10) edad += 10;
-		if(paciente.getEdad()<=5) edad += 10;
+		if(paciente.getEdad()<=10) {
+			//System.out.println("EDAD 10");
+			edad += 10;
+		}
+		if(paciente.getEdad()<=5) {
+			//System.out.println("EDAD 5");
+			edad += 10;
+		}
 		
 		int total = evaluacion+sintomas+edad;
 		
-		if (sintomas <=15 && evaluacion == 0) 
-			prioridad = "Leve";
-		if (sintomas ==0 && evaluacion == 0) 
+		if (sintomas ==0 && evaluacion == 0) {
+			//System.out.println("Sintomas 2");
 			prioridad = "No enfermo";
-		if (sintomas <=15 && evaluacion == 20) 
+		}
+		if (sintomas >= 40) {
+			//System.out.println("Sintomas 5.1");
+			prioridad = "Leve";
+		}
+		if (sintomas <=15 && evaluacion == 0) {
+			//System.out.println("Sintomas 1");
+			prioridad = "Leve";
+		}
+		if (sintomas >=15 && edad == 10 && evaluacion == 0) {
+			//System.out.println("Sintomas 5");
 			prioridad = "Severa";
-		if (sintomas >=15 && evaluacion == 20) 
-			prioridad = "Grave";
-		if (sintomas >=15 && edad == 10 && evaluacion == 0) 
+		}
+		if (sintomas >= 50) {
+			//System.out.println("Sintomas 5.1");
 			prioridad = "Severa";
-		if (total >= 70) 
+		}
+		if (sintomas <=15 && evaluacion == 20 && total>=40) {
+			//System.out.println("Sintomas 3");
+			prioridad = "Severa";
+		}
+		if (sintomas >=30 && edad>=5) {
+			//System.out.println("Sintomas 3.1");
+			prioridad = "Severa";
+		}
+		if (sintomas >=15 && evaluacion == 20 && sintomas <=40) {
+			//System.out.println("Sintomas 4");
+			prioridad = "Severa";
+		}
+		if (sintomas >=15 && evaluacion == 20 && edad>=5) {
+			//System.out.println("Sintomas 4");
 			prioridad = "Grave";
+		}
+		if (total >= 70) {
+			//System.out.println("Sintomas 6");
+			prioridad = "Grave";
+		}
+		if (sintomas >= 20 && total <= 30) {
+			prioridad = "Leve";
+		}
 		
 		paciente.setEvaluacion(total);
 		paciente.setPrioridad(prioridad);
@@ -83,7 +137,6 @@ public class Ins
 		
 		
 		//FALTA EL WAIT FORZADO DE un segundo
-		return evaluacion;
 	}
 	
 	

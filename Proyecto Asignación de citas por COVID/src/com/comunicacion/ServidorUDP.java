@@ -18,39 +18,33 @@ public class ServidorUDP extends Thread {
 	private DatagramSocket socket;
 	private boolean ejecucion;
 	private byte[] buffer = new byte[256];
-	private String respuesta = "negativo";
-	
-	public ServidorUDP() throws SocketException {
+	private Ins myIns;
+	public ServidorUDP(Ins myIns) throws SocketException {
 		socket = new DatagramSocket(4445);
-		;
+		this.myIns = myIns;
 	}
 
 	public void run() {
 		ejecucion = true;
-		System.out.println("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		Paciente pacienteActual = new Paciente();
 		while (ejecucion) {
 			
 			DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
 			try {
-				System.out.println("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!!!!!!!!!!!");
-				socket.receive(packet);
-				System.out.println("Aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!!!!!!!!!!!22222");
+				socket.receive(packet);//Se recibe el paquete con el paciente
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			ByteArrayInputStream byteStream = new ByteArrayInputStream(buffer);
 			ObjectInputStream iStream;
 			try {//Recibe el paciente desde IPS
-				System.out.println("Recibiendo paciente");
 				iStream = new ObjectInputStream(new ByteArrayInputStream(buffer));
-				Paciente pacienteActual = (Paciente) iStream.readObject();
-				if(pacienteActual.getNombre().equals("Zeuz"))
+				pacienteActual = (Paciente) iStream.readObject();
+				if(pacienteActual != null)
 				{
-					System.out.println("!!!!!!!!!! ES ZEUZ !!!!!!!!!");
-					respuesta = "positivo";
+					myIns.evaluarPaciente(pacienteActual);
 				}
 				iStream.close();
-				System.out.println("Paciente FIN");
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
@@ -61,24 +55,36 @@ public class ServidorUDP extends Thread {
 			}
 			
 			//Devolver Respuesta a la IPS
-			buffer = respuesta.getBytes();
-			
-			InetAddress direccion = packet.getAddress();
-			int puerto = packet.getPort();
-			packet = new DatagramPacket(buffer, buffer.length, direccion, puerto);
+			if(pacienteActual != null)
+			{
+				try
+				{
+					ByteArrayOutputStream bStream = new ByteArrayOutputStream();
+					ObjectOutput oo;
+					oo = new ObjectOutputStream(bStream);
+					oo.writeObject(pacienteActual);
+					oo.close();
+					
+					buffer = bStream.toByteArray();
+				} catch (IOException e1)
+				{
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
 
-			// String recibido = new String(packet.getData(), 0, packet.getLength());
 
-//            if (recibido.equals("end")) {
-//            	ejecucion = false;
-//                continue;
-//            }
-			try {
-				System.out.println("Enviando UDP");
-				socket.send(packet);
-				System.out.println("Enviando UDP - FIN");
-			} catch (IOException e) {
-				e.printStackTrace();
+				InetAddress direccion = packet.getAddress();
+				int puerto = packet.getPort();
+				
+				DatagramPacket packet2 = new DatagramPacket(buffer, buffer.length, 4445); // Creo puerto a enviar
+				packet2 = new DatagramPacket(buffer, buffer.length, direccion, puerto);
+
+				try {
+					socket.send(packet2);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
 			}
 		}
 		socket.close();

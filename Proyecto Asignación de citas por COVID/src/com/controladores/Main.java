@@ -88,8 +88,7 @@ public class Main
 			try
 			{
 				System.out.println("Iniciando INS");
-				ServidorUDP nuevoUDP  =  new ServidorUDP();
-				System.out.println("Iniciando FIN");
+				ServidorUDP nuevoUDP  =  new ServidorUDP(myIns);
 				
 				for (Paciente iterP : pacientesGlobales)
 				{
@@ -113,13 +112,6 @@ public class Main
 				nuevoPaciente.start();
 				puertoActual++;
 			}
-			/*for (Paciente iterP : pacientesGlobales)
-			{
-				hiloPacienteRespondeIPS nuevoPaciente = new hiloPacienteRespondeIPS(iterP, puertoActual);
-				misHilosPaciente.add(nuevoPaciente);
-				nuevoPaciente.start();
-				puertoActual++;
-			}*/
 		}
 
 	}

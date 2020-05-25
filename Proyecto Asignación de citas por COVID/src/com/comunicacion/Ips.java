@@ -115,7 +115,7 @@ public class Ips
 		int tamHistorial = paciente.getHistorial().size();
 		if(!fechas.equals(paciente.getHistorial().get(tamHistorial-1).getFecha())) {
 			paciente.getHistorial().get(tamHistorial-1).setFecha(fechas);
-			System.out.println("***************SE MOVIO DE FECHA "+paciente.getDocumento());
+			System.out.println("(***) SE MOVIO LA FECHA DEL PACIENTE: "+paciente.getDocumento());
 		}
 		
 
@@ -182,7 +182,8 @@ public class Ips
 			for (int k = maxCitasDia ; k < copiaCitasProgramadas.size(); k++) {
 				reprogramarCita(copiaCitasProgramadas.get(k));
 			}
-			citasProgramadas = copiaCitasProgramadas;
+			this.citasProgramadas = copiaCitasProgramadas;
+			this.setCitasProgramadas(copiaCitasProgramadas);
 		}
 
 		

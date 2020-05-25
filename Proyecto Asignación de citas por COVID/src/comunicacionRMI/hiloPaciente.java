@@ -28,23 +28,27 @@ public class hiloPaciente extends Thread
 			IPS_Server cs = (IPS_Server)Naming.lookup("//192.168.1.114/IPS_Server");
 			Paciente pActual = cs.responderPeticionCita(this.pacienteActual, puerto);
 			
-			//Impresion del resultado de peticion de cita - parla tramadora
+			//Impresion del resultado de peticion de cita
 			if(!pActual.getHistorial().isEmpty())
 			{
-				System.out.println("La respuesta del servidor: " + pActual.getHistorial().get(0).getFecha() + " Yo soy: " + pacienteActual.getNombre());
-				System.out.println("COMMIT");
+				System.out.println(" Yo soy: " + pacienteActual.getNombre() + " (***) CITA ASIGNADA PARA LA FECHA: " + pActual.getHistorial().get(0).getFecha());
+				
+				//System.out.println("COMMIT");
 			}
 			else
 			{
-				System.out.println("La respuesta del servidor: NO MERECE CITA" + " Yo soy: " + pacienteActual.getNombre());
-				System.out.println("COMMIT");
+				System.out.println(" Yo soy: " + pacienteActual.getNombre() + " (***) NO SE PUDO ASIGNAR LA CITA");
+				//System.out.println("COMMIT");
 			}
 			
 			//Pediente de cambios en la cita
 			if(!pActual.getHistorial().isEmpty())
 			{
-				cs.actualizacionFecha(pActual);
-				System.out.println("ROLLBACK");
+				String nueva_fecha = cs.actualizacionFecha(pActual);
+				System.out.println(" Yo soy: " + pacienteActual.getNombre() + " (!!!) MI CITA FUE REASIGNADA DEL: "+ 
+						pActual.getHistorial().get(0).getFecha() + " A LA FECHA: " + nueva_fecha);
+				pActual.getHistorial().get(0).setFecha(nueva_fecha);
+				//System.out.println("ROLLBACK");
 			}
 				
 			

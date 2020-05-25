@@ -31,12 +31,6 @@ public class ManejadorArchivos
 			while((cadena = b.readLine())!=null) 
 			{
 				String[] words = cadena.split("\\-");
-				/*System.out.println("Paciente nuevo: ");
-	        	for(int i = 0; i< words.length; i++)
-	        	{
-	        		System.out.println(words[i] + "+");
-	        	}
-	        	System.out.println();*/
 				//Asignacion de valores
 				//System.out.println("PRIMERA PALABRA "+ words[0]);
 				if (words[0].equals("PACIENTES")) {

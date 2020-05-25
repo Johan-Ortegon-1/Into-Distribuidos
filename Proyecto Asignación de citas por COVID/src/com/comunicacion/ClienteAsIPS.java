@@ -35,7 +35,7 @@ public class ClienteAsIPS
 			//RMI - Devolver resultado al paciente
 			
 			//UDP
-			ClienteIpsServidorIns clienteUDP = new ClienteIpsServidorIns (pActual);	
+			IPS_Cliente_UDP clienteUDP = new IPS_Cliente_UDP (pActual);	
 			clienteUDP.enviar(pActual);
 
 		} 

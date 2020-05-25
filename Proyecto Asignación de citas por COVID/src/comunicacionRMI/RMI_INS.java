@@ -19,6 +19,7 @@ public class RMI_INS extends UnicastRemoteObject implements INS_Server
 	public Paciente responderPeticionPuntaje(Paciente pacienteActual) throws RemoteException
 	{
 		myIns.evaluarPaciente(pacienteActual);
+		System.out.println("Por referencia 1: " + pacienteActual.getEvaluacion());
 		return pacienteActual;
 	}
 

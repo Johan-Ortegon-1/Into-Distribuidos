@@ -121,6 +121,7 @@ public class Main
 				puertoActual++;
 			}*/
 		}
+
 	}
 	public static List<Paciente> getPacientesGlobales()
 	{

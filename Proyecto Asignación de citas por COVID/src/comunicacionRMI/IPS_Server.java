@@ -7,6 +7,6 @@ import com.negocio.Paciente;
 
 public interface IPS_Server extends Remote
 {
-	public boolean responderPeticionCita(Paciente pacienteActual, int puerto)throws RemoteException;
-	public String actualizacionFecha() throws RemoteException;
+	public Paciente responderPeticionCita(Paciente pacienteActual, int puerto)throws RemoteException;
+	public String actualizacionFecha(Paciente pActual) throws RemoteException;
 }

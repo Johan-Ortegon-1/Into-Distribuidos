@@ -26,9 +26,28 @@ public class hiloPaciente extends Thread
 		{
 			Registry registry = LocateRegistry.getRegistry("192.168.1.114", puerto);
 			IPS_Server cs = (IPS_Server)Naming.lookup("//192.168.1.114/IPS_Server");
-			boolean pActual = cs.responderPeticionCita(this.pacienteActual, puerto);
+			Paciente pActual = cs.responderPeticionCita(this.pacienteActual, puerto);
 			
-			System.out.println("La respuesta del servidor: " + pActual + " Yo soy: " + pacienteActual.getNombre());
+			//Impresion del resultado de peticion de cita - parla tramadora
+			if(!pActual.getHistorial().isEmpty())
+			{
+				System.out.println("La respuesta del servidor: " + pActual.getHistorial().get(0).getFecha() + " Yo soy: " + pacienteActual.getNombre());
+				System.out.println("COMMIT");
+			}
+			else
+			{
+				System.out.println("La respuesta del servidor: NO MERECE CITA" + " Yo soy: " + pacienteActual.getNombre());
+				System.out.println("COMMIT");
+			}
+			
+			//Pediente de cambios en la cita
+			if(!pActual.getHistorial().isEmpty())
+			{
+				cs.actualizacionFecha(pActual);
+				System.out.println("ROLLBACK");
+			}
+				
+			
 		} 
 		catch(RemoteException e)
 		{

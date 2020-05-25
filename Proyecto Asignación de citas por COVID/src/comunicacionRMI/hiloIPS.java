@@ -20,7 +20,7 @@ public class hiloIPS extends Thread
 		try
 		{
 			Registry r = java.rmi.registry.LocateRegistry.createRegistry(puerto);
-			RMI_IPC nuevoRmi = new RMI_IPC(myIps);
+			RMI_IPS nuevoRmi = new RMI_IPS(myIps);
 			r.rebind("IPS_Server", nuevoRmi);
 			JOptionPane.showMessageDialog(null, "Servidor iniciado");
 			

@@ -15,7 +15,7 @@ import com.comunicacion.ClienteIpsServidorIns;
 import com.comunicacion.Ips;
 import com.negocio.Paciente;
 
-public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
+public class RMI_IPS extends UnicastRemoteObject implements IPS_Server
 {
 
 	/**
@@ -24,7 +24,7 @@ public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
 	private static final long serialVersionUID = 1L;
 	private Ips myIps;
 	
-	protected RMI_IPC(Ips myIps) throws RemoteException
+	protected RMI_IPS(Ips myIps) throws RemoteException
 	{
 		this.myIps = myIps;
 		// TODO Auto-generated constructor stub
@@ -32,7 +32,7 @@ public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
 	
 	//Con base en la informacion que llega del paciente se filtra y devuelve una respuesta
 	@Override
-	public boolean responderPeticionCita(Paciente pacienteActual, int puerto) throws RemoteException
+	public Paciente responderPeticionCita(Paciente pacienteActual, int puerto) throws RemoteException
 	{
 		//Logica y funciones de INS y EPS
 		
@@ -41,8 +41,13 @@ public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
 		
 		//INS
 		
-		consultarINS(pacienteActual, puerto);
+		pacienteActual = consultarINS(pacienteActual, puerto);
 		System.out.println("Yo sou el paciente: " + pacienteActual.getNombre() + " Con el puntaje: " + pacienteActual.getEvaluacion());
+		
+		/*System.out.println("BASURA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		for (int i = 0; i < myIps.getCitasProgramadas().size(); i++) {
+			System.out.println(myIps.getCitasProgramadas().get(i).getDocumento()+" "+myIps.getCitasProgramadas().get(i).getEvaluacion());
+			}*/
 		//UDP
 		/*ClienteIpsServidorIns clienteUDP;
 		try
@@ -65,19 +70,20 @@ public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
 		/*if(pacienteActual.getNombre().equals("Zeuz"))//Logica de EPS y INS
 			return true;*/
 		boolean  respuesta = myIps.asignarCitas(pacienteActual);
+		
 		//System.out.println(respuesta);
-		return respuesta;
+		return pacienteActual;
 	}
 	
-	public void consultarINS(Paciente pacienteActual, int puerto)
+	public Paciente consultarINS(Paciente pacienteActual, int puerto)
 	{
 		try 
 		{
 			Registry registry = LocateRegistry.getRegistry("192.168.1.63", puerto);
 			INS_Server cs = (INS_Server)Naming.lookup("//192.168.1.63/INS_Server");
 			Paciente pActual = cs.responderPeticionPuntaje(pacienteActual);
-			pacienteActual = pActual;
 			System.out.println("Soy pActual con puntaje: " + pActual.getEvaluacion());
+			return pActual;
 			//return pacienteActual;
 		} 
 		catch(RemoteException e)
@@ -92,19 +98,25 @@ public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//return 0;
+		return null;
 		
 	}
 
 	@Override
-	public String actualizacionFecha() throws RemoteException
+	public String actualizacionFecha(Paciente pActual) throws RemoteException
 	{
 		while(true)
 		{
-			/*llego paciente con mayor prioridad*/
-			if(true)
+			for (int i = 0; i < myIps.getCitasProgramadas().size(); i++) 
 			{
-				return "25/10/20";
+				if(pActual.getDocumento() == myIps.getCitasProgramadas().get(i).getDocumento())
+				{
+					if(!pActual.getHistorial().get(0).getFecha().equals(myIps.getCitasProgramadas().get(i).getHistorial().get(0).getFecha()))
+					{
+						System.out.println("COMMIT");
+						return myIps.getCitasProgramadas().get(i).getHistorial().get(0).getFecha();
+					}
+				}
 			}
 		}
 		

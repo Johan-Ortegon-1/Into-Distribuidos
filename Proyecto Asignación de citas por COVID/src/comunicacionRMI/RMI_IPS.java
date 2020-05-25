@@ -34,26 +34,16 @@ public class RMI_IPS extends UnicastRemoteObject implements IPS_Server
 	@Override
 	public Paciente responderPeticionCita(Paciente pacienteActual, int puerto) throws RemoteException
 	{
+		System.out.println("LLEGO LA SOLUCITUD DEL PACIENTE: " + pacienteActual.getDocumento() + " NOMBRE: " + pacienteActual.getNombre());
+		System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*");
 		//Logica y funciones de INS y EPS
 		
-		//EPS
-		//Aldegod
-		
-		//INS
-		
-		pacienteActual = consultarINS(pacienteActual, puerto);
-		System.out.println("Yo sou el paciente: " + pacienteActual.getNombre() + " Con el puntaje: " + pacienteActual.getEvaluacion());
-		
-		/*System.out.println("BASURA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		for (int i = 0; i < myIps.getCitasProgramadas().size(); i++) {
-			System.out.println(myIps.getCitasProgramadas().get(i).getDocumento()+" "+myIps.getCitasProgramadas().get(i).getEvaluacion());
-			}*/
-		//UDP
-		/*ClienteIpsServidorIns clienteUDP;
+		//UDP - INS
+		ClienteIpsServidorIns clienteUDP;
 		try
 		{
 			clienteUDP = new ClienteIpsServidorIns (pacienteActual);
-			clienteUDP.enviar(pacienteActual);
+			clienteUDP.enviar(pacienteActual);//Modificacion por parametro
 		} catch (SocketException e)
 		{
 			// TODO Auto-generated catch block
@@ -66,10 +56,19 @@ public class RMI_IPS extends UnicastRemoteObject implements IPS_Server
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/	
-		/*if(pacienteActual.getNombre().equals("Zeuz"))//Logica de EPS y INS
-			return true;*/
-		boolean  respuesta = myIps.asignarCitas(pacienteActual);
+		}
+		pacienteActual = consultarINS(pacienteActual, puerto);
+
+		//EPS
+		boolean respuesta = myIps.asignarCitas(pacienteActual);
+		if(respuesta)
+		{
+			System.out.println("CITA DENEGADA PARA: " + pacienteActual.getNombre() + " Con el puntaje: " + pacienteActual.getEvaluacion());
+		}
+		else
+		{
+			System.out.println("CITA ASIGNADA PARA: " + pacienteActual.getNombre() + " Con el puntaje: " + pacienteActual.getEvaluacion());
+		}
 		
 		//System.out.println(respuesta);
 		return pacienteActual;
@@ -82,7 +81,6 @@ public class RMI_IPS extends UnicastRemoteObject implements IPS_Server
 			Registry registry = LocateRegistry.getRegistry("192.168.1.63", puerto);
 			INS_Server cs = (INS_Server)Naming.lookup("//192.168.1.63/INS_Server");
 			Paciente pActual = cs.responderPeticionPuntaje(pacienteActual);
-			System.out.println("Soy pActual con puntaje: " + pActual.getEvaluacion());
 			return pActual;
 			//return pacienteActual;
 		} 

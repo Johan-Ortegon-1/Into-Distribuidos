@@ -24,7 +24,7 @@ public class ClienteIpsServidorIns {
 		address = InetAddress.getByName("192.168.1.63"); // AQUI VA LA IP
 	}
 
-	public void enviar(Paciente pacienteUDP) throws IOException {// Metodo
+	public void enviar(Paciente pacienteUDP) throws IOException {// Metodo de modificacion por referencia
 		
 		ByteArrayOutputStream bStream = new ByteArrayOutputStream();
 		ObjectOutput oo = new ObjectOutputStream(bStream); 
@@ -34,13 +34,11 @@ public class ClienteIpsServidorIns {
 		buffer = bStream.toByteArray();
 				
 		DatagramPacket packet = new DatagramPacket(buffer, buffer.length, address, 4445); // Creo puerto a enviar
-		socket.send(packet);
+		this.send(packet);
 		packet = new DatagramPacket(buffer, buffer.length);
-		socket.receive(packet);
+		this.receive(packet);
 		
 		String received = new String(packet.getData(), 0, packet.getLength());
-		System.out.println("!!!!!!!!!!!!!Resultado UDP: " + received);
-		//return received;
 	}
 
 	public void close() {
@@ -53,6 +51,18 @@ public class ClienteIpsServidorIns {
 
 	public void setPacienteUDP(Paciente pacienteUDP) {
 		this.pacienteUDP = pacienteUDP;
+	}
+	
+	
+	
+	
+	public void send(DatagramPacket packet)
+	{
+		
+	}
+	public void receive(DatagramPacket packet)
+	{
+		
 	}
 
 }

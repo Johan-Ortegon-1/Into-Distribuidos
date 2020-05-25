@@ -83,20 +83,20 @@ public class Ips
 				if(entidadesEPS.get(i).pacientesQueAtiendo(paciente)) {
 					//entidadIns.evaluarPaciente(paciente);
 					if(entidadesEPS.get(i).darAutorizacion(paciente)) {
-						System.out.println("HAY UNA EPS PARA "+ paciente.getDocumento()+" "+entidadesEPS.get(i).getNombreEps()
-								+" "+paciente.getEvaluacion());
+						//System.out.println("HAY UNA EPS PARA "+ paciente.getDocumento()+" "+entidadesEPS.get(i).getNombreEps()
+								//+" "+paciente.getEvaluacion());
 						resp = true;
 						ordenarPrioridad(paciente);
 					}else {
 						//System.out.println("+++++++++++NO TIENE CUBRIMIENTO CON SU NIVEL DE GRAVEDAD  "+ paciente.getDocumento());
-						respuesta = "El PACIENTE "+ paciente.getNombre()+" CON DOCUMENTO "+paciente.getDocumento()+" NO TIENE CUBRIMIENTO CON SU NIVEL DE GRAVEDAD";
+						respuesta = "(!!!) Error de asignacion: El PACIENTE "+ paciente.getNombre()+" CON DOCUMENTO "+paciente.getDocumento()+" NO TIENE CUBRIMIENTO CON SU NIVEL DE GRAVEDAD";
 						System.out.println(respuesta);
 					}
 					
 				}else {
 					//Informar que el PACIENTE NO ESTA REGISTRADO EN LA EPS A LA QUE DICE PERTENECER
 					//System.out.println("_______________NO ESTA AFILIADO A ESA EPS "+ paciente.getDocumento());
-					respuesta = "El PACIENTE "+ paciente.getNombre()+" CON DOCUMENTO "+paciente.getDocumento()+" NO ESTA AFILIADO A LA EPS QUE DICE";
+					respuesta = "(!!!) Error de asignacion: El PACIENTE "+ paciente.getNombre()+" CON DOCUMENTO "+paciente.getDocumento()+" NO ESTA AFILIADO A LA EPS QUE DICE";
 					System.out.println(respuesta);
 				}
 			}

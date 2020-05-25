@@ -42,7 +42,7 @@ public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
 		//INS
 		
 		consultarINS(pacienteActual, puerto);
-		System.out.println("Yo sou el paciente: " + pacienteActual.getNombre() + " Con el puntaje: " );
+		System.out.println("Yo sou el paciente: " + pacienteActual.getNombre() + " Con el puntaje: " + pacienteActual.getEvaluacion());
 		//UDP
 		/*ClienteIpsServidorIns clienteUDP;
 		try
@@ -77,6 +77,7 @@ public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
 			INS_Server cs = (INS_Server)Naming.lookup("//192.168.1.63/INS_Server");
 			Paciente pActual = cs.responderPeticionPuntaje(pacienteActual);
 			pacienteActual = pActual;
+			System.out.println("Soy pActual con puntaje: " + pActual.getEvaluacion());
 			//return pacienteActual;
 		} 
 		catch(RemoteException e)

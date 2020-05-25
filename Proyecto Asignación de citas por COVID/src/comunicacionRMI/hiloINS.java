@@ -5,19 +5,24 @@ import java.rmi.registry.Registry;
 
 import javax.swing.JOptionPane;
 
+import com.comunicacion.Ins;
+import com.comunicacion.Ips;
+
 public class hiloINS extends Thread
 {
 	private int puerto;
-	public hiloINS(int puerto)
+	private Ins myIns;
+	public hiloINS(int puerto, Ins myIns)
 	{
 		this.puerto = puerto;
+		this.myIns = myIns;
 	}
 	public void run() 
 	{
 		try
 		{
 			Registry r = java.rmi.registry.LocateRegistry.createRegistry(puerto);
-			RMI_INS nuevoRmi = new RMI_INS();
+			RMI_INS nuevoRmi = new RMI_INS(myIns);
 			r.rebind("INS_Server", nuevoRmi);			
 		} catch (RemoteException e)
 		{

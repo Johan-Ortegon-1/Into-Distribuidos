@@ -3,25 +3,23 @@ package comunicacionRMI;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
+import com.comunicacion.Ins;
 import com.negocio.Paciente;
 
 public class RMI_INS extends UnicastRemoteObject implements INS_Server
 {
-
-	protected RMI_INS() throws RemoteException
+	private Ins myIns;
+	protected RMI_INS(Ins myIns) throws RemoteException
 	{
-		super();
+		this.myIns = myIns;
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public int responderPeticionPuntaje(Paciente pacienteActual) throws RemoteException
+	public Paciente responderPeticionPuntaje(Paciente pacienteActual) throws RemoteException
 	{
-		if(pacienteActual.getNombre().equals("Zeuz"))
-		{
-			return 95;
-		}
-		return 50;
+		myIns.evaluarPaciente(pacienteActual);
+		return pacienteActual;
 	}
 
 }

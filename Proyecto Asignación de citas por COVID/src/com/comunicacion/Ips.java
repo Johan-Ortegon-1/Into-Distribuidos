@@ -71,8 +71,9 @@ public class Ips
 	}
 
 
-	public String asignarCitas(Paciente paciente) {
+	public boolean asignarCitas(Paciente paciente) {
 		Paciente copia;
+		boolean resp = false;
 		String respuesta = " ";
 		//System.out.println(entidadesEPS.size());
 		for (int i = 0; i < entidadesEPS.size(); i++) {
@@ -80,24 +81,27 @@ public class Ips
 			if (entidadesEPS.get(i).getNombreEps().equals(paciente.getEps())) {
 				//System.out.println("entro?");
 				if(entidadesEPS.get(i).pacientesQueAtiendo(paciente)) {
-					entidadIns.evaluarPaciente(paciente);
+					//entidadIns.evaluarPaciente(paciente);
 					if(entidadesEPS.get(i).darAutorizacion(paciente)) {
 						System.out.println("HAY UNA EPS PARA "+ paciente.getDocumento()+" "+entidadesEPS.get(i).getNombreEps()
 								+" "+paciente.getEvaluacion());
+						resp = true;
 						ordenarPrioridad(paciente);
 					}else {
-						System.out.println("+++++++++++NO TIENE CUBRIMIENTO CON SU NIVEL DE GRAVEDAD  "+ paciente.getDocumento());
+						//System.out.println("+++++++++++NO TIENE CUBRIMIENTO CON SU NIVEL DE GRAVEDAD  "+ paciente.getDocumento());
 						respuesta = "El PACIENTE "+ paciente.getNombre()+" CON DOCUMENTO "+paciente.getDocumento()+" NO TIENE CUBRIMIENTO CON SU NIVEL DE GRAVEDAD";
+						System.out.println(respuesta);
 					}
 					
 				}else {
 					//Informar que el PACIENTE NO ESTA REGISTRADO EN LA EPS A LA QUE DICE PERTENECER
-					System.out.println("_______________NO ESTA AFILIADO A ESA EPS "+ paciente.getDocumento());
+					//System.out.println("_______________NO ESTA AFILIADO A ESA EPS "+ paciente.getDocumento());
 					respuesta = "El PACIENTE "+ paciente.getNombre()+" CON DOCUMENTO "+paciente.getDocumento()+" NO ESTA AFILIADO A LA EPS QUE DICE";
+					System.out.println(respuesta);
 				}
 			}
 		}
-		return respuesta;
+		return resp;
 	}
 
 	public void reprogramarCita(Paciente paciente) {

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.comunicacion.Ins;
+import com.comunicacion.Ips;
 import com.comunicacion.RmiPaciente_IPS;
 import com.comunicacion.ServidorUDP;
 import com.comunicacion.hiloIPSSolicitaPaciente;
@@ -27,11 +29,15 @@ public class Main
 	static List<hiloINS> miHilosINS = new ArrayList<hiloINS>();
 	static RmiPaciente_IPS miRmi;
 	static int puertoActual = 1099;
+	static Ips myIps = new Ips();
+	static Ins myIns = new Ins();
+	
 	public static void main(String[] args)
 	{
 		//ManejadorArchivos.leerArchivo("Archivo/pacientes.txt", pacientesGlobales, epsGlobales);
 		int j = 0;
 		ManejadorArchivos.leerArchivo("Archivo/pacientes.txt", pacientesGlobales, epsGlobales);
+		myIps.setEntidadesEPS(epsGlobales);
 		inciarEquipo();
 	}
 	public static Eps buscarEsp(String nombre)
@@ -71,7 +77,7 @@ public class Main
 		{
 			for (Paciente iterP : pacientesGlobales)
 			{
-				hiloIPS nuevoIPS = new hiloIPS(puertoActual);
+				hiloIPS nuevoIPS = new hiloIPS(puertoActual,myIps);
 				miHilosIPS.add(nuevoIPS);
 				nuevoIPS.start();
 				puertoActual++;
@@ -87,7 +93,7 @@ public class Main
 				
 				for (Paciente iterP : pacientesGlobales)
 				{
-					hiloINS nuevoINS = new hiloINS(puertoActual);
+					hiloINS nuevoINS = new hiloINS(puertoActual,myIns);
 					miHilosINS.add(nuevoINS);
 					nuevoINS.start();
 					puertoActual++;

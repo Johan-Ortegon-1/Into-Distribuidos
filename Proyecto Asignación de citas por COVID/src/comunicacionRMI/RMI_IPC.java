@@ -12,6 +12,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import com.comunicacion.ClienteIpsServidorIns;
+import com.comunicacion.Ips;
 import com.negocio.Paciente;
 
 public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
@@ -21,10 +22,11 @@ public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-	protected RMI_IPC() throws RemoteException
+	private Ips myIps;
+	
+	protected RMI_IPC(Ips myIps) throws RemoteException
 	{
-		super();
+		this.myIps = myIps;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -38,8 +40,9 @@ public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
 		//Aldegod
 		
 		//INS
-		int puntaje = consultarINS(pacienteActual, puerto);
-		System.out.println("Yo sou el paciente: " + pacienteActual.getNombre() + " Con el puntaje: " + puntaje);
+		
+		consultarINS(pacienteActual, puerto);
+		System.out.println("Yo sou el paciente: " + pacienteActual.getNombre() + " Con el puntaje: " );
 		//UDP
 		/*ClienteIpsServidorIns clienteUDP;
 		try
@@ -59,19 +62,22 @@ public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}*/	
-		if(pacienteActual.getNombre().equals("Zeuz"))//Logica de EPS y INS
-			return true;
-		return false;
+		/*if(pacienteActual.getNombre().equals("Zeuz"))//Logica de EPS y INS
+			return true;*/
+		boolean  respuesta = myIps.asignarCitas(pacienteActual);
+		//System.out.println(respuesta);
+		return respuesta;
 	}
 	
-	public int consultarINS(Paciente pacienteActual, int puerto)
+	public void consultarINS(Paciente pacienteActual, int puerto)
 	{
 		try 
 		{
 			Registry registry = LocateRegistry.getRegistry("192.168.1.63", puerto);
 			INS_Server cs = (INS_Server)Naming.lookup("//192.168.1.63/INS_Server");
-			int pActual = cs.responderPeticionPuntaje(pacienteActual);
-			return pActual;
+			Paciente pActual = cs.responderPeticionPuntaje(pacienteActual);
+			pacienteActual = pActual;
+			//return pacienteActual;
 		} 
 		catch(RemoteException e)
 		{
@@ -85,7 +91,8 @@ public class RMI_IPC extends UnicastRemoteObject implements IPS_Server
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return 0;
+		//return 0;
+		
 	}
 
 	@Override

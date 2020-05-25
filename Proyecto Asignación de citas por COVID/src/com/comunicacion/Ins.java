@@ -31,7 +31,7 @@ public class Ins
 		this.casosReportados = casosReportados;
 	}
 	
-	public void evaluarPaciente(Paciente paciente) {
+	public void evaluarPaciente(Paciente paciente){
 		//SintomasLeves SintomaFiebre - SintomaTos - SintomaCansancio - SintomaDolor 
 		//SintomasGraves FaltaAire - InsuficienciaPulmonar - ShockSeptico - FallaMultiorganica 
 		int evaluacion = 0;
@@ -137,6 +137,12 @@ public class Ins
 		
 		
 		//FALTA EL WAIT FORZADO DE un segundo
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	

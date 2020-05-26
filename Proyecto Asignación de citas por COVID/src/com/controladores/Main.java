@@ -34,8 +34,6 @@ public class Main
 	
 	public static void main(String[] args)
 	{
-		//ManejadorArchivos.leerArchivo("Archivo/pacientes.txt", pacientesGlobales, epsGlobales);
-		int j = 0;
 		ManejadorArchivos.leerArchivo("Archivo/pacientes.txt", pacientesGlobales, epsGlobales);
 		myIps.setEntidadesEPS(epsGlobales);
 		inciarEquipo();
@@ -55,13 +53,10 @@ public class Main
 	public static void inciarEquipo()
 	{
 		int tipoDeInicio = 0;
-		System.out.println("Como desea iniciar esta maquina: 1. Eps, 2. Ips, 3.Ins, 4. Cliente");
+		System.out.println("Como desea iniciar esta maquina: 2. Ips-Eps, 3.Ins, 4. Cliente");
 		Scanner reader = new Scanner(System.in);
 		tipoDeInicio = reader.nextInt();
-		if(tipoDeInicio == 1)
-		{
-
-		}
+		
 		if(tipoDeInicio == 2)//IPS
 		{
 			//Inicio de las IPS
@@ -72,7 +67,13 @@ public class Main
 				nuevoIPS.start();
 				puertoActual++;
 			}
-			
+			//Inicio de las EPS
+			for(Eps iterE : epsGlobales)
+			{
+				hiloEPS nuevaEps = new hiloEPS(puertoActualEps);
+				nuevaEps.start();
+				puertoActualEps++;
+			}
 			llamadaGestorTransacciones();
 			/*Impresion citas programadas*/
 			System.out.println("-*-*-*-*-*-Citas programadas IPS-*-*-*-*-*-");
@@ -105,15 +106,6 @@ public class Main
 				System.out.println("Iniciando INS");
 				ServidorUDP nuevoUDP  =  new ServidorUDP(myIns);
 				nuevoUDP.starl();
-				
-				//Inicio de las EPS
-				for(Eps iterE : epsGlobales)
-				{
-					System.out.println("AAAAAJAJAJAJAJJAJAJAAJAJAJAJAJAJAAJ " + puertoActualEps);
-					hiloEPS nuevaEps = new hiloEPS(puertoActualEps);
-					nuevaEps.start();
-					puertoActualEps++;
-				}
 				
 				for (Paciente iterP : pacientesGlobales)
 				{
@@ -162,7 +154,7 @@ public class Main
 	{
 		try
 		{
-			Thread.sleep(15000);
+			Thread.sleep(12000);
 		} catch (InterruptedException e)
 		{
 			// TODO Auto-generated catch block

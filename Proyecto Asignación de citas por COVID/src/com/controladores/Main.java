@@ -85,6 +85,16 @@ public class Main
 				nuevoIPS.start();
 				puertoActual++;
 			}
+			llamadaGestorTransacciones();
+			/*Impresion citas programadas*/
+			System.out.println("Citas programadas IPS:");
+			for (int i = 0; i < myIps.getCitasProgramadas().size(); i++) 
+			{
+				if(myIps.getCitasProgramadas().get(i).getPrioridad() != "No enfermo" && myIps.getCitasProgramadas().get(i).getPrioridad() != "Leve")
+				{
+					System.out.println(myIps.getCitasProgramadas().get(i).getDocumento()+" "+myIps.getCitasProgramadas().get(i).getEvaluacion() + " Prioridad: " + myIps.getCitasProgramadas().get(i).getPrioridad());
+				}
+			}
 		}
 		if(tipoDeInicio == 3)//INS
 		{
@@ -102,7 +112,7 @@ public class Main
 					nuevoINS.start();
 					puertoActual++;
 				}
-				Thread.sleep(10000);
+				llamadaGestorTransacciones();
 				int i = 0;
 				System.out.println("---TOTAL CASOS REPORTADOS REGISTRADOS EN INS---");
 				for(Paciente iter : myIns.getCasosReportados())
@@ -114,9 +124,6 @@ public class Main
 				
 			} catch (SocketException e)
 			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -140,9 +147,16 @@ public class Main
 	
 	
 	
-	public void llamadaGestorTransacciones()
+	public static void llamadaGestorTransacciones()
 	{
-		
+		try
+		{
+			Thread.sleep(10000);
+		} catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

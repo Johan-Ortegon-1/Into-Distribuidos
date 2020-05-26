@@ -109,6 +109,7 @@ public class Main
 				//Inicio de las EPS
 				for(Eps iterE : epsGlobales)
 				{
+					System.out.println("AAAAAJAJAJAJAJJAJAJAAJAJAJAJAJAJAAJ " + puertoActualEps);
 					hiloEPS nuevaEps = new hiloEPS(puertoActualEps);
 					nuevaEps.start();
 					puertoActualEps++;

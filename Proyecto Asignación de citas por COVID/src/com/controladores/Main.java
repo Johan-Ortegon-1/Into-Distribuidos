@@ -72,13 +72,6 @@ public class Main
 				nuevoIPS.start();
 				puertoActual++;
 			}
-			//Inicio de las EPS
-			for(Eps iterE : epsGlobales)
-			{
-				hiloEPS nuevaEps = new hiloEPS(puertoActualEps);
-				nuevaEps.start();
-				puertoActualEps++;
-			}
 			
 			llamadaGestorTransacciones();
 			/*Impresion citas programadas*/
@@ -121,6 +114,15 @@ public class Main
 					nuevoINS.start();
 					puertoActual++;
 				}
+				
+				//Inicio de las EPS
+				for(Eps iterE : epsGlobales)
+				{
+					hiloEPS nuevaEps = new hiloEPS(puertoActualEps);
+					nuevaEps.start();
+					puertoActualEps++;
+				}
+				
 				llamadaGestorTransacciones();
 				int i = 0;
 				System.out.println("---TOTAL CASOS REPORTADOS REGISTRADOS EN INS---");

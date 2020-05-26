@@ -91,8 +91,8 @@ public class Ips
 			{
 				if (entidadesEPS.get(i).getNombreEps().equals(paciente.getEps())) //Eps que el paciente afirma
 				{
-					Registry registry = LocateRegistry.getRegistry("192.168.1.114", PuertoEps);//warning localhost
-					EPS_Servidor cs = (EPS_Servidor)Naming.lookup("//192.168.1.114/EPS_Servidor");
+					Registry registry = LocateRegistry.getRegistry("192.168.1.63", PuertoEps);//warning localhost
+					EPS_Servidor cs = (EPS_Servidor)Naming.lookup("//192.168.1.63/EPS_Servidor");
 					String banderaPaciente = cs.autorizacionEps(paciente, entidadesEPS.get(i));
 					if(banderaPaciente.equals("aprobado"))
 					{

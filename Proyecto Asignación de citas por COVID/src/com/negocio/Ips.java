@@ -85,6 +85,7 @@ public class Ips
 		
 		//System.out.println(entidadesEPS.size());
 		//Copia
+		/*
 		for (int i = 0; i < entidadesEPS.size(); i++)//Comunicacion con todas las EPS 
 		{
 			try 
@@ -92,11 +93,9 @@ public class Ips
 				if (entidadesEPS.get(i).getNombreEps().equals(paciente.getEps())) //Eps que el paciente afirma
 				{
 					int puertoReal = PuertoEps + i;
-					System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! FUCK: " + puertoReal);
 					Registry registry = LocateRegistry.getRegistry("192.168.1.63", puertoReal);//warning localhost
 					EPS_Servidor cs = (EPS_Servidor)Naming.lookup("//192.168.1.63/EPS_Servidor");
 					String banderaPaciente = cs.autorizacionEps(paciente, entidadesEPS.get(i));
-					System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! FUCK 222222222222222222222: " + puertoReal);
 					if(banderaPaciente.equals("aprobado"))
 					{
 						resp = true;
@@ -127,9 +126,9 @@ public class Ips
 				e.printStackTrace();
 			}
 			//PuertoEps++;
-		}
+		}*/
 		//Original
-		/*for (int i = 0; i < entidadesEPS.size(); i++) {
+		for (int i = 0; i < entidadesEPS.size(); i++) {
 			//System.out.println(entidadesEPS.get(i).getNombreEps()+" "+paciente.getEps());
 			if (entidadesEPS.get(i).getNombreEps().equals(paciente.getEps())) {
 				if(entidadesEPS.get(i).pacientesQueAtiendo(paciente)) {
@@ -152,7 +151,7 @@ public class Ips
 					System.out.println(respuesta);
 				}
 			}
-		}*/
+		}
 		return resp;
 	}
 

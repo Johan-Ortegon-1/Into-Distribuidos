@@ -67,7 +67,7 @@ public class Ips
 	}
 
 
-	public boolean asignarCitas(Paciente paciente) {
+	public synchronized boolean asignarCitas(Paciente paciente) {
 		Paciente copia;
 		boolean resp = false;
 		String respuesta = " ";
@@ -100,7 +100,7 @@ public class Ips
 		return resp;
 	}
 
-	public void reprogramarCita(Paciente paciente) {
+	public synchronized  void reprogramarCita(Paciente paciente) {
 		Calendar fecha = Calendar.getInstance();
 		long day = fecha.get(Calendar.DAY_OF_MONTH);
 		long month = fecha.get(Calendar.MONTH);
@@ -120,7 +120,7 @@ public class Ips
 	}
 
 
-	public void ordenarPrioridad(Paciente paciente) {
+	public synchronized void ordenarPrioridad(Paciente paciente) {
 		//Queda ordenar por orden de llegada cuando hay un empate
 		boolean seProgramo = false;
 		boolean tieneCita = false;

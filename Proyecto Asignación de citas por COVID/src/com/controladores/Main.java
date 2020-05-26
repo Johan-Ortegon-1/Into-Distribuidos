@@ -87,14 +87,32 @@ public class Main
 			}
 			llamadaGestorTransacciones();
 			/*Impresion citas programadas*/
-			System.out.println("Citas programadas IPS:");
+			System.out.println("-*-*-*-*-*-Citas programadas IPS-*-*-*-*-*-");
+			System.out.println("tam lista: " + myIps.getCitasProgramadas().size());
 			for (int i = 0; i < myIps.getCitasProgramadas().size(); i++) 
 			{
-				if(!myIps.getCitasProgramadas().get(i).getPrioridad().equals("No enfermo") && !myIps.getCitasProgramadas().get(i).getPrioridad().equals("Leve"))
+				System.out.println(myIps.getCitasProgramadas().get(i).getDocumento()+" "+myIps.getCitasProgramadas().get(i).getEvaluacion() + " Prioridad: " + myIps.getCitasProgramadas().get(i).getPrioridad());
+				/*if(!myIps.getCitasProgramadas().get(i).getPrioridad().equals("No enfermo") && !myIps.getCitasProgramadas().get(i).getPrioridad().equals("Leve"))
 				{
 					System.out.println(myIps.getCitasProgramadas().get(i).getDocumento()+" "+myIps.getCitasProgramadas().get(i).getEvaluacion() + " Prioridad: " + myIps.getCitasProgramadas().get(i).getPrioridad());
+				}*/
+			}
+			for(Eps tem : myIps.getEntidadesEPS())
+			{
+				System.out.println("PARA LA EPS: " + tem.getNombreEps() + " -*-*-*-*-*-*");
+				for(Paciente temp2 : tem.getPacientesAfiliados())
+				{
+					if(temp2.getHistorial().size() > 0)
+					{
+						System.out.println(" Documento: " + temp2.getDocumento() + " Citas: " + temp2.getHistorial().get(0).getFecha());
+					}
+					else
+					{
+						System.out.println(" Documento: " + temp2.getDocumento() + " Citas: NINGUNA ASIGNADA");
+					}
 				}
 			}
+			System.out.println("");
 		}
 		if(tipoDeInicio == 3)//INS
 		{
@@ -151,7 +169,7 @@ public class Main
 	{
 		try
 		{
-			Thread.sleep(10000);
+			Thread.sleep(15000);
 		} catch (InterruptedException e)
 		{
 			// TODO Auto-generated catch block

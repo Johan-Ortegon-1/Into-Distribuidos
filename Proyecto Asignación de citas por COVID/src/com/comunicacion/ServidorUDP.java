@@ -12,6 +12,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 
+import com.negocio.Ins;
 import com.negocio.Paciente;
 
 public class ServidorUDP extends Thread {
@@ -88,5 +89,21 @@ public class ServidorUDP extends Thread {
 			}
 		}
 		socket.close();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public void starl()
+	{
+		
 	}
 }

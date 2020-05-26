@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import javax.swing.JOptionPane;
 
-import com.comunicacion.Ips;
+import com.negocio.Ips;
 
 public class hiloIPS extends Thread
 {
@@ -22,7 +22,6 @@ public class hiloIPS extends Thread
 			Registry r = java.rmi.registry.LocateRegistry.createRegistry(puerto);
 			RMI_IPS nuevoRmi = new RMI_IPS(myIps);
 			r.rebind("IPS_Server", nuevoRmi);
-			JOptionPane.showMessageDialog(null, "Servidor iniciado");
 			
 		} catch (RemoteException e)
 		{

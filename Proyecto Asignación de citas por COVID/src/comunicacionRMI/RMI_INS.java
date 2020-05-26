@@ -3,7 +3,7 @@ package comunicacionRMI;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-import com.comunicacion.Ins;
+import com.negocio.Ins;
 import com.negocio.Paciente;
 
 public class RMI_INS extends UnicastRemoteObject implements INS_Server
@@ -19,7 +19,7 @@ public class RMI_INS extends UnicastRemoteObject implements INS_Server
 	public Paciente responderPeticionPuntaje(Paciente pacienteActual) throws RemoteException
 	{
 		myIns.evaluarPaciente(pacienteActual);
-		System.out.println("Por referencia 1: " + pacienteActual.getEvaluacion());
+		//System.out.println("Por referencia 1: " + pacienteActual.getEvaluacion());
 		return pacienteActual;
 	}
 

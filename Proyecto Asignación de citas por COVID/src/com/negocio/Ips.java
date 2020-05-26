@@ -1,12 +1,8 @@
-package com.comunicacion;
+package com.negocio;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import com.negocio.Cita;
-import com.negocio.Eps;
-import com.negocio.Paciente;
 
 public class Ips
 {

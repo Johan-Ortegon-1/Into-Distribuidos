@@ -5,8 +5,8 @@ import java.rmi.registry.Registry;
 
 import javax.swing.JOptionPane;
 
-import com.comunicacion.Ins;
-import com.comunicacion.Ips;
+import com.negocio.Ins;
+import com.negocio.Ips;
 
 public class hiloINS extends Thread
 {

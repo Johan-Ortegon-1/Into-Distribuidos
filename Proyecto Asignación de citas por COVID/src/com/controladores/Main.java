@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.comunicacion.Ins;
-import com.comunicacion.Ips;
+import javax.swing.JOptionPane;
+
 import com.comunicacion.RmiPaciente_IPS;
 import com.comunicacion.ServidorUDP;
 import com.comunicacion.hiloIPSSolicitaPaciente;
 import com.comunicacion.hiloPacienteRespondeIPS;
 import com.negocio.Eps;
+import com.negocio.Ins;
+import com.negocio.Ips;
 import com.negocio.Paciente;
 import com.persistencia.ManejadorArchivos;
 
@@ -75,6 +77,7 @@ public class Main
 		}
 		if(tipoDeInicio == 2)//IPS
 		{
+			//JOptionPane.showMessageDialog(null, "Servidor iniciado");
 			for (Paciente iterP : pacientesGlobales)
 			{
 				hiloIPS nuevoIPS = new hiloIPS(puertoActual,myIps);
@@ -89,6 +92,8 @@ public class Main
 			{
 				System.out.println("Iniciando INS");
 				ServidorUDP nuevoUDP  =  new ServidorUDP(myIns);
+				nuevoUDP.starl();
+				
 				
 				for (Paciente iterP : pacientesGlobales)
 				{
@@ -96,6 +101,12 @@ public class Main
 					miHilosINS.add(nuevoINS);
 					nuevoINS.start();
 					puertoActual++;
+				}
+				int i = 0;
+				System.out.println("---TOTAL CASOS REPORTADOS REGISTRADOS EN INS---");
+				for(Paciente iter : myIns.getCasosReportados())
+				{
+					System.out.println("Caso: " + i + " " + iter.getDocumento() + " Con nombre: " + iter.getNombre());
 				}
 				
 			} catch (SocketException e)

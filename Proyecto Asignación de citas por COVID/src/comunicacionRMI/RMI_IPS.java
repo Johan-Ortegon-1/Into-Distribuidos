@@ -12,7 +12,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 import com.comunicacion.IPS_Cliente_UDP;
-import com.comunicacion.Ips;
+import com.negocio.Ips;
 import com.negocio.Paciente;
 
 public class RMI_IPS extends UnicastRemoteObject implements IPS_Server
@@ -64,17 +64,21 @@ public class RMI_IPS extends UnicastRemoteObject implements IPS_Server
 		
 		if(respuesta)
 		{
-			System.out.println("CITA DENEGADA PARA: " + pacienteActual.getNombre() + " Con el puntaje: " + pacienteActual.getEvaluacion());
+			System.out.println("CITA ASIGNADA PARA: " + pacienteActual.getNombre() + " Con el puntaje: " + pacienteActual.getEvaluacion());
 		}
 		else
 		{
-			System.out.println("CITA ASIGNADA PARA: " + pacienteActual.getNombre() + " Con el puntaje: " + pacienteActual.getEvaluacion());
+			System.out.println("CITA DENEGADA PARA: " + pacienteActual.getNombre() + " Con el puntaje: " + pacienteActual.getEvaluacion());
 		}
 		/*Impresion citas programadas*/
 		System.out.println("Citas programadas IPS:");
-		for (int i = 0; i < myIps.getCitasProgramadas().size(); i++) {
-			System.out.println(myIps.getCitasProgramadas().get(i).getDocumento()+" "+myIps.getCitasProgramadas().get(i).getEvaluacion());
+		for (int i = 0; i < myIps.getCitasProgramadas().size(); i++) 
+		{
+			if(myIps.getCitasProgramadas().get(i).getPrioridad() != "No enfermo" && myIps.getCitasProgramadas().get(i).getPrioridad() != "Leve")
+			{
+				System.out.println(myIps.getCitasProgramadas().get(i).getDocumento()+" "+myIps.getCitasProgramadas().get(i).getEvaluacion() + " Prioridad: " + myIps.getCitasProgramadas().get(i).getPrioridad());
 			}
+		}
 		//System.out.println(respuesta);
 		return pacienteActual;
 	}

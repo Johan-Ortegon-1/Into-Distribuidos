@@ -106,6 +106,13 @@ public class Main
 				ServidorUDP nuevoUDP  =  new ServidorUDP(myIns);
 				nuevoUDP.starl();
 				
+				//Inicio de las EPS
+				for(Eps iterE : epsGlobales)
+				{
+					hiloEPS nuevaEps = new hiloEPS(puertoActualEps);
+					nuevaEps.start();
+					puertoActualEps++;
+				}
 				
 				for (Paciente iterP : pacientesGlobales)
 				{
@@ -113,14 +120,6 @@ public class Main
 					miHilosINS.add(nuevoINS);
 					nuevoINS.start();
 					puertoActual++;
-				}
-				
-				//Inicio de las EPS
-				for(Eps iterE : epsGlobales)
-				{
-					hiloEPS nuevaEps = new hiloEPS(puertoActualEps);
-					nuevaEps.start();
-					puertoActualEps++;
 				}
 				
 				llamadaGestorTransacciones();

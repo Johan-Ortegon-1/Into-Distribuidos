@@ -9,6 +9,8 @@ import com.negocio.Paciente;
 public class RMI_EPS extends UnicastRemoteObject implements EPS_Servidor
 {
 
+	private static final long serialVersionUID = 1L;
+
 	protected RMI_EPS() throws RemoteException
 	{
 		super();

@@ -21,7 +21,6 @@ public class hiloEPS extends Thread
 			Registry r = java.rmi.registry.LocateRegistry.createRegistry(puerto);
 			RMI_EPS nuevoRmi = new RMI_EPS();
 			r.rebind("EPS_Servidor", nuevoRmi);	
-			System.out.println("FUCK!!!!!!!!!!!!!!!!!!!!: " + puerto);
 		} catch (RemoteException e)
 		{
 			// TODO Auto-generated catch block

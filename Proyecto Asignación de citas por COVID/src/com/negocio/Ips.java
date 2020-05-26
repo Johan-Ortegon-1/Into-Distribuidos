@@ -1,8 +1,17 @@
 package com.negocio;
 
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import comunicacionRMI.EPS_Servidor;
+import comunicacionRMI.INS_Server;
 
 public class Ips
 {
@@ -10,6 +19,7 @@ public class Ips
 	private List<Eps> entidadesEPS;
 	private Ins entidadIns;
 	private int maxCitasDia;
+	private int PuertoEps = 1500;
 
 	public Ips() {
 		citasProgramadas = new ArrayList<Paciente>();
@@ -74,7 +84,49 @@ public class Ips
 		//RMI EPS
 		
 		//System.out.println(entidadesEPS.size());
-		for (int i = 0; i < entidadesEPS.size(); i++) {
+		//Copia
+		for (int i = 0; i < entidadesEPS.size(); i++)//Comunicacion con todas las EPS 
+		{
+			try 
+			{
+				if (entidadesEPS.get(i).getNombreEps().equals(paciente.getEps())) //Eps que el paciente afirma
+				{
+					Registry registry = LocateRegistry.getRegistry("192.168.1.114", PuertoEps);//warning localhost
+					EPS_Servidor cs = (EPS_Servidor)Naming.lookup("//192.168.1.114/EPS_Servidor");
+					String banderaPaciente = cs.autorizacionEps(paciente, entidadesEPS.get(i));
+					if(banderaPaciente.equals("aprobado"))
+					{
+						resp = true;
+						ordenarPrioridad(paciente);
+					}
+					else if(banderaPaciente.equals("puntaje bajo"))
+					{
+						respuesta = "(!!!) Error de asignacion: El PACIENTE "+ paciente.getNombre()+" CON DOCUMENTO "+paciente.getDocumento()+" NO TIENE CUBRIMIENTO CON SU NIVEL DE GRAVEDAD";
+						System.out.println(respuesta);
+					}
+					else if(banderaPaciente.equals("sin cobertura"))
+					{
+						respuesta = "(!!!) Error de asignacion: El PACIENTE "+ paciente.getNombre()+" CON DOCUMENTO "+paciente.getDocumento()+" NO ESTA AFILIADO A LA EPS QUE DICE";
+						System.out.println(respuesta);
+					}
+				}
+			} 
+			catch(RemoteException e)
+			{
+				e.printStackTrace();
+			} catch (MalformedURLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NotBoundException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			PuertoEps++;
+		}
+		//Original
+		/*for (int i = 0; i < entidadesEPS.size(); i++) {
 			//System.out.println(entidadesEPS.get(i).getNombreEps()+" "+paciente.getEps());
 			if (entidadesEPS.get(i).getNombreEps().equals(paciente.getEps())) {
 				if(entidadesEPS.get(i).pacientesQueAtiendo(paciente)) {
@@ -97,7 +149,7 @@ public class Ips
 					System.out.println(respuesta);
 				}
 			}
-		}
+		}*/
 		return resp;
 	}
 

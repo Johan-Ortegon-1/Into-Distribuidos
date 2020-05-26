@@ -31,7 +31,7 @@ public class RMI_IPS extends UnicastRemoteObject implements IPS_Server
 	public Paciente responderPeticionCita(Paciente pacienteActual, int puerto) throws RemoteException
 	{
 		System.out.println("LLEGO LA SOLUCITUD DEL PACIENTE: " + pacienteActual.getDocumento() + " NOMBRE: " + pacienteActual.getNombre());
-		System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*");
+		System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
 		//Logica y funciones de INS y EPS
 		
 		//UDP - INS

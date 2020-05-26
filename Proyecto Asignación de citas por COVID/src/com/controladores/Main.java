@@ -15,6 +15,7 @@ import com.negocio.Ips;
 import com.negocio.Paciente;
 import com.persistencia.ManejadorArchivos;
 
+import comunicacionRMI.hiloEPS;
 import comunicacionRMI.hiloINS;
 import comunicacionRMI.hiloIPS;
 import comunicacionRMI.hiloPaciente;
@@ -27,6 +28,7 @@ public class Main
 	static List<hiloINS> miHilosINS = new ArrayList<hiloINS>();
 	//static RmiPaciente_IPS miRmi;
 	static int puertoActual = 1099;
+	static int puertoActualEps = 1500;
 	static Ips myIps = new Ips();
 	static Ins myIns = new Ins();
 	
@@ -37,17 +39,6 @@ public class Main
 		ManejadorArchivos.leerArchivo("Archivo/pacientes.txt", pacientesGlobales, epsGlobales);
 		myIps.setEntidadesEPS(epsGlobales);
 		inciarEquipo();
-	}
-	public static Eps buscarEsp(String nombre)
-	{
-		for(Eps iter : epsGlobales)
-		{
-			if(iter.getNombreEps().equals(nombre))
-			{
-				return iter;
-			}
-		}
-		return null;
 	}
 	public static  List<Paciente> pacientePorEps(String nombre)
 	{
@@ -73,7 +64,7 @@ public class Main
 		}
 		if(tipoDeInicio == 2)//IPS
 		{
-			//JOptionPane.showMessageDialog(null, "Servidor iniciado");
+			//Inicio de las IPS
 			for (Paciente iterP : pacientesGlobales)
 			{
 				hiloIPS nuevoIPS = new hiloIPS(puertoActual,myIps);
@@ -81,6 +72,14 @@ public class Main
 				nuevoIPS.start();
 				puertoActual++;
 			}
+			//Inicio de las EPS
+			for(Eps iterE : epsGlobales)
+			{
+				hiloEPS nuevaEps = new hiloEPS(puertoActualEps);
+				nuevaEps.start();
+				puertoActualEps++;
+			}
+			
 			llamadaGestorTransacciones();
 			/*Impresion citas programadas*/
 			System.out.println("-*-*-*-*-*-Citas programadas IPS-*-*-*-*-*-");

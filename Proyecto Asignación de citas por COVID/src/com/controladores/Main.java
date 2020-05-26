@@ -130,5 +130,13 @@ public class Main
 	{
 		return pacientesGlobales;
 	}
+	
+	
+	
+	
+	public void llamadaGestorTransacciones()
+	{
+		
+	}
 
 }

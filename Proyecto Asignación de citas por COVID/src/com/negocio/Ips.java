@@ -19,7 +19,7 @@ public class Ips
 	private List<Eps> entidadesEPS;
 	private Ins entidadIns;
 	private int maxCitasDia;
-	private int PuertoEps = 1500;
+	private int PuertoEps = 2000;
 
 	public Ips() {
 		citasProgramadas = new ArrayList<Paciente>();
@@ -91,9 +91,12 @@ public class Ips
 			{
 				if (entidadesEPS.get(i).getNombreEps().equals(paciente.getEps())) //Eps que el paciente afirma
 				{
-					Registry registry = LocateRegistry.getRegistry("192.168.1.63", PuertoEps);//warning localhost
+					int puertoReal = PuertoEps + i;
+					System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! FUCK: " + puertoReal);
+					Registry registry = LocateRegistry.getRegistry("192.168.1.63", puertoReal);//warning localhost
 					EPS_Servidor cs = (EPS_Servidor)Naming.lookup("//192.168.1.63/EPS_Servidor");
 					String banderaPaciente = cs.autorizacionEps(paciente, entidadesEPS.get(i));
+					System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! FUCK 222222222222222222222: " + puertoReal);
 					if(banderaPaciente.equals("aprobado"))
 					{
 						resp = true;
@@ -123,7 +126,7 @@ public class Ips
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			PuertoEps++;
+			//PuertoEps++;
 		}
 		//Original
 		/*for (int i = 0; i < entidadesEPS.size(); i++) {

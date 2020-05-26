@@ -28,7 +28,7 @@ public class Main
 	static List<hiloINS> miHilosINS = new ArrayList<hiloINS>();
 	//static RmiPaciente_IPS miRmi;
 	static int puertoActual = 1099;
-	static int puertoActualEps = 1500;
+	static int puertoActualEps = 2000;
 	static Ips myIps = new Ips();
 	static Ins myIns = new Ins();
 	

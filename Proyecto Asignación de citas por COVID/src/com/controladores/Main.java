@@ -102,15 +102,21 @@ public class Main
 					nuevoINS.start();
 					puertoActual++;
 				}
+				Thread.sleep(10000);
 				int i = 0;
 				System.out.println("---TOTAL CASOS REPORTADOS REGISTRADOS EN INS---");
 				for(Paciente iter : myIns.getCasosReportados())
 				{
-					System.out.println("Caso: " + i + " " + iter.getDocumento() + " Con nombre: " + iter.getNombre());
+					System.out.println("Caso: " + i + " " + iter.getDocumento() + " Con nombre: " + iter.getNombre() + 
+					 "Con prioridad: " + iter.getPrioridad());
+					i++;
 				}
 				
 			} catch (SocketException e)
 			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

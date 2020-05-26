@@ -17,7 +17,6 @@ import com.negocio.Paciente;
 
 public class RMI_IPS extends UnicastRemoteObject implements IPS_Server
 {
-
 	private static final long serialVersionUID = 1L;
 	private Ips myIps;
 	

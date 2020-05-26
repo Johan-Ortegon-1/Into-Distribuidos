@@ -132,7 +132,7 @@ public class Ips
 			}
 		}
 
-		if(paciente.getPrioridad() != "No enfermo" && paciente.getPrioridad() != "Leve")
+		if(!paciente.getPrioridad().equals("No enfermo") && !paciente.getPrioridad().equals("Leve"))
 			tieneCoronavirus = true;
 
 		if(citasProgramadas.size()>=0 && !tieneCita && tieneCoronavirus) { //Existen citas disponibles

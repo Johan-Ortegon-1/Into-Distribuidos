@@ -90,7 +90,7 @@ public class Main
 			System.out.println("Citas programadas IPS:");
 			for (int i = 0; i < myIps.getCitasProgramadas().size(); i++) 
 			{
-				if(myIps.getCitasProgramadas().get(i).getPrioridad() != "No enfermo" && myIps.getCitasProgramadas().get(i).getPrioridad() != "Leve")
+				if(!myIps.getCitasProgramadas().get(i).getPrioridad().equals("No enfermo") && !myIps.getCitasProgramadas().get(i).getPrioridad().equals("Leve"))
 				{
 					System.out.println(myIps.getCitasProgramadas().get(i).getDocumento()+" "+myIps.getCitasProgramadas().get(i).getEvaluacion() + " Prioridad: " + myIps.getCitasProgramadas().get(i).getPrioridad());
 				}

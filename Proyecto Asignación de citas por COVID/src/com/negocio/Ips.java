@@ -71,11 +71,12 @@ public class Ips
 		Paciente copia;
 		boolean resp = false;
 		String respuesta = " ";
+		//RMI EPS
+		
 		//System.out.println(entidadesEPS.size());
 		for (int i = 0; i < entidadesEPS.size(); i++) {
 			//System.out.println(entidadesEPS.get(i).getNombreEps()+" "+paciente.getEps());
 			if (entidadesEPS.get(i).getNombreEps().equals(paciente.getEps())) {
-				//System.out.println("entro?");
 				if(entidadesEPS.get(i).pacientesQueAtiendo(paciente)) {
 					//entidadIns.evaluarPaciente(paciente);
 					if(entidadesEPS.get(i).darAutorizacion(paciente)) {

@@ -88,10 +88,6 @@ public class Main
 			for (int i = 0; i < myIps.getCitasProgramadas().size(); i++) 
 			{
 				System.out.println(myIps.getCitasProgramadas().get(i).getDocumento()+" "+myIps.getCitasProgramadas().get(i).getEvaluacion() + " Prioridad: " + myIps.getCitasProgramadas().get(i).getPrioridad());
-				/*if(!myIps.getCitasProgramadas().get(i).getPrioridad().equals("No enfermo") && !myIps.getCitasProgramadas().get(i).getPrioridad().equals("Leve"))
-				{
-					System.out.println(myIps.getCitasProgramadas().get(i).getDocumento()+" "+myIps.getCitasProgramadas().get(i).getEvaluacion() + " Prioridad: " + myIps.getCitasProgramadas().get(i).getPrioridad());
-				}*/
 			}
 			for(Eps tem : myIps.getEntidadesEPS())
 			{

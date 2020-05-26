@@ -13,8 +13,7 @@ public class RMI_EPS extends UnicastRemoteObject implements EPS_Servidor
 
 	protected RMI_EPS() throws RemoteException
 	{
-		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override

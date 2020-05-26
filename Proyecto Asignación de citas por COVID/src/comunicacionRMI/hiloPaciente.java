@@ -7,8 +7,6 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import javax.swing.JOptionPane;
-
-import com.comunicacion.ClienteIPSServidorPaciente;
 import com.negocio.Paciente;
 
 public class hiloPaciente extends Thread

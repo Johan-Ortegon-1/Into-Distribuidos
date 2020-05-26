@@ -7,10 +7,8 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-import com.comunicacion.RmiPaciente_IPS;
+//import com.comunicacion.RmiPaciente_IPS;
 import com.comunicacion.ServidorUDP;
-import com.comunicacion.hiloIPSSolicitaPaciente;
-import com.comunicacion.hiloPacienteRespondeIPS;
 import com.negocio.Eps;
 import com.negocio.Ins;
 import com.negocio.Ips;
@@ -25,11 +23,9 @@ public class Main
 {
 	static List<Paciente> pacientesGlobales = new ArrayList<Paciente>();
 	static List<Eps> epsGlobales = new ArrayList<Eps>();
-	static List<hiloPacienteRespondeIPS> misHilosPaciente = new ArrayList<hiloPacienteRespondeIPS>();
-	static List<hiloIPSSolicitaPaciente> miIPS = new ArrayList<hiloIPSSolicitaPaciente>();
 	static List<hiloIPS> miHilosIPS = new ArrayList<hiloIPS>();
 	static List<hiloINS> miHilosINS = new ArrayList<hiloINS>();
-	static RmiPaciente_IPS miRmi;
+	//static RmiPaciente_IPS miRmi;
 	static int puertoActual = 1099;
 	static Ips myIps = new Ips();
 	static Ins myIns = new Ins();
